@@ -57,7 +57,7 @@ body {
   direction: rtl;
 }
 .v-main {
-  max-width: 93%;
+  max-width: 100%;
   margin: 0 auto;
 }
 .app-bar {
@@ -124,5 +124,8 @@ body {
 .toggle:checked:before {
   left: 30px;
   background-color: #2b62ad;
+}
+.v-application--wrap {
+  overflow: hidden;
 }
 </style>

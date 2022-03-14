@@ -76,10 +76,10 @@ export default {
 
 <style lang="scss">
 .row {
-  width: 100vw;
+  // width: 100%;
 }
 .header-img {
-  width: 100vw;
+  // width: 100%;
 }
 .btns-row {
   position: relative;
