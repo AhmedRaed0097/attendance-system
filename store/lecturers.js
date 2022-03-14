@@ -35,7 +35,7 @@ export const actions = {
     },
     async getStudentsFroManualAttendance({ commit }, payload) {
         commit('SETLOADING', true)
-        
+
         return await this.$axios.$get(`/showStuForMenualAttend/${payload.lecture_id}/${payload.week_no}`).then((response) => {
             commit('SETLOADING', false)
             commit('SETMANUALATTENDANCEDATA', response.data)
@@ -76,7 +76,7 @@ export const actions = {
     },
     async changeAttendanceState({ commit,dispatch }, payload) {
         commit('SETLOADING', true)
-        return await this.$axios.$put(`studentManualAttendance/${payload.student_id}/${payload.lecture_id}/${payload.week_no}`,{
+        return await this.$axios.$post(`studentManualAttendance/${payload.student_id}/${payload.lecture_id}/${payload.week_no}`,{
             params:{
                 student_id:payload.student_id,
                 lecture_id:payload.lecture_id?payload.lecture_id:null
