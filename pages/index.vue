@@ -7,7 +7,7 @@
       <v-row v-if="type === 'student'" class="btns-row">
         <v-col cols="6">
             <v-btn to="/lectures-table" class="home-btn"
-            >جدول المحاضرات اليومي</v-btn> 
+            >جدول المحاضرات اليومي</v-btn>
         </v-col>
         <v-col cols="6">
           <v-btn to="/attendance-table" class="home-btn">جدول الحضور</v-btn>
@@ -19,7 +19,7 @@
           <v-btn class="home-btn">قريباً</v-btn>
         </v-col>
         <v-col cols="6" class="center-btn-col">
-          <img src="~/assets/images/home/Compact Camera_50px.svg" alt="" />
+          <img @click="goTo('scan-qr')" src="~/assets/images/home/Compact Camera_50px.svg" alt="" />
         </v-col>
       </v-row>
       <v-row v-else class="btns-row">
