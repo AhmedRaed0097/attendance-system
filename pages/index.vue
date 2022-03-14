@@ -50,8 +50,8 @@
 export default {
   data() {
     return {
-      type: 'lecturer',
-      // type: 'student',
+      // type: 'lecturer',
+       type: 'student',
     }
   },
   methods: {
