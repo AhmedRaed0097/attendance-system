@@ -4,10 +4,11 @@
       <v-col cols="12">
         <div class="home-image"></div>
       </v-col>
-      <v-row v-if="type === 'student'" class="btns-row">
+      <v-row v-if="isStudent === true" class="btns-row">
         <v-col cols="6">
-            <v-btn to="/lectures-table" class="home-btn"
-            >جدول المحاضرات اليومي</v-btn>
+          <v-btn to="/lectures-table" class="home-btn"
+            >جدول المحاضرات اليومي</v-btn
+          >
         </v-col>
         <v-col cols="6">
           <v-btn to="/attendance-table" class="home-btn">جدول الحضور</v-btn>
@@ -19,7 +20,11 @@
           <v-btn class="home-btn">قريباً</v-btn>
         </v-col>
         <v-col cols="6" class="center-btn-col">
-          <img @click="goTo('scan-qr')" src="~/assets/images/home/Compact Camera_50px.svg" alt="" />
+          <img
+            @click="goTo('scan-qr')"
+            src="~/assets/images/home/Compact Camera_50px.svg"
+            alt=""
+          />
         </v-col>
       </v-row>
       <v-row v-else class="btns-row">
@@ -38,10 +43,16 @@
           <v-btn class="home-btn">قريباً</v-btn>
         </v-col>
         <v-col cols="6" class="center-btn-col">
-          <img @click="goTo('generate-qr')" src="../assets/images/home/Plus.svg" alt="" />
-
+          <img
+            @click="goTo('generate-qr')"
+            src="../assets/images/home/Plus.svg"
+            alt=""
+          />
         </v-col>
       </v-row>
+      <v-col cols="12" class="switch-col">
+        <input v-model="isStudent" class="toggle" type="checkbox" />
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -51,13 +62,14 @@ export default {
   data() {
     return {
       // type: 'lecturer',
-       type: 'student',
+      type: 'student',
+      isStudent: false,
     }
   },
   methods: {
-    goTo(route){
+    goTo(route) {
       this.$router.push(`/${route}`)
-    }
+    },
   },
 }
 </script>
@@ -90,7 +102,7 @@ export default {
   text-align: center;
   z-index: 1;
   img {
-    width: 100%;
+    width: 50px;
     cursor: pointer;
   }
 }
@@ -100,5 +112,10 @@ export default {
   background-image: url('../assets/images/image1.jpg');
   background-size: cover;
   // clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+.switch-col {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 </style>
