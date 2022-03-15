@@ -50,6 +50,9 @@ export default {
       this.app_bar_text = 'جدول المحاضرات'
     }
   },
+  beforeCreate () {
+    this.$vuetify.rtl = true
+  },
 }
 </script>
 <style lang="scss">

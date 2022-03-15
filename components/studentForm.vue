@@ -1,0 +1,121 @@
+<template>
+  <div class="add-student-wrapper">
+    <v-card>
+      <v-card-title>
+        <h2 v-if="methodType === 'add'" class="add-student-title">إضافة طالب جديد</h2>
+        <h2 v-if="methodType === 'edit'"  class="add-student-title">تعديل طالب جديد</h2>
+        <h2 v-if="methodType === 'delete'"  class="add-student-title">حذف طالب جديد</h2>
+      </v-card-title>
+      <v-form v-model="valid">
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.student_name"
+              :rules="nameRules"
+              label="إسم الطالب"
+              required
+              outlined
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="12" md="6">
+            <v-autocomplete
+              v-model="form.master_table_id"
+              :items="items"
+              outlined
+              label="الدفعة"
+            ></v-autocomplete>
+          </v-col>
+
+          <!-- <v-col cols="12" md="6">
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="البريد الإلكتروني"
+              required
+              outlined
+            ></v-text-field>
+          </v-col> -->
+          <v-col cols="12" md="6">
+            <v-autocomplete
+              v-model="value"
+              :items="items"
+              outlined
+              label="الحالة"
+            ></v-autocomplete>
+          </v-col>
+          <v-col cols="12">
+            <div class="add-btn-wrapper">
+              <v-btn width="140" height="45" class="font-weight-bold" v-if="methodType === 'add'" @click="addStudent">إضافة</v-btn>
+              <v-btn v-else width="140" height="45" class="font-weight-bold" @click="editStudent">تعديل</v-btn>
+            </div>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-card>
+  </div>
+</template>
+
+<script>
+export default {
+  props:{
+    methodType:{
+      type:String,
+      default:()=>'add'
+    }
+  },
+  data: () => ({
+    valid: false,
+    firstname: '',
+    lastname: '',
+    form: {
+      student_name: '',
+      master_table_id: '',
+      state: '',
+    },
+    nameRules: [
+      (v) => !!v || 'إسم الطالب مطلوب',
+      (v) => v.length > 5 || 'يجب ان لايقل الاسم عن 5 احرف',
+    ],
+    email: '',
+    emailRules: [
+      (v) => !!v || 'البريد الإلكتروني مطلوب',
+      (v) => /.+@.+/.test(v) || 'البريد الإلكتروني غير صحيح',
+    ],
+    items: ['foo', 'bar', 'fizz', 'buzz'],
+    values: ['foo', 'bar'],
+    value: null,
+  }),
+  methods:{
+    addStudent(){
+        //
+    },
+    editStudent(){
+      //
+    },
+  }
+}
+</script>
+
+<style lang="scss">
+.add-student-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  .v-card {
+    height: 500px;
+    width: 900px;
+    padding: 10px 30px;
+    .v-card__title .add-student-title {
+      width: 100% !important;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+}
+.add-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+</style>
