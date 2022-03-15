@@ -3,8 +3,8 @@
     <v-card>
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">إضافة طالب جديد</h2>
-        <h2 v-if="methodType === 'edit'"  class="add-student-title">تعديل طالب جديد</h2>
-        <h2 v-if="methodType === 'delete'"  class="add-student-title">حذف طالب جديد</h2>
+        <h2 v-if="methodType === 'edit'"  class="add-student-title">تعديل طالب</h2>
+        <h2 v-if="methodType === 'delete'"  class="add-student-title">حذف طالب</h2>
       </v-card-title>
       <v-form v-model="valid">
         <v-row>

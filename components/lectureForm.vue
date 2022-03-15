@@ -3,10 +3,10 @@
     <v-card>
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
-          إضافة محاضر جديد
+          إضافة محاضرة جديد
         </h2>
-        <h2 v-if="methodType === 'edit'" class="add-student-title">تعديل محاضر</h2>
-        <h2 v-if="methodType === 'delete'" class="add-student-title">حذف محاضر</h2>
+        <h2 v-if="methodType === 'edit'" class="add-student-title">تعديل محاضرة</h2>
+        <h2 v-if="methodType === 'delete'" class="add-student-title">حذف محاضرة</h2>
       </v-card-title>
       <v-form v-model="valid">
         <v-row>
@@ -14,7 +14,7 @@
             <v-text-field
               v-model="form.lecturer_name"
               :rules="nameRules"
-              label="إسم المحاضر"
+              label="إسم المحاضرة"
               required
               outlined
             ></v-text-field>

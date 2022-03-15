@@ -1,6 +1,6 @@
 <template>
   <div class="add-member-wrapper">
-    <student-form :method-type="'delete'" />
+    <table-form :method-type="'edit'" />
   </div>
 </template>
 
