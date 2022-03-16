@@ -81,7 +81,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                      v-for="[route ,icon, text] in student_links"
+                      v-for="[route, icon, text] in student_links"
                       :key="text"
                       link
                       :to="route"
@@ -169,7 +169,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                      v-for="[route ,icon, text] in lecturer_links"
+                      v-for="[route, icon, text] in lecturer_links"
                       :key="text"
                       link
                       :to="route"
@@ -256,7 +256,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                     v-for="[route ,icon, text] in subject_links"
+                      v-for="[route, icon, text] in subject_links"
                       :key="text"
                       link
                       :to="route"
@@ -346,7 +346,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                     v-for="[route ,icon, text] in period_links"
+                      v-for="[route, icon, text] in period_links"
                       :key="text"
                       link
                       :to="route"
@@ -436,7 +436,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                       v-for="[route ,icon, text] in lecture_links"
+                      v-for="[route, icon, text] in lecture_links"
                       :key="text"
                       link
                       :to="route"
@@ -525,7 +525,7 @@
                 >
                   <li class="nav-item-link">
                     <v-list-item
-                       v-for="[route ,icon, text] in table_links"
+                      v-for="[route, icon, text] in table_links"
                       :key="text"
                       link
                       :to="route"
@@ -569,34 +569,34 @@ export default {
     open_period_options: false,
     open_lectures_options: false,
     student_links: [
-      ['/admin/students/add-student','mdi-inbox-arrow-down', 'إضافة طالب'],
-      ['/admin/students/edit-student','mdi-inbox-arrow-down', 'تعديل طالب'],
-      ['/admin/students/delete-student','mdi-inbox-arrow-down', 'حذف طالب'],
+      ['/admin/students/add-student', 'mdi-inbox-arrow-down', 'إضافة طالب'],
+      ['/admin/students/edit-student', 'mdi-inbox-arrow-down', 'تعديل طالب'],
+      ['/admin/students/delete-student', 'mdi-inbox-arrow-down', 'حذف طالب'],
     ],
     lecturer_links: [
-      ['/admin/lecturers/add-lecturer','mdi-inbox-arrow-down', 'إضافة محاضر'],
-      ['/admin/lecturers/edit-lecturer','mdi-inbox-arrow-down', 'تعديل محاضر'],
-      ['/admin/lecturers/delete-lecturer','mdi-inbox-arrow-down', 'حذف محاضر'],
+      ['/admin/lecturers/add-lecturer', 'mdi-inbox-arrow-down', 'إضافة محاضر'],
+      ['/admin/lecturers/edit-lecturer', 'mdi-inbox-arrow-down', 'تعديل محاضر'],
+      ['/admin/lecturers/delete-lecturer', 'mdi-inbox-arrow-down', 'حذف محاضر'],
     ],
     subject_links: [
-      ['/admin/subjects/add-subject','mdi-inbox-arrow-down', 'إضافة مادة'],
-      ['/admin/subjects/edit-subject','mdi-inbox-arrow-down', 'تعديل مادة'],
-      ['/admin/subjects/delete-subject','mdi-inbox-arrow-down', 'حذف مادة'],
+      ['/admin/subjects/add-subject', 'mdi-inbox-arrow-down', 'إضافة مادة'],
+      ['/admin/subjects/edit-subject', 'mdi-inbox-arrow-down', 'تعديل مادة'],
+      ['/admin/subjects/delete-subject', 'mdi-inbox-arrow-down', 'حذف مادة'],
     ],
     period_links: [
-      ['/admin/periods/add-period','mdi-inbox-arrow-down', 'إضافة فترة'],
-      ['/admin/periods/edit-period','mdi-inbox-arrow-down', 'تعديل فترة'],
-      ['/admin/periods/delete-period','mdi-inbox-arrow-down', 'حذف فترة'],
+      ['/admin/periods/add-period', 'mdi-inbox-arrow-down', 'إضافة فترة'],
+      ['/admin/periods/edit-period', 'mdi-inbox-arrow-down', 'تعديل فترة'],
+      ['/admin/periods/delete-period', 'mdi-inbox-arrow-down', 'حذف فترة'],
     ],
     lecture_links: [
-      ['/admin/lectures/add-lecture','mdi-inbox-arrow-down', 'إضافة محاضرة'],
-      ['/admin/lectures/edit-lecture','mdi-inbox-arrow-down', 'تعديل محاضرة'],
-      ['/admin/lectures/delete-lecture','mdi-inbox-arrow-down', 'حذف محاضرة'],
+      ['/admin/lectures/add-lecture', 'mdi-inbox-arrow-down', 'إضافة محاضرة'],
+      ['/admin/lectures/edit-lecture', 'mdi-inbox-arrow-down', 'تعديل محاضرة'],
+      ['/admin/lectures/delete-lecture', 'mdi-inbox-arrow-down', 'حذف محاضرة'],
     ],
     table_links: [
-      ['/admin/tables/add-table','mdi-inbox-arrow-down', 'إضافة جدول'],
-      ['/admin/tables/edit-table','mdi-inbox-arrow-down', 'تعديل جدول'],
-      ['/admin/tables/delete-table','mdi-inbox-arrow-down', 'حذف جدول'],
+      ['/admin/tables/add-table', 'mdi-inbox-arrow-down', 'إضافة جدول'],
+      ['/admin/tables/edit-table', 'mdi-inbox-arrow-down', 'تعديل جدول'],
+      ['/admin/tables/delete-table', 'mdi-inbox-arrow-down', 'حذف جدول'],
     ],
   }),
   beforeCreate() {
@@ -634,7 +634,7 @@ export default {
         this.open_lecturer_options = false
         this.open_subject_options = false
         this.open_period_options = false
-      }else if (type === 'tables') {
+      } else if (type === 'tables') {
         this.open_tables_options = !this.open_tables_options
         this.open_lectures_options = false
         this.open_student_options = false
@@ -647,6 +647,15 @@ export default {
 }
 </script>
 <style lang="scss">
+.add-member-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .add-student-wrapper .v-card{
+    box-shadow: none !important;
+  }
+}
 .v-navigation-drawer {
   height: 100vh !important;
   border: 1px solid #dfdfdf;
