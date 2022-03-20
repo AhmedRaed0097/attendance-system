@@ -1,5 +1,8 @@
 <template>
-  <v-row class="generate-qr-wrapper">
+  <div v-if="showQr" class="qr-wrapper">
+    <qrcode-vue :size="qr_size" :value="value"></qrcode-vue>
+  </div>
+  <v-row v-else class="generate-qr-wrapper">
     <v-col cols="12">
       <v-combobox
         v-model="lecture"
@@ -34,13 +37,15 @@
     </v-col>
     <v-col cols="12">
       <center>
-        <v-btn>Create QR Code</v-btn>
+        <v-btn @click="generateQrCode">Create QR Code</v-btn>
       </center>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import QrcodeVue from 'qrcode.vue'
+
 export default {
   fetch() {
     this.$store.dispatch('lecturers/getAllLectures', 1)
@@ -50,8 +55,13 @@ export default {
     lecture: '',
     week: null,
     search: null,
+    showQr: false,
+    value: {},
+    qr_size: 300,
   }),
-
+  components: {
+    QrcodeVue,
+  },
   computed: {
     lecturerLectures() {
       return this.$store.state.lecturers.all_lectures
@@ -59,10 +69,21 @@ export default {
   },
   watch: {
     lecture(val) {
-      if(val.last_week !== null){
-        this.weeks = this.weeks.filter((v)=> v > val.last_week)
+      if (val.last_week !== null) {
+        this.weeks = this.weeks.filter((v) => v > val.last_week)
 
         // this.weeks.splice(0 ,val.last_week )
+      }
+    },
+  },
+  methods: {
+    generateQrCode() {
+      if (this.lecture && this.week) {
+        this.value = {
+          lecture_id: this.lecture.lecture_id,
+          week_no: this.week,
+        }
+        this.showQr = true
       }
     },
   },
@@ -71,6 +92,11 @@ export default {
 
 
 <style>
+.qr-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
 .generate-qr-wrapper {
   padding: 20px;
   margin-top: 50%;
