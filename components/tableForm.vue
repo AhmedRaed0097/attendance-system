@@ -64,7 +64,7 @@
                 height="45"
                 class="font-weight-bold"
                 v-if="methodType === 'add'"
-                @click="addLecturer"
+                @click="addTitle"
                 >إضافة</v-btn
               >
               <v-btn
@@ -162,6 +162,13 @@ export default {
         this.tableHtmlTitle = `<p>  جدول المحاضرات لتخصص <strong> ${this.form.major}</strong>  للمستوى الـ <strong> ${this.form.level}</strong>  نوع القبول <strong> ${this.form.batch_type}</strong> </p>`
       }
     },
+    addTitle(){
+     const formData = new FormData()
+      for (const key in this.form) {
+       formData.append(key , this.form[key])
+      }
+      this.$store.dispatch('admin/addTable',formData)
+    }
   },
 }
 </script>
