@@ -13,16 +13,7 @@
         </h2>
       </v-card-title>
       <v-form v-model="valid">
-        <v-row>
-          <!-- <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.title"
-              :rules="nameRules"
-              label="عنوان الجدول"
-              required
-              outlined
-            ></v-text-field>
-          </v-col> -->
+        <v-row v-if="(methodType === 'add') || (methodType === 'edit' && table) ">
           <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.major"
@@ -64,7 +55,7 @@
                 height="45"
                 class="font-weight-bold"
                 v-if="methodType === 'add'"
-                @click="addTitle"
+                @click="addTable"
                 >إضافة</v-btn
               >
               <v-btn
@@ -72,8 +63,32 @@
                 width="140"
                 height="45"
                 class="font-weight-bold"
-                @click="editLecturer"
+                @click="updateTable"
                 >تعديل</v-btn
+              >
+            </div>
+          </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col cols="12">
+            <v-autocomplete
+              v-model="form.id"
+              :items="tablesList"
+              item-text="title"
+              item-value="id"
+              outlined
+              label="إختيار جدول"
+            ></v-autocomplete>
+          </v-col>
+
+          <v-col cols="12">
+            <div v-if="methodType === 'delete'" class="add-btn-wrapper">
+              <v-btn
+                width="140"
+                height="45"
+                class="font-weight-bold"
+                @click="deleteTable"
+                >حذف</v-btn
               >
             </div>
           </v-col>
@@ -91,18 +106,35 @@ export default {
       default: () => 'add',
     },
   },
+  created() {
+    if (this.methodType === 'delete' || this.methodType === 'edit') {
+      this.$store.dispatch('admin/getTables')
+    }
+  },
   watch: {
     form() {},
+    'form.id'() {
+      this.tablesList.filter((n) => {
+        if (n.id === this.form.id) {
+          this.table = n
+        }
+      })
+    },
+    table(val) {
+      this.form = { ...val }
+    },
   },
   data: () => ({
     valid: false,
+    table: null,
     firstname: '',
     lastname: '',
     tableHtmlTitle: '',
     form: {
+      id: '',
       title: '',
-      level: '',
       major: '',
+      level: '',
       batch_type: '',
     },
     majors: ['علوم الحاسوب', 'تقنية المعلومات'],
@@ -162,13 +194,56 @@ export default {
         this.tableHtmlTitle = `<p>  جدول المحاضرات لتخصص <strong> ${this.form.major}</strong>  للمستوى الـ <strong> ${this.form.level}</strong>  نوع القبول <strong> ${this.form.batch_type}</strong> </p>`
       }
     },
-    addTitle(){
-     const formData = new FormData()
-      for (const key in this.form) {
-       formData.append(key , this.form[key])
+    addTable() {
+      if (this.form.major && this.form.level && this.form.batch_type) {
+        this.form.title =
+          ' جدول المحاضرات لتخصص' +
+          ' ' +
+          this.form.major +
+          ' للمستوى الـ' +
+          ' ' +
+          this.form.level +
+          ' ' +
+          'نوع القبول ' +
+          this.form.batch_type
       }
-      this.$store.dispatch('admin/addTable',formData)
-    }
+      const formData = new FormData()
+      for (const key in this.form) {
+        if (key !== 'id') formData.append(key, this.form[key])
+      }
+      this.$store.dispatch('admin/addTable', formData).then(() => {
+        this.form = {}
+      })
+    },
+    updateTable() {
+      if (this.form.major && this.form.level && this.form.batch_type) {
+        this.form.title =
+          ' جدول المحاضرات لتخصص' +
+          ' ' +
+          this.form.major +
+          ' للمستوى الـ' +
+          ' ' +
+          this.form.level +
+          ' ' +
+          'نوع القبول ' +
+          this.form.batch_type
+      }
+      const formData = new FormData()
+      for (const key in this.form) {
+        formData.append(key, this.form[key])
+      }
+      this.$store.dispatch('admin/updateTable', formData)
+      this.form = {}
+    },
+    deleteTable() {
+      this.$store.dispatch('admin/deleteTable', this.form.id)
+      this.form.id = ''
+    },
+  },
+  computed: {
+    tablesList() {
+      return this.$store.state.admin.tables
+    },
   },
 }
 </script>
