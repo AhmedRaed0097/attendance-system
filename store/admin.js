@@ -1,6 +1,7 @@
 export const state = () => ({
   tables: [],
   lecturers: [],
+  students: [],
   loading: false,
 })
 
@@ -10,6 +11,9 @@ export const mutations = {
   },
   SETLECTURERS(state, payload) {
     state.lecturers = payload
+  },
+  SETSTUDENTS(state, payload) {
+    state.students = payload
   },
   SETLOADING(state, payload) {
     state.loading = payload
@@ -126,4 +130,73 @@ export const actions = {
       })
   },
   // ===============  //Lecturer  ====================
+
+
+  // ===============  Student  ====================
+
+
+  async addStudent({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('add-student', payload)
+      .then(() => {
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+
+  async getStudents({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$get('get-students', payload)
+      .then((response) => {
+        commit('SETSTUDENTS',response.data )
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+
+  async updateStudent({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('update-student', payload)
+      .then(() => {
+        commit('SETLOADING', false)
+        dispatch('getStudents')
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+
+  async deleteStudent({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$delete(`delete-student/${payload}`)
+      .then(() => {
+        dispatch('getStudents')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+
+
+
+
+  // ===============  //Student  ====================
+
 }
