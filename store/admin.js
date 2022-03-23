@@ -112,6 +112,18 @@ export const actions = {
         console.log('Error ', error)
       })
   },
-
+  async deleteLecturer({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$delete(`delete-lecturer/${payload}`)
+      .then(() => {
+        dispatch('getLecturers')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
   // ===============  //Lecturer  ====================
 }

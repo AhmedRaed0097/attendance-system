@@ -17,7 +17,10 @@
           <v-col
             cols="12"
             :md="
-              methodType !== 'add' && form.lecturer_name.length === 0 ? 12 : 6
+              methodType === 'add' ||
+              (methodType === 'edit' && form.lecturer_name.length > 0)
+                ? 6
+                : 12
             "
           >
             <v-autocomplete
@@ -39,15 +42,18 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col
+            cols="12"
+            md="6"
+            v-if="
+              methodType === 'add' ||
+              (methodType === 'edit' && this.form.lecturer_name.length > 0)
+            "
+          >
             <v-autocomplete
-              v-if="
-                methodType === 'add' ||
-                (methodType !== 'add' && this.form.lecturer_name.length === 0)
-              "
               v-model="form.state"
               :items="items"
-              :rules="requiredRules"
+              :rules="stateRules"
               item-text="text"
               item-value="value"
               outlined
@@ -65,12 +71,20 @@
                 >إضافة</v-btn
               >
               <v-btn
-                v-else
                 width="140"
                 height="45"
                 class="font-weight-bold"
+                v-if="methodType === 'edit'"
                 @click="updateLecturer"
                 >تعديل</v-btn
+              >
+              <v-btn
+                width="140"
+                height="45"
+                class="font-weight-bold"
+                v-if="methodType === 'delete'"
+                @click="deleteLecturer"
+                >حذف</v-btn
               >
             </div>
           </v-col>
@@ -107,6 +121,7 @@ export default {
       (v) => v.length > 5 || 'يجب ان لايقل الاسم عن 5 احرف',
     ],
     requiredRules: [(v) => !!v || 'الحالة مطلوب'],
+    stateRules: [(v) => v.toString().length > 0 || 'الحالة مطلوب'],
     email: '',
     emailRules: [
       (v) => !!v || 'البريد الإلكتروني مطلوب',
@@ -167,13 +182,27 @@ export default {
         }
       }
     },
+    deleteLecturer() {
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch('admin/deleteLecturer', this.form.id).then(() => {
+          this.form = {
+            lecturer_name: '',
+            state: '',
+          }
+          this.$refs.form.resetValidation()
+        })
+      }
+    },
   },
   watch: {
-    lecturers() {
-      if (this.lecturers.length > 0) {
+    lecturers(val) {
+      if (val.length > 0) {
+        this.lecturerList = []
         this.lecturers.forEach((lecture) => {
           this.lecturerList.push({ ...lecture })
         })
+      } else {
+        this.lecturerList = []
       }
     },
   },

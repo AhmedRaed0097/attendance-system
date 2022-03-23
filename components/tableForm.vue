@@ -236,7 +236,7 @@ export default {
       this.form = {}
     },
     deleteTable() {
-      this.$store.dispatch('admin/deleteTable', this.form.id)
+      this.$store.dispatch('admin/deleteLecturer', this.form.id)
       this.form.id = ''
     },
   },
