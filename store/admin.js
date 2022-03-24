@@ -89,7 +89,6 @@ export const actions = {
         console.log('Error ', error)
       })
   },
-
   async getLecturers({ commit }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
@@ -147,8 +146,6 @@ export const actions = {
         console.log('Error ', error)
       })
   },
-
-
   async getStudents({ commit }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
@@ -162,8 +159,6 @@ export const actions = {
         console.log('Error ', error)
       })
   },
-
-
   async updateStudent({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
@@ -177,8 +172,6 @@ export const actions = {
         console.log('Error ', error)
       })
   },
-
-
   async deleteStudent({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios

@@ -14,8 +14,27 @@
       </v-card-title>
       <v-form v-model="valid" ref="form">
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col
+            cols="12"
+            :md="
+              methodType === 'add' ||
+              (methodType === 'edit' && form.student_name.length > 0)
+                ? 6
+                : 12
+            "
+          >
+            <v-autocomplete
+              v-if="methodType !== 'add' && form.student_name.length === 0"
+              v-model="form"
+              :items="studentsList"
+              :rules="requiredRules"
+              item-text="student_name"
+              outlined
+              label="اسم الطالب"
+              return-object
+            ></v-autocomplete>
             <v-text-field
+              v-else
               v-model="form.student_name"
               :rules="nameRules"
               label="إسم الطالب"
@@ -23,34 +42,24 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.email"
-              :rules="emailRules"
-              label="البريد الإلكتروني"
-              required
-              outlined
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-autocomplete
-              v-model="form.master_table_id"
-              :items="batchsList"
-               item-text="title"
-              item-value="id"
-              outlined
-              label="الدفعة"
-            ></v-autocomplete>
-          </v-col>
-          <v-col cols="12" md="6">
+          <v-col
+            cols="12"
+            md="6"
+            v-if="
+              methodType === 'add' ||
+              (methodType === 'edit' && this.form.student_name.length > 0)
+            "
+          >
             <v-autocomplete
               v-model="form.state"
               :items="items"
+              :rules="stateRules"
+              item-text="text"
+              item-value="value"
               outlined
               label="الحالة"
             ></v-autocomplete>
           </v-col>
-
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
@@ -62,12 +71,20 @@
                 >إضافة</v-btn
               >
               <v-btn
-                v-else
                 width="140"
                 height="45"
                 class="font-weight-bold"
-                @click="editStudent"
+                v-if="methodType === 'edit'"
+                @click="updateStudent"
                 >تعديل</v-btn
+              >
+              <v-btn
+                width="140"
+                height="45"
+                class="font-weight-bold"
+                v-if="methodType === 'delete'"
+                @click="deleteStudent"
+                >حذف</v-btn
               >
             </div>
           </v-col>
@@ -86,19 +103,14 @@ export default {
     },
   },
   fetch() {
-    if (this.batchs.length === 0) {
-      this.$store.dispatch('admin/getTables')
+    if (this.methodType !== 'add') {
+      this.$store.dispatch('admin/getStudents')
     }
-        if (this.batchs.length > 0) {
-          this.batchs.forEach((batch) => {
-            this.batchsList.push({ ...batch })
-          })
-        }
-
   },
   data: () => ({
     valid: false,
     firstname: '',
+    studentsList: [],
     lastname: '',
     form: {
       student_name: '',
@@ -114,8 +126,10 @@ export default {
       (v) => !!v || 'البريد الإلكتروني مطلوب',
       (v) => /.+@.+/.test(v) || 'البريد الإلكتروني غير صحيح',
     ],
+    requiredRules: [(v) => !!v || 'الحالة مطلوب'],
+    stateRules: [(v) => v.toString().length > 0 || 'الحالة مطلوب'],
     batchsList: [],
-     items: [
+    items: [
       {
         text: 'مفعل',
         value: 1,
@@ -147,13 +161,67 @@ export default {
       }
     },
     editStudent() {
-      //
+      if (this.$refs.form.validate()) {
+        const formData = new FormData()
+        let filterdItem = {}
+        for (const key in this.form) {
+          filterdItem = this.students.filter(
+            (student) => student.id === this.form.id
+          )
+          formData.append(key, this.form[key])
+        }
+        if (filterdItem.length > 0) {
+          for (const key in filterdItem) {
+            if (filterdItem[key] !== this.form[key]) {
+              formData.append(key, this.form[key])
+            }
+          }
+          this.$store.dispatch('admin/updateStudent', formData).then(() => {
+            this.form = {
+              student_name: '',
+              master_table_id: '',
+              state: '',
+              email: '',
+            }
+            this.$refs.form.resetValidation()
+          })
+        }
+      }
+    },
+      deleteStudent() {
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch('admin/deleteStudent', this.form.id).then(() => {
+          this.form = {
+             student_name: '',
+              master_table_id: '',
+              state: '',
+              email: '',
+          }
+          this.$refs.form.resetValidation()
+        })
+      }
+    },
+  },
+  watch: {
+    students(val) {
+      if (val.length > 0) {
+        this.studentList = []
+        this.students.forEach((student) => {
+          this.studentsList.push({ ...student })
+        })
+      } else {
+        this.studentsList = []
+      }
     },
   },
   computed: {
     batchs() {
       return this.$store.state.admin.tables
     },
+    students() {
+      return this.$store.state.admin.students
+    },
+
   },
 }
 </script>
