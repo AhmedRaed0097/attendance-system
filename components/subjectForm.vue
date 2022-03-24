@@ -10,7 +10,7 @@
       </v-card-title>
       <v-form v-model="valid">
         <v-row>
-          <v-col cols="12" md="6">
+          <v-col cols="12">
             <v-text-field
               v-model="form.lecturer_name"
               :rules="nameRules"
@@ -19,18 +19,11 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-autocomplete
-              v-model="value"
-              :items="items"
-              outlined
-              label="الحالة"
-            ></v-autocomplete>
-          </v-col>
+
             <v-col cols="12">
             <div class="add-btn-wrapper">
-              <v-btn width="140" height="45" class="font-weight-bold" v-if="methodType === 'add'" @click="addLecturer">إضافة</v-btn>
-              <v-btn v-else width="140" height="45" class="font-weight-bold" @click="editLecturer">تعديل</v-btn>
+              <v-btn width="140" height="45" class="font-weight-bold" v-if="methodType === 'add'" @click="addSubject">إضافة</v-btn>
+              <v-btn v-else width="140" height="45" class="font-weight-bold" @click="editSubject">تعديل</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -52,8 +45,7 @@ export default {
     firstname: '',
     lastname: '',
     form: {
-      lecturer_name: '',
-      state: '',
+      subject_name: '',
     },
     nameRules: [
       (v) => !!v || 'إسم الطالب مطلوب',
@@ -69,8 +61,20 @@ export default {
     value: null,
   }),
    methods:{
-    addLecturer(){
-        //
+    addSubject(){
+          const formData = new FormData()
+      for (const key in this.form) {
+        formData.append(key, this.form[key])
+      }
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch('admin/addSubject', formData).then(() => {
+          this.form = {
+            lecturer_name: '',
+            state: '',
+          }
+          this.$refs.form.resetValidation()
+        })
+      }
     },
     editLecturer(){
       //
