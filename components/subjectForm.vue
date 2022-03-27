@@ -16,9 +16,12 @@
         <v-row>
           <v-col cols="12">
             <v-autocomplete
-              v-if="methodType === 'delete' || (methodType === 'edit' && form.subject_name.length === 0)"
+              v-if="
+                methodType === 'delete' ||
+                (methodType === 'edit' && form.subject_name.length === 0)
+              "
               v-model="form"
-              :items="subjectList"
+              :items="subjectsList"
               item-text="subject_name"
               :rules="requiredRules"
               outlined
@@ -51,14 +54,16 @@
                 class="font-weight-bold"
                 v-if="methodType === 'edit'"
                 @click="updateSubject"
-                >تعديل</v-btn>
+                >تعديل</v-btn
+              >
               <v-btn
                 width="140"
                 height="45"
                 class="font-weight-bold"
                 v-if="methodType === 'delete'"
                 @click="deleteSubject"
-                >حذف</v-btn>
+                >حذف</v-btn
+              >
             </div>
           </v-col>
         </v-row>
@@ -76,13 +81,16 @@ export default {
     },
   },
   fetch() {
-    if (this.methodType !== 'add') {
+    if (this.methodType !== 'add' && this.subjects.length === 0) {
       this.$store.dispatch('admin/getSubjects')
+    }
+    if (this.subjects.length > 0) {
+      this.fillSubjects()
     }
   },
   data: () => ({
     valid: false,
-    subjectList: [],
+    subjectsList: [],
     firstname: '',
     lastname: '',
     form: {
@@ -93,7 +101,6 @@ export default {
       (v) => !!v || 'إسم المادة مطلوب',
       (v) => v.length >= 2 || 'يجب ان لايقل إسم المادة عن حرفين',
     ],
-   
   }),
   methods: {
     addSubject() {
@@ -133,6 +140,16 @@ export default {
         }
       }
     },
+    fillSubjects() {
+      if (this.subjects.length > 0) {
+        this.subjectsList = []
+        this.subjects.forEach((subject) => {
+          this.subjectsList.push({ ...subject })
+        })
+      } else {
+        this.subjectsList = []
+      }
+    },
     deleteSubject() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteSubject', this.form.id).then(() => {
@@ -145,15 +162,8 @@ export default {
     },
   },
   watch: {
-    subjects(val) {
-      if (val.length > 0) {
-        this.subjectList = []
-        this.subjects.forEach((subject) => {
-          this.subjectList.push({ ...subject })
-        })
-      } else {
-        this.subjectList = []
-      }
+    subjects() {
+      this.fillSubjects()
     },
   },
   computed: {

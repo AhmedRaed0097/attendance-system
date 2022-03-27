@@ -16,7 +16,7 @@
         <v-row
           v-if="
             methodType === 'add' ||
-            (methodType === 'edit' && form.subject_id)
+            (methodType === 'edit' && form.subject_id.toString().length > 0)
           "
         >
           <v-col cols="12" md="6">
@@ -93,12 +93,20 @@
                 >إضافة</v-btn
               >
               <v-btn
-                v-else
                 width="140"
                 height="45"
                 class="font-weight-bold"
-                @click="editLecturer"
+                v-if="methodType === 'edit'"
+                @click="updateLecture"
                 >تعديل</v-btn
+              >
+              <v-btn
+                width="140"
+                height="45"
+                class="font-weight-bold"
+                v-if="methodType === 'delete'"
+                @click="deleteLecture"
+                >حذف</v-btn
               >
             </div>
           </v-col>
@@ -127,6 +135,7 @@ export default {
     if (this.subjects.length === 0) {
       this.$store.dispatch('admin/getSubjects')
     } else {
+      console.log('fetch')
       this.fillSubjects()
     }
     if (this.batchs.length === 0) {
@@ -156,10 +165,10 @@ export default {
     lecturesList: [],
 
     form: {
-      subject_id: null,
-      period_id: null,
-      lecturer_id: null,
-      master_table_id: null,
+      subject_id: '',
+      period_id: '',
+      lecturer_id: '',
+      master_table_id: '',
     },
     requiredRules: [(v) => !!v || 'الحقل مطلوب'],
   }),
@@ -181,9 +190,35 @@ export default {
         })
       }
     },
-    editLecturer() {
-      //
+    updateLecture() {
+      if (this.$refs.form.validate()) {
+        const formData = new FormData()
+        let filterdItem = {}
+        for (const key in this.form) {
+          filterdItem = this.lectures.filter(
+            (lecture) => lecture.id === this.form.id
+          )
+          formData.append(key, this.form[key])
+        }
+        if (filterdItem.length > 0) {
+          for (const key in filterdItem) {
+            if (filterdItem[key] !== this.form[key]) {
+              formData.append(key, this.form[key])
+            }
+          }
+          this.$store.dispatch('admin/updateLecture', formData).then(() => {
+            this.form = {
+              subject_id: '',
+              period_id: '',
+              lecturer_id: '',
+              master_table_id: '',
+            }
+            this.$refs.form.resetValidation()
+          })
+        }
+      }
     },
+    deleteLecture() {},
     fillSubjects() {
       if (this.subjects.length > 0) {
         this.subjectsList = []
@@ -212,7 +247,7 @@ export default {
           this.lecturersList.push({ ...lecturer })
         })
       } else {
-        this.subjectsList = []
+        this.lecturersList = []
       }
     },
     fillLectures() {
@@ -222,7 +257,7 @@ export default {
           this.lecturesList.push({ ...lecture })
         })
       } else {
-        this.subjectsList = []
+        this.lecturesList = []
       }
     },
     fillBatches() {
@@ -249,6 +284,7 @@ export default {
   },
   watch: {
     subjects() {
+      console.log('change', this.subjects.length)
       this.fillSubjects()
     },
     periods() {

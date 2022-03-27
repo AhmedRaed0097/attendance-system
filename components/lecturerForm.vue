@@ -162,7 +162,7 @@ export default {
         let filterdItem = {}
         for (const key in this.form) {
           filterdItem = this.lecturers.filter(
-            (lecture) => lecture.id === this.form.id
+            (lecturer) => lecturer.id === this.form.id
           )
           formData.append(key, this.form[key])
         }

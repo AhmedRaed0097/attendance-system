@@ -34,11 +34,13 @@ export const mutations = {
 
 export const actions = {
   // ===============  Table  ====================
-  async addTable({ commit }, payload) {
+  async addTable({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-table', payload)
       .then(() => {
+        dispatch('getTables')
+
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -89,12 +91,13 @@ export const actions = {
 
   // ===============  Lecturer  ====================
 
-  async addLecturer({ commit }, payload) {
+  async addLecturer({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-lecturer', payload)
       .then(() => {
         commit('SETLOADING', false)
+        dispatch('getLecturers')
       })
       .catch((error) => {
         commit('SETLOADING', false)
@@ -106,7 +109,7 @@ export const actions = {
     return await this.$axios
       .$get('get-lecturers', payload)
       .then((response) => {
-        commit('SETLECTURERS',response.data )
+        commit('SETLECTURERS', response.data)
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -119,8 +122,8 @@ export const actions = {
     return await this.$axios
       .$post('update-lecturer', payload)
       .then(() => {
-        commit('SETLOADING', false)
         dispatch('getLecturers')
+        commit('SETLOADING', false)
       })
       .catch((error) => {
         commit('SETLOADING', false)
@@ -142,15 +145,14 @@ export const actions = {
   },
   // ===============  //Lecturer  ====================
 
-
   // ===============  Student  ====================
 
-
-  async addStudent({ commit }, payload) {
+  async addStudent({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-student', payload)
       .then(() => {
+        dispatch('getStudents')
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -163,7 +165,7 @@ export const actions = {
     return await this.$axios
       .$get('get-students', payload)
       .then((response) => {
-        commit('SETSTUDENTS',response.data )
+        commit('SETSTUDENTS', response.data)
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -176,8 +178,8 @@ export const actions = {
     return await this.$axios
       .$post('update-student', payload)
       .then(() => {
-        commit('SETLOADING', false)
         dispatch('getStudents')
+        commit('SETLOADING', false)
       })
       .catch((error) => {
         commit('SETLOADING', false)
@@ -202,7 +204,7 @@ export const actions = {
 
   // ===============  Subject  ====================
 
-  async addSubject({ commit,dispatch }, payload) {
+  async addSubject({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-subject', payload)
@@ -220,7 +222,7 @@ export const actions = {
     return await this.$axios
       .$get('get-subjects', payload)
       .then((response) => {
-        commit('SETSUBJECTS',response.data )
+        commit('SETSUBJECTS', response.data)
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -255,17 +257,16 @@ export const actions = {
       })
   },
 
-
-
   // ===============  //Subject  ====================
 
   // ===============  Period  ====================
 
-  async addPeriod({ commit }, payload) {
+  async addPeriod({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-period', payload)
       .then(() => {
+        dispatch('getPeriods')
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -278,7 +279,7 @@ export const actions = {
     return await this.$axios
       .$get('get-periods', payload)
       .then((response) => {
-        commit('SETPERIODS',response.data )
+        commit('SETPERIODS', response.data)
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -315,14 +316,15 @@ export const actions = {
 
   // ===============  //Period  ====================
 
-
   // ===============  Lecture  ====================
 
-  async addLecture({ commit }, payload) {
+  async addLecture({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-lecture', payload)
       .then(() => {
+        dispatch('getLectures')
+
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -335,7 +337,7 @@ export const actions = {
     return await this.$axios
       .$get('get-lectures', payload)
       .then((response) => {
-        commit('SETLECTURES',response.data )
+        commit('SETLECTURES', response.data)
         commit('SETLOADING', false)
       })
       .catch((error) => {
@@ -371,8 +373,4 @@ export const actions = {
   },
 
   // ===============  //Lecture  ====================
-
-
-
-
 }

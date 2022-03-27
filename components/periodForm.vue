@@ -49,7 +49,7 @@
           <v-col cols="12">
             <v-autocomplete
               v-model="form"
-              :items="periodList"
+              :items="periodsList"
               item-text="title"
               outlined
               label="إخر الفترة"
@@ -108,29 +108,23 @@ export default {
         this.start_period.length
       )
     },
-    periods(val) {
-      if (val.length > 0) {
-        this.periodList = []
-        this.periods.forEach((period) => {
-          const periodtitle =
-            period.day + ' ' + ' من ' + period.from + ' إلى ' + period.to
-          this.periodList.push({ title: periodtitle, ...period })
-        })
-      } else {
-        this.subjectList = []
-      }
+    periods() {
+      this.fillPeriods()
     },
   },
   fetch() {
-    if (this.methodType !== 'add') {
+    if (this.methodType !== 'add' && this.periods.length === 0) {
       this.$store.dispatch('admin/getPeriods')
+    }
+    if( this.periods.length > 0){
+      this.fillPeriods()
     }
   },
   data: () => ({
     valid: false,
     firstname: '',
     lastname: '',
-    periodList: [],
+    periodsList: [],
     days: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'],
     end_period: [],
     start_period: [8, 9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
@@ -171,11 +165,11 @@ export default {
             )
           }
         }
-        console.log('filterdItem ',filterdItem.length);
+        console.log('filterdItem ', filterdItem.length)
         if (filterdItem.length > 0) {
           formData.append('id', this.form.id)
           for (const key in filterdItem[0]) {
-            console.log(key , filterdItem[0][key]);
+            console.log(key, filterdItem[0][key])
             if (filterdItem[0][key] !== this.form[key]) {
               formData.append(key, this.form[key])
             }
@@ -201,6 +195,17 @@ export default {
           }
           this.$refs.form.resetValidation()
         })
+      }
+    },
+    fillPeriods() {
+      if (this.periods.length > 0) {
+        this.periodsList = []
+        this.periods.forEach((period) => {
+          let periodTitle = `يوم ${period.day} من ${period.from} إلى ${period.to}`
+          this.periodsList.push({ ...period, title: periodTitle })
+        })
+      } else {
+        this.periodsList = []
       }
     },
   },
