@@ -12,8 +12,8 @@
           حذف جدول
         </h2>
       </v-card-title>
-      <v-form v-model="valid">
-        <v-row v-if="(methodType === 'add') || (methodType === 'edit' && table) ">
+      <v-form v-model="valid" ref="form">
+        <v-row v-if="methodType === 'add' || (methodType === 'edit' && table)">
           <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.major"
@@ -26,8 +26,10 @@
             <v-autocomplete
               v-model="form.level"
               :items="levels"
+              item-text="text"
               outlined
               label="المستوى"
+              return-object
             ></v-autocomplete>
           </v-col>
           <v-col cols="12" md="6">
@@ -172,12 +174,6 @@ export default {
     value: null,
   }),
   methods: {
-    addLecturer() {
-      //
-    },
-    editLecturer() {
-      //
-    },
     showTableTitle() {
       if (this.form.major && this.form.level && this.form.batch_type) {
         this.form.title =
@@ -186,58 +182,70 @@ export default {
           this.form.major +
           ' للمستوى الـ' +
           ' ' +
-          this.form.level +
+          this.form.level.text +
           ' ' +
           'نوع القبول ' +
           this.form.batch_type
 
-        this.tableHtmlTitle = `<p>  جدول المحاضرات لتخصص <strong> ${this.form.major}</strong>  للمستوى الـ <strong> ${this.form.level}</strong>  نوع القبول <strong> ${this.form.batch_type}</strong> </p>`
+        this.tableHtmlTitle = `<p>  جدول المحاضرات لتخصص <strong> ${this.form.major}</strong>  للمستوى الـ <strong> ${this.form.level.text}</strong>  نوع القبول <strong> ${this.form.batch_type}</strong> </p>`
       }
     },
     addTable() {
-      if (this.form.major && this.form.level && this.form.batch_type) {
-        this.form.title =
-          ' جدول المحاضرات لتخصص' +
-          ' ' +
-          this.form.major +
-          ' للمستوى الـ' +
-          ' ' +
-          this.form.level +
-          ' ' +
-          'نوع القبول ' +
-          this.form.batch_type
+      if (this.$refs.form.validate()) {
+        if (this.form.major && this.form.level && this.form.batch_type) {
+          this.form.title =
+            ' جدول المحاضرات لتخصص' +
+            ' ' +
+            this.form.major +
+            ' للمستوى الـ' +
+            ' ' +
+            this.form.level.text +
+            ' ' +
+            'نوع القبول ' +
+            this.form.batch_type
+        }
+        const formData = new FormData()
+        formData.append('level', this.form.level.value)
+        for (const key in this.form) {
+          if (key !== 'id' && key !== 'level')
+            formData.append(key, this.form[key])
+        }
+        this.$store.dispatch('admin/addTable', formData).then(() => {
+          this.form = {}
+        })
       }
-      const formData = new FormData()
-      for (const key in this.form) {
-        if (key !== 'id') formData.append(key, this.form[key])
-      }
-      this.$store.dispatch('admin/addTable', formData).then(() => {
-        this.form = {}
-      })
     },
     updateTable() {
-      if (this.form.major && this.form.level && this.form.batch_type) {
-        this.form.title =
-          ' جدول المحاضرات لتخصص' +
-          ' ' +
-          this.form.major +
-          ' للمستوى الـ' +
-          ' ' +
-          this.form.level +
-          ' ' +
-          'نوع القبول ' +
-          this.form.batch_type
+      if (this.$refs.form.validate()) {
+        if (this.form.major && this.form.level && this.form.batch_type) {
+          this.form.title =
+            ' جدول المحاضرات لتخصص' +
+            ' ' +
+            this.form.major +
+            ' للمستوى الـ' +
+            ' ' +
+            this.form.level.text +
+            ' ' +
+            'نوع القبول ' +
+            this.form.batch_type
+        }
+        const formData = new FormData()
+        formData.append('level', this.form.level.value)
+
+        for (const key in this.form) {
+          if (key !== 'level') {
+            formData.append(key, this.form[key])
+          }
+        }
+        this.$store.dispatch('admin/updateTable', formData)
+        this.form = {}
       }
-      const formData = new FormData()
-      for (const key in this.form) {
-        formData.append(key, this.form[key])
-      }
-      this.$store.dispatch('admin/updateTable', formData)
-      this.form = {}
     },
     deleteTable() {
-      this.$store.dispatch('admin/deleteLecturer', this.form.id)
-      this.form.id = ''
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch('admin/deleteLecturer', this.form.id)
+        this.form.id = ''
+      }
     },
   },
   computed: {

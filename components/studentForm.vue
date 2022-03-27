@@ -13,28 +13,14 @@
         </h2>
       </v-card-title>
       <v-form v-model="valid" ref="form">
-        <v-row>
-          <v-col
-            cols="12"
-            :md="
-              methodType === 'add' ||
-              (methodType === 'edit' && form.student_name.length > 0)
-                ? 6
-                : 12
-            "
-          >
-            <v-autocomplete
-              v-if="methodType !== 'add' && form.student_name.length === 0"
-              v-model="form"
-              :items="studentsList"
-              :rules="requiredRules"
-              item-text="student_name"
-              outlined
-              label="اسم الطالب"
-              return-object
-            ></v-autocomplete>
+        <v-row
+          v-if="
+            methodType === 'add' ||
+            (methodType === 'edit' && form.student_name.length > 0)
+          "
+        >
+          <v-col cols="12" :md="6">
             <v-text-field
-              v-else
               v-model="form.student_name"
               :rules="nameRules"
               label="إسم الطالب"
@@ -42,14 +28,27 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col
-            cols="12"
-            md="6"
-            v-if="
-              methodType === 'add' ||
-              (methodType === 'edit' && this.form.student_name.length > 0)
-            "
-          >
+          <v-col cols="12" :md="6">
+            <v-text-field
+              v-model="form.email"
+              :rules="emailRules"
+              label="البريد الإلكتروني"
+              required
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-autocomplete
+              v-model="form.master_table_id"
+              :items="batchsList"
+              :rules="requiredRules"
+              item-text="title"
+              item-value="id"
+              outlined
+              label="الدفعة"
+            ></v-autocomplete>
+          </v-col>
+          <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.state"
               :items="items"
@@ -60,6 +59,21 @@
               label="الحالة"
             ></v-autocomplete>
           </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col cols="12">
+            <v-autocomplete
+              v-model="form"
+              :items="studentsList"
+              :rules="requiredRules"
+              item-text="student_name"
+              outlined
+              label="اسم الطالب"
+              return-object
+            ></v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row>
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
@@ -106,10 +120,12 @@ export default {
     if (this.methodType !== 'add') {
       this.$store.dispatch('admin/getStudents')
     }
+    this.$store.dispatch('admin/getTables')
   },
   data: () => ({
     valid: false,
     firstname: '',
+    batchsList: [],
     studentsList: [],
     lastname: '',
     form: {
@@ -126,9 +142,8 @@ export default {
       (v) => !!v || 'البريد الإلكتروني مطلوب',
       (v) => /.+@.+/.test(v) || 'البريد الإلكتروني غير صحيح',
     ],
-    requiredRules: [(v) => !!v || 'الحالة مطلوب'],
+    requiredRules: [(v) => !!v || 'هذا الحقل مطلوب'],
     stateRules: [(v) => v.toString().length > 0 || 'الحالة مطلوب'],
-    batchsList: [],
     items: [
       {
         text: 'مفعل',
@@ -144,11 +159,11 @@ export default {
   }),
   methods: {
     addStudent() {
-      const formData = new FormData()
-      for (const key in this.form) {
-        formData.append(key, this.form[key])
-      }
       if (this.$refs.form.validate()) {
+        const formData = new FormData()
+        for (const key in this.form) {
+          formData.append(key, this.form[key])
+        }
         this.$store.dispatch('admin/addStudent', formData).then(() => {
           this.form = {
             student_name: '',
@@ -160,18 +175,18 @@ export default {
         })
       }
     },
-    editStudent() {
+    updateStudent() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         let filterdItem = {}
-        for (const key in this.form) {
+        // for (const key in this.form) {
           filterdItem = this.students.filter(
             (student) => student.id === this.form.id
           )
-          formData.append(key, this.form[key])
-        }
+          // formData.append(key, this.form[key])
+        // }
         if (filterdItem.length > 0) {
-          for (const key in filterdItem) {
+          for (const key in filterdItem[0]) {
             if (filterdItem[key] !== this.form[key]) {
               formData.append(key, this.form[key])
             }
@@ -188,14 +203,14 @@ export default {
         }
       }
     },
-      deleteStudent() {
+    deleteStudent() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteStudent', this.form.id).then(() => {
           this.form = {
-             student_name: '',
-              master_table_id: '',
-              state: '',
-              email: '',
+            student_name: '',
+            master_table_id: '',
+            state: '',
+            email: '',
           }
           this.$refs.form.resetValidation()
         })
@@ -213,6 +228,27 @@ export default {
         this.studentsList = []
       }
     },
+    batchs(val) {
+      if (val.length > 0) {
+        this.batchsList = []
+        let levelText = ''
+        this.batchs.forEach((batch) => {
+          if (batch.level === 1) {
+            levelText = 'الأول'
+          } else if (batch.level === 2) {
+            levelText = 'الثاني'
+          } else if (batch.level === 3) {
+            levelText = 'الثالث'
+          } else if (batch.level === 4) {
+            levelText = 'الرابع'
+          }
+         let batchTitle = `التخصص ${batch.major} المستوى ${levelText} نوع القبول ${batch.batch_type}`
+          this.batchsList.push({...batch,title:batchTitle })
+        })
+      } else {
+        this.batchsList = []
+      }
+    },
   },
   computed: {
     batchs() {
@@ -221,7 +257,6 @@ export default {
     students() {
       return this.$store.state.admin.students
     },
-
   },
 }
 </script>

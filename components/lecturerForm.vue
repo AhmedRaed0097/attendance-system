@@ -142,11 +142,11 @@ export default {
   }),
   methods: {
     addLecturer() {
-      const formData = new FormData()
-      for (const key in this.form) {
-        formData.append(key, this.form[key])
-      }
       if (this.$refs.form.validate()) {
+        const formData = new FormData()
+        for (const key in this.form) {
+          formData.append(key, this.form[key])
+        }
         this.$store.dispatch('admin/addLecturer', formData).then(() => {
           this.form = {
             lecturer_name: '',
