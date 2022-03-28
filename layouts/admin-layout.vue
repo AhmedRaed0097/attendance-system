@@ -17,6 +17,58 @@
           <v-divider></v-divider>
 
           <v-list>
+            <!-- ================================ Majors ================================== -->
+
+            <div
+              class="nav-item-link"
+              style="cursor: pointer"
+              @click="openDropDown('tables')"
+            >
+              <!-- Table -->
+              <v-list-item>
+                <v-list-item-icon>
+                  <img src="../assets/images/icon.svg" alt="icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="nav-item-title"
+                    active-class="active"
+                  >
+                    التخصصات
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <transition name="slide">
+                <ul
+                  v-show="open_majors_options === true"
+                  class="versions-options"
+                >
+                  <li class="nav-item-link">
+                    <v-list-item
+                      v-for="[route, icon, text] in majors_links"
+                      :key="text"
+                      link
+                      :to="route"
+                    >
+                      <v-list-item-icon>
+                        <v-icon>{{ icon }}</v-icon>
+                      </v-list-item-icon>
+
+                      <v-list-item-content>
+                        <v-list-item-title>{{ text }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </li>
+                </ul>
+                <!-- aaa -->
+              </transition>
+            </div>
+
+            <!-- ================================  //Majors ================================== -->
+
+            <!-- ================================  //Students ================================== -->
+
             <div
               class="nav-item-link"
               style="cursor: pointer"
@@ -26,49 +78,7 @@
 
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -104,7 +114,10 @@
                 <!-- aaa -->
               </transition>
             </div>
-            <!-- ================================================================== -->
+
+            <!-- ============================== //Students ==================================== -->
+
+            <!-- =============================== Lecturers =================================== -->
             <div
               class="nav-item-link"
               style="cursor: pointer"
@@ -114,49 +127,7 @@
 
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -192,7 +163,10 @@
                 <!-- aaa -->
               </transition>
             </div>
-            <!-- ================================================================== -->
+
+            <!-- =============================== //Lecturers =================================== -->
+
+            <!-- =============================== Subjects =================================== -->
             <div
               class="nav-item-link"
               style="cursor: pointer"
@@ -201,49 +175,7 @@
               <!-- Subject -->
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -279,8 +211,9 @@
                 <!-- aaa -->
               </transition>
             </div>
+            <!-- ================================ //Subjects ================================== -->
 
-            <!-- ================================================================== -->
+            <!-- ================================ Periods ================================== -->
 
             <div
               class="nav-item-link"
@@ -290,49 +223,7 @@
               <!-- Subject -->
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -369,8 +260,9 @@
                 <!-- aaa -->
               </transition>
             </div>
+            <!-- ================================== //Periods ================================ -->
 
-            <!-- ================================================================== -->
+            <!-- ================================ Lectures ================================== -->
 
             <div
               class="nav-item-link"
@@ -380,49 +272,7 @@
               <!-- Subject -->
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -459,59 +309,18 @@
                 <!-- aaa -->
               </transition>
             </div>
+            <!-- ================================= //Lectures ================================ -->
 
-            <!-- ================================================================== -->
+            <!-- =============================== Tables =================================== -->
             <div
               class="nav-item-link"
               style="cursor: pointer"
               @click="openDropDown('tables')"
             >
-              <!-- Subject -->
+              <!-- Table -->
               <v-list-item>
                 <v-list-item-icon>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="20"
-                    viewBox="0 0 18 18"
-                  >
-                    <g id="promotion" transform="translate(-1.628 -1.628)">
-                      <path
-                        id="Path_12640"
-                        class="cls-1"
-                        data-name="Path 12640"
-                        d="M12.316 2.25a2.6 2.6 0 0 0-3.377 0l-1.1.94a.868.868 0 0 1-.494.2L5.9 3.51A2.6 2.6 0 0 0 3.51 5.9l-.116 1.442a.868.868 0 0 1-.2.494l-.94 1.1a2.6 2.6 0 0 0 0 3.377l.94 1.1a.867.867 0 0 1 .2.494l.115 1.445A2.6 2.6 0 0 0 5.9 17.746l1.445.115a.869.869 0 0 1 .494.2l1.1.94a2.6 2.6 0 0 0 3.377 0l1.1-.94a.868.868 0 0 1 .494-.2l1.445-.115a2.6 2.6 0 0 0 2.388-2.388l.115-1.445a.868.868 0 0 1 .2-.494l.94-1.1a2.6 2.6 0 0 0 0-3.377l-.94-1.1a.869.869 0 0 1-.2-.494L17.746 5.9a2.6 2.6 0 0 0-2.388-2.39l-1.445-.115a.867.867 0 0 1-.494-.2z"
-                      />
-                      <circle
-                        id="Ellipse_3"
-                        fill="#fff"
-                        data-name="Ellipse 3"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(6.289 6.289)"
-                      />
-                      <circle
-                        id="Ellipse_4"
-                        fill="#fff"
-                        data-name="Ellipse 4"
-                        class="cls-2 cls-1"
-                        cx="1.302"
-                        cy="1.302"
-                        r="1.302"
-                        transform="translate(12.363 12.363)"
-                      />
-                      <path
-                        id="Path_12641"
-                        fill="#fff"
-                        data-name="Path 12641"
-                        d="M14.874 7.2a.868.868 0 0 1 .111 1.222L9.2 15.365a.868.868 0 0 1-1.333-1.111l5.785-6.942a.868.868 0 0 1 1.222-.112z"
-                        transform="translate(-.799 -.711)"
-                        class="cls-2"
-                      />
-                    </g>
-                  </svg>
+                  <img src="../assets/images/icon.svg" alt="icon" />
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title
@@ -549,7 +358,7 @@
               </transition>
             </div>
 
-            <!-- ================================================================== -->
+            <!-- ================================ //Tables ================================== -->
           </v-list>
         </v-navigation-drawer>
       </v-col>
@@ -595,6 +404,7 @@ export default {
     open_student_options: false,
     open_lecturer_options: false,
     open_tables_options: false,
+    open_majors_options: false,
     open_subject_options: false,
     open_period_options: false,
     open_lectures_options: false,
@@ -628,6 +438,11 @@ export default {
       ['/admin/tables/edit-table', 'mdi-inbox-arrow-down', 'تعديل جدول'],
       ['/admin/tables/delete-table', 'mdi-inbox-arrow-down', 'حذف جدول'],
     ],
+    majors_links: [
+      ['/admin/majors/add-major', 'mdi-inbox-arrow-down', 'إضافة تخصص'],
+      ['/admin/majors/edit-major', 'mdi-inbox-arrow-down', 'تعديل تخصص'],
+      ['/admin/majors/delete-major', 'mdi-inbox-arrow-down', 'حذف تخصص'],
+    ],
   }),
   beforeCreate() {
     this.$vuetify.rtl = true
@@ -637,12 +452,14 @@ export default {
       if (type === 'students') {
         this.open_student_options = !this.open_student_options
         this.open_lecturer_options = false
+        this.open_majors_options = false
         this.open_subject_options = false
         this.open_period_options = false
         this.open_lectures_options = false
       } else if (type === 'lecturers') {
         this.open_lecturer_options = !this.open_lecturer_options
         this.open_student_options = false
+        this.open_majors_options = false
         this.open_subject_options = false
         this.open_period_options = false
         this.open_lectures_options = false
@@ -650,22 +467,34 @@ export default {
         this.open_subject_options = !this.open_subject_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_majors_options = false
         this.open_period_options = false
         this.open_lectures_options = false
       } else if (type === 'periods') {
         this.open_period_options = !this.open_period_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_majors_options = false
         this.open_subject_options = false
         this.open_lectures_options = false
       } else if (type === 'lectures') {
         this.open_lectures_options = !this.open_lectures_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_majors_options = false
         this.open_subject_options = false
         this.open_period_options = false
       } else if (type === 'tables') {
         this.open_tables_options = !this.open_tables_options
+        this.open_lectures_options = false
+        this.open_student_options = false
+        this.open_majors_options = false
+        this.open_lecturer_options = false
+        this.open_subject_options = false
+        this.open_period_options = false
+      }else if (type === 'major') {
+        this.open_majors_options = !this.open_majors_options
+        this.open_tables_options = false
         this.open_lectures_options = false
         this.open_student_options = false
         this.open_lecturer_options = false

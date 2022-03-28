@@ -4,6 +4,7 @@ export const state = () => ({
   students: [],
   subjects: [],
   periods: [],
+  majors: [],
   lectures: [],
   loading: false,
 })
@@ -26,6 +27,9 @@ export const mutations = {
   },
   SETLECTURES(state, payload) {
     state.lectures = payload
+  },
+  SETMAJORS(state, payload) {
+    state.majors = payload
   },
   SETLOADING(state, payload) {
     state.loading = payload
@@ -364,6 +368,64 @@ export const actions = {
       .$delete(`delete-lecture/${payload}`)
       .then(() => {
         dispatch('getLectures')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+  // ===============  //Lecture  ====================
+
+  // ===============  Lecture  ====================
+
+  async addMajor({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('add-major', payload)
+      .then(() => {
+        dispatch('getMajors')
+
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+  async getMajors({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$get('get-majors', payload)
+      .then((response) => {
+        commit('SETMAJORS', response.data)
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+  async updateMajor({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('update-major', payload)
+      .then(() => {
+        commit('SETLOADING', false)
+        dispatch('getMajors')
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+  async deleteMajor({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$delete(`delete-major/${payload}`)
+      .then(() => {
+        dispatch('getMajors')
         commit('SETLOADING', false)
       })
       .catch((error) => {
