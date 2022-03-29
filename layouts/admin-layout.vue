@@ -22,7 +22,7 @@
             <div
               class="nav-item-link"
               style="cursor: pointer"
-              @click="openDropDown('tables')"
+              @click="openDropDown('major')"
             >
               <!-- Table -->
               <v-list-item>
