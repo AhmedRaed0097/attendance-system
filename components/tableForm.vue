@@ -18,6 +18,8 @@
             <v-autocomplete
               v-model="form.major"
               :items="majors"
+              item-text="major"
+              item-value="major"
               outlined
               label="التخصص"
             ></v-autocomplete>
@@ -25,8 +27,9 @@
           <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.level"
-              :items="levels"
+              :items="selectedMajorLevels"
               item-text="text"
+              item-value="value"
               outlined
               label="المستوى"
               return-object
@@ -108,22 +111,33 @@ export default {
       default: () => 'add',
     },
   },
-  created() {
-    if (this.methodType === 'delete' || this.methodType === 'edit') {
+  fetch() {
+    if (this.methodType !== 'add' && this.tables.length === 0) {
       this.$store.dispatch('admin/getTables')
     }
+    if (this.tables.length > 0) {
+      this.fillTables()
+    }
+    this.$store.dispatch('admin/getMajors').then(() => {
+      this.fillMajors()
+    })
   },
   watch: {
-    form() {},
-    'form.id'() {
-      this.tablesList.filter((n) => {
-        if (n.id === this.form.id) {
-          this.table = n
-        }
-      })
+    tables() {
+      this.fillTables()
     },
-    table(val) {
-      this.form = { ...val }
+    majors() {
+      this.fillMajors()
+    },
+    'form.major'(val) {
+      const selectedMajor = this.majorsList.filter((majorData) => majorData.major === this.form.major )
+      if(selectedMajor.length > 0){
+        this.selectedMajorLevels=[]
+        for (let index = 0; index < selectedMajor[0].levels; index++) {
+          this.selectedMajorLevels[index] = this.levels[index]
+
+        }
+      }
     },
   },
   data: () => ({
@@ -131,15 +145,16 @@ export default {
     table: null,
     firstname: '',
     lastname: '',
+    tablesList: [],
+    selectedMajorLevels:[],
     tableHtmlTitle: '',
     form: {
-      id: '',
       title: '',
       major: '',
       level: '',
       batch_type: '',
     },
-    majors: ['علوم الحاسوب', 'تقنية المعلومات'],
+    majorsList: [],
     batch_types: ['عام', 'موازي'],
     levels: [
       {
@@ -157,6 +172,30 @@ export default {
       {
         text: 'الرابع',
         value: 4,
+      },
+      {
+        text: 'الخامس',
+        value: 5,
+      },
+      {
+        text: 'السادس',
+        value: 6,
+      },
+      {
+        text: 'السابع',
+        value: 7,
+      },
+      {
+        text: 'الثامن',
+        value: 8,
+      },
+      {
+        text: 'التاسع',
+        value: 9,
+      },
+      {
+        text: 'العاشر',
+        value: 10,
       },
     ],
     nameRules: [
@@ -247,10 +286,31 @@ export default {
         this.form.id = ''
       }
     },
+    fillTables() {
+      if (this.tables.length > 0) {
+        this.tables.forEach((table) => {
+          this.tablesList.push({ ...table })
+        })
+      } else {
+        this.tablesList = []
+      }
+    },
+    fillMajors() {
+      if (this.majors.length > 0) {
+        this.majors.forEach((table) => {
+          this.majorsList.push({ ...table })
+        })
+      } else {
+        this.majorsList = []
+      }
+    },
   },
   computed: {
-    tablesList() {
+    tables() {
       return this.$store.state.admin.tables
+    },
+    majors() {
+      return this.$store.state.admin.majors
     },
   },
 }
