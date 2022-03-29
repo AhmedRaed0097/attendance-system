@@ -22,7 +22,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               v-model="form.major"
-              :rules="requiredRules"
+              :rules="majorRules"
               label="إسم التخصص"
               required
               outlined
@@ -31,7 +31,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               v-model="form.levels"
-              :rules="requiredRules"
+              :rules="levelRules"
               label="المستويات"
               required
               outlined
@@ -43,7 +43,6 @@
             <v-autocomplete
               v-model="form"
               :items="majorsList"
-              :rules="requiredRules"
               item-text="major"
               outlined
               label="التخصص"
@@ -119,7 +118,18 @@ export default {
       major: '',
       levels: '',
     },
-    requiredRules: [(v) => !!v || 'هذا الحثل مطلوب'],
+    majorRules: [
+      (v) => !!v || 'هذا الحثل مطلوب',
+      (v) => v.length > 4 || 'يجب ان لا يقل اسم التخصص عن 5 احرف'
+
+      ],
+    levelRules: [
+        (v) => !!v || 'هذا الحثل مطلوب',
+        (v) => /^[1-9]$/.test(v) || 'يجب ان تكون المستويات ارقام',
+        (v) => /^[1-9]$|^10$/.test(v) || 'يجب ان تكون المستويات اقل من 10',
+
+
+      ],
   }),
   methods: {
     addMajor() {
