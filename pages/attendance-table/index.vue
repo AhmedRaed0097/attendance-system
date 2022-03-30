@@ -58,7 +58,7 @@ export default {
   },
   fetch() {
     this.$store.dispatch('students/getAttendanceTable', {
-      student_id: 1,
+      student_id: 3,
     })
   },
   computed: {
@@ -93,3 +93,4 @@ export default {
   }
 }
 </style>
+

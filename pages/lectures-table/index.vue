@@ -47,7 +47,7 @@ export default {
     }
   },
   fetch(){
-    this.$store.dispatch('students/getLecturesTable',1)
+    this.$store.dispatch('students/getLecturesTable',3)
   },
   computed:{
     lecturesData(){
