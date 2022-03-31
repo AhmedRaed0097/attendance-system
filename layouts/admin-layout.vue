@@ -359,6 +359,55 @@
             </div>
 
             <!-- ================================ //Tables ================================== -->
+
+            <!-- =============================== IMpoer Data =================================== -->
+            <div
+              class="nav-item-link"
+              style="cursor: pointer"
+              @click="openDropDown('import')"
+            >
+              <!-- Table -->
+              <v-list-item>
+                <v-list-item-icon>
+                  <img src="../assets/images/icon.svg" alt="icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="nav-item-title"
+                    active-class="active"
+                  >
+                    إستيراد البيانات
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <transition name="slide">
+                <ul
+                  v-show="open_import_data_options === true"
+                  class="versions-options"
+                >
+                  <li class="nav-item-link">
+                    <v-list-item
+                      v-for="[route, icon, text] in import_links"
+                      :key="text"
+                      link
+                      :to="route"
+                    >
+                      <v-list-item-icon>
+                        <v-icon>{{ icon }}</v-icon>
+                      </v-list-item-icon>
+
+                      <v-list-item-content>
+                        <v-list-item-title>{{ text }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </li>
+                </ul>
+                <!-- aaa -->
+              </transition>
+            </div>
+
+            <!-- ================================ //Tables ================================== -->
           </v-list>
         </v-navigation-drawer>
       </v-col>
@@ -404,6 +453,7 @@ export default {
     open_student_options: false,
     open_lecturer_options: false,
     open_tables_options: false,
+    open_import_data_options: false,
     open_majors_options: false,
     open_subject_options: false,
     open_period_options: false,
@@ -443,6 +493,12 @@ export default {
       ['/admin/majors/edit-major', 'mdi-inbox-arrow-down', 'تعديل تخصص'],
       ['/admin/majors/delete-major', 'mdi-inbox-arrow-down', 'حذف تخصص'],
     ],
+    import_links: [
+      ['/admin/import-data/import-majors-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات التخصصات'],
+      ['/admin/import-data/import-students-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات الطلاب'],
+      ['/admin/import-data/import-lecturers-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات المحاضرين'],
+      ['/admin/import-data/import-subjects-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات المواد'],
+    ],
   }),
   beforeCreate() {
     this.$vuetify.rtl = true
@@ -453,6 +509,7 @@ export default {
         this.open_student_options = !this.open_student_options
         this.open_lecturer_options = false
         this.open_majors_options = false
+        this.open_import_data_options = false
         this.open_subject_options = false
         this.open_period_options = false
         this.open_lectures_options = false
@@ -460,6 +517,7 @@ export default {
         this.open_lecturer_options = !this.open_lecturer_options
         this.open_student_options = false
         this.open_majors_options = false
+        this.open_import_data_options = false
         this.open_subject_options = false
         this.open_period_options = false
         this.open_lectures_options = false
@@ -467,6 +525,8 @@ export default {
         this.open_subject_options = !this.open_subject_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_import_data_options = false
+
         this.open_majors_options = false
         this.open_period_options = false
         this.open_lectures_options = false
@@ -474,6 +534,8 @@ export default {
         this.open_period_options = !this.open_period_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_import_data_options = false
+
         this.open_majors_options = false
         this.open_subject_options = false
         this.open_lectures_options = false
@@ -481,6 +543,8 @@ export default {
         this.open_lectures_options = !this.open_lectures_options
         this.open_student_options = false
         this.open_lecturer_options = false
+        this.open_import_data_options = false
+
         this.open_majors_options = false
         this.open_subject_options = false
         this.open_period_options = false
@@ -488,6 +552,8 @@ export default {
         this.open_tables_options = !this.open_tables_options
         this.open_lectures_options = false
         this.open_student_options = false
+        this.open_import_data_options = false
+
         this.open_majors_options = false
         this.open_lecturer_options = false
         this.open_subject_options = false
@@ -497,6 +563,19 @@ export default {
         this.open_tables_options = false
         this.open_lectures_options = false
         this.open_student_options = false
+        this.open_import_data_options = false
+
+        this.open_lecturer_options = false
+        this.open_subject_options = false
+        this.open_period_options = false
+
+      }else if (type === 'import') {
+        this.open_majors_options = !this.open_majors_options
+        this.open_majors_options = false
+        this.open_lectures_options = false
+        this.open_student_options = false
+        this.open_import_data_options = false
+
         this.open_lecturer_options = false
         this.open_subject_options = false
         this.open_period_options = false
