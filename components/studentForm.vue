@@ -59,6 +59,9 @@
               label="الحالة"
             ></v-autocomplete>
           </v-col>
+          <v-col cols="12" md="6">
+            <v-file-input v-model="file " truncate-length="15"></v-file-input>
+          </v-col>
         </v-row>
         <v-row v-else>
           <v-col cols="12">
@@ -180,10 +183,10 @@ export default {
         const formData = new FormData()
         let filterdItem = {}
         // for (const key in this.form) {
-          filterdItem = this.students.filter(
-            (student) => student.id === this.form.id
-          )
-          // formData.append(key, this.form[key])
+        filterdItem = this.students.filter(
+          (student) => student.id === this.form.id
+        )
+        // formData.append(key, this.form[key])
         // }
         if (filterdItem.length > 0) {
           for (const key in filterdItem[0]) {
@@ -242,8 +245,8 @@ export default {
           } else if (batch.level === 4) {
             levelText = 'الرابع'
           }
-         let batchTitle = `التخصص ${batch.major} المستوى ${levelText} نوع القبول ${batch.batch_type}`
-          this.batchsList.push({...batch,title:batchTitle })
+          let batchTitle = `التخصص ${batch.major} المستوى ${levelText} نوع القبول ${batch.batch_type}`
+          this.batchsList.push({ ...batch, title: batchTitle })
         })
       } else {
         this.batchsList = []
