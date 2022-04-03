@@ -13,18 +13,9 @@
         </h2>
       </v-card-title>
       <v-form v-model="valid" ref="form">
-        <v-row>
-          <v-col
-            cols="12"
-            :md="
-              methodType === 'add' ||
-              (methodType === 'edit' && form.lecturer_name.length > 0)
-                ? 6
-                : 12
-            "
-          >
+        <v-row v-if="methodType !== 'add' && form.lecturer_name.length === 0">
+          <v-col cols="12">
             <v-autocomplete
-              v-if="methodType !== 'add' && form.lecturer_name.length === 0"
               v-model="form"
               :items="lecturerList"
               :rules="requiredRules"
@@ -33,8 +24,14 @@
               label="اسم المحاضر"
               return-object
             ></v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row v-else>
+          <v-col
+            cols="12"
+            md="6"
+          >
             <v-text-field
-              v-else
               v-model="form.lecturer_name"
               :rules="nameRules"
               label="إسم "
@@ -45,10 +42,6 @@
           <v-col
             cols="12"
             md="6"
-            v-if="
-              methodType === 'add' ||
-              (methodType === 'edit' && this.form.lecturer_name.length > 0)
-            "
           >
             <v-autocomplete
               v-model="form.state"
@@ -60,6 +53,17 @@
               label="الحالة"
             ></v-autocomplete>
           </v-col>
+
+          <v-col cols="12" :md="6">
+            <v-text-field
+              v-model="form.email"
+              :rules="emailRules"
+              label="البريد الإلكتروني"
+              required
+              outlined
+            ></v-text-field>
+          </v-col>
+
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn

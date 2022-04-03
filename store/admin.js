@@ -147,6 +147,22 @@ export const actions = {
         console.log('Error ', error)
       })
   },
+
+  async importLecturers({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-lecturers/',payload)
+      .then(() => {
+        dispatch('getLecturers')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+
   // ===============  //Lecturer  ====================
 
   // ===============  Student  ====================
@@ -194,6 +210,19 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-student/${payload}`)
+      .then(() => {
+        dispatch('getStudents')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+  async importStudents({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-students/',payload)
       .then(() => {
         dispatch('getStudents')
         commit('SETLOADING', false)
@@ -261,6 +290,19 @@ export const actions = {
       })
   },
 
+  async importSubjects({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-subjects/',payload)
+      .then(() => {
+        dispatch('getSubjects')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
   // ===============  //Subject  ====================
 
   // ===============  Period  ====================
@@ -308,6 +350,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-period/${payload}`)
+      .then(() => {
+        dispatch('getPeriods')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+  async importPeriods({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-periods/',payload)
       .then(() => {
         dispatch('getPeriods')
         commit('SETLOADING', false)
@@ -378,7 +434,7 @@ export const actions = {
 
   // ===============  //Lecture  ====================
 
-  // ===============  Lecture  ====================
+  // ===============  Major  ====================
 
   async addMajor({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
@@ -434,5 +490,19 @@ export const actions = {
       })
   },
 
-  // ===============  //Lecture  ====================
+  async importMajors({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-majors/',payload)
+      .then(() => {
+        dispatch('getMajors')
+        commit('SETLOADING', false)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        console.log('Error ', error)
+      })
+  },
+
+  // ===============  //Major  ====================
 }

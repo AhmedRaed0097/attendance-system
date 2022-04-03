@@ -17,6 +17,57 @@
           <v-divider></v-divider>
 
           <v-list>
+             <!-- =============================== import Data =================================== -->
+            <div
+              class="nav-item-link"
+              style="cursor: pointer"
+              @click="openDropDown('import')"
+            >
+              <!-- Table -->
+              <v-list-item>
+                <v-list-item-icon>
+                  <img src="../assets/images/icon.svg" alt="icon" />
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="nav-item-title"
+                    active-class="active"
+                  >
+                    إستيراد البيانات
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+
+              <transition name="slide">
+                <ul
+                  v-show="open_import_data_options === true"
+                  class="versions-options"
+                >
+                  <li class="nav-item-link"
+                  
+                  >
+                    <v-list-item
+                      v-for="[route, icon, text] in import_links"
+                      :key="text"
+                      link
+                      :to="route"
+                    >
+                      <v-list-item-icon>
+                        <v-icon>{{ icon }}</v-icon>
+                      </v-list-item-icon>
+
+                      <v-list-item-content>
+                        <v-list-item-title>{{ text }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </li>
+                </ul>
+                <!-- aaa -->
+              </transition>
+            </div>
+
+            <!-- ================================ //import Data ================================== -->
+
             <!-- ================================ Majors ================================== -->
 
             <div
@@ -359,55 +410,6 @@
             </div>
 
             <!-- ================================ //Tables ================================== -->
-
-            <!-- =============================== IMpoer Data =================================== -->
-            <div
-              class="nav-item-link"
-              style="cursor: pointer"
-              @click="openDropDown('import')"
-            >
-              <!-- Table -->
-              <v-list-item>
-                <v-list-item-icon>
-                  <img src="../assets/images/icon.svg" alt="icon" />
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title
-                    class="nav-item-title"
-                    active-class="active"
-                  >
-                    إستيراد البيانات
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-
-              <transition name="slide">
-                <ul
-                  v-show="open_import_data_options === true"
-                  class="versions-options"
-                >
-                  <li class="nav-item-link">
-                    <v-list-item
-                      v-for="[route, icon, text] in import_links"
-                      :key="text"
-                      link
-                      :to="route"
-                    >
-                      <v-list-item-icon>
-                        <v-icon>{{ icon }}</v-icon>
-                      </v-list-item-icon>
-
-                      <v-list-item-content>
-                        <v-list-item-title>{{ text }}</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </li>
-                </ul>
-                <!-- aaa -->
-              </transition>
-            </div>
-
-            <!-- ================================ //Tables ================================== -->
           </v-list>
         </v-navigation-drawer>
       </v-col>
@@ -494,10 +496,11 @@ export default {
       ['/admin/majors/delete-major', 'mdi-inbox-arrow-down', 'حذف تخصص'],
     ],
     import_links: [
-      ['/admin/import-data/import-majors-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات التخصصات'],
-      ['/admin/import-data/import-students-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات الطلاب'],
-      ['/admin/import-data/import-lecturers-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات المحاضرين'],
-      ['/admin/import-data/import-subjects-data', 'mdi-inbox-arrow-down', 'إستيراد بيانات المواد'],
+      ['/admin/import-data/import-majors-data', 'mdi-inbox-arrow-down', 'بيانات التخصصات'],
+      ['/admin/import-data/import-students-data', 'mdi-inbox-arrow-down', 'بيانات الطلاب'],
+      ['/admin/import-data/import-lecturers-data', 'mdi-inbox-arrow-down', 'بيانات المحاضرين'],
+      ['/admin/import-data/import-subjects-data', 'mdi-inbox-arrow-down', 'بيانات المواد'],
+      ['/admin/import-data/import-periods-data', 'mdi-inbox-arrow-down', 'بيانات الفترات'],
     ],
   }),
   beforeCreate() {
@@ -570,12 +573,10 @@ export default {
         this.open_period_options = false
 
       }else if (type === 'import') {
-        this.open_majors_options = !this.open_majors_options
+        this.open_import_data_options = !this.open_import_data_options
         this.open_majors_options = false
         this.open_lectures_options = false
         this.open_student_options = false
-        this.open_import_data_options = false
-
         this.open_lecturer_options = false
         this.open_subject_options = false
         this.open_period_options = false
@@ -648,5 +649,10 @@ export default {
 
   right: 10px !important;
   top: -24px;
+}
+ul{
+  li .v-list-item{
+    padding: 0;
+  }
 }
 </style>

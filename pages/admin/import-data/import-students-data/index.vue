@@ -1,6 +1,7 @@
 <template>
   <div class="add-member-wrapper">
-    <student-form />
+    <import-data-form :data-type="'students'" />
+
   </div>
 </template>
 

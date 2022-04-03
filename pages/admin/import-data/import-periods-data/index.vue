@@ -1,6 +1,6 @@
 <template>
   <div class="add-member-wrapper">
-    <import-data-form :data-type="'subjects'" />
+    <import-data-form :data-type="'periods'" />
 
   </div>
 </template>

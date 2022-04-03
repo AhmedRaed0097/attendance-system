@@ -59,9 +59,6 @@
               label="الحالة"
             ></v-autocomplete>
           </v-col>
-          <v-col cols="12" md="6">
-            <v-file-input v-model="file " truncate-length="15"></v-file-input>
-          </v-col>
         </v-row>
         <v-row v-else>
           <v-col cols="12">
