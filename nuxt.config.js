@@ -66,13 +66,13 @@ server:{
   // },
   pwa: {
     meta: {
-      title: 'My PWA',
-      author: 'Me',
+      title: 'QR students attendance',
+      author: 'Ahmed Raed',
     },
     manifest: {
-      name: 'Fire hydrant surveyor',
-      short_name: 'Hydrant Surveyor',
-      lang: 'en',
+      name: 'QR Students Attendance',
+      short_name: 'QR Attendance',
+      lang: 'ar',
       display: 'standalone'
     },
     workbox: {
