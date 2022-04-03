@@ -2,10 +2,10 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
 
-  ssr: false,
+  ssr: true,
 // test
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  // target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - attendance-pwa-app',
