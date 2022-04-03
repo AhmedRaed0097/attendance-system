@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
 
-  ssr: true,
+  ssr: fale,
 // test
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
