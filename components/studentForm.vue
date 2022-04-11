@@ -206,13 +206,15 @@ export default {
     deleteStudent() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteStudent', this.form.id).then(() => {
-          this.form = {
-            student_name: '',
-            master_table_id: '',
-            state: '',
-            email: '',
+          if (this.response.status_code === 200) {
+            this.form = {
+              student_name: '',
+              master_table_id: '',
+              state: '',
+              email: '',
+            }
+            this.$refs.form.resetValidation()
           }
-          this.$refs.form.resetValidation()
         })
       }
     },
@@ -256,6 +258,9 @@ export default {
     },
     students() {
       return this.$store.state.admin.students
+    },
+    response() {
+      return this.$store.state.admin.response
     },
   },
 }

@@ -116,7 +116,7 @@ export default {
     if (this.methodType !== 'add' && this.periods.length === 0) {
       this.$store.dispatch('admin/getPeriods')
     }
-    if( this.periods.length > 0){
+    if (this.periods.length > 0) {
       this.fillPeriods()
     }
   },
@@ -188,12 +188,14 @@ export default {
     deletePeriod() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deletePeriod', this.form.id).then(() => {
-          this.form = {
-            day: '',
-            from: '',
-            to: '',
+          if (this.response.status_code === 200) {
+            this.form = {
+              day: '',
+              from: '',
+              to: '',
+            }
+            this.$refs.form.resetValidation()
           }
-          this.$refs.form.resetValidation()
         })
       }
     },
@@ -212,6 +214,9 @@ export default {
   computed: {
     periods() {
       return this.$store.state.admin.periods
+    },
+    response() {
+      return this.$store.state.admin.response
     },
   },
 }

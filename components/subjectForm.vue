@@ -153,10 +153,12 @@ export default {
     deleteSubject() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteSubject', this.form.id).then(() => {
+           if(this.response.status_code === 200){
           this.form = {
             subject_name: '',
           }
           this.$refs.form.resetValidation()
+          }
         })
       }
     },
@@ -170,6 +172,9 @@ export default {
     subjects() {
       return this.$store.state.admin.subjects
     },
+     response(){
+      return this.$store.state.admin.response
+    }
   },
 }
 </script>
