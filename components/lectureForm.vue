@@ -1,6 +1,6 @@
 <template>
   <div class="add-student-wrapper">
-    <v-card>
+    <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
           إضافة محاضرة جديد

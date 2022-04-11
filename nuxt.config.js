@@ -16,11 +16,13 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/icon.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    '~/assets/global.scss'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -54,8 +56,8 @@ server:{
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: 'http://192.168.55.120:8000/api/',
-    // baseURL: 'http://127.0.0.1:8000/api/',
-    baseURL: 'https://students-attendance-api.herokuapp.com/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
+    // baseURL: 'https://students-attendance-api.herokuapp.com/api/',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

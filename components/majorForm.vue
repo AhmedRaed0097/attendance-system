@@ -1,6 +1,6 @@
 <template>
   <div class="add-student-wrapper">
-    <v-card>
+    <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
           إضافة تخصص جديد
@@ -87,7 +87,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     methodType: {
@@ -98,21 +97,22 @@ export default {
   created() {
     if (this.methodType !== 'add' && this.majors.length === 0) {
       this.$store.dispatch('admin/getMajors')
-    }if(this.methodType !== 'add' && this.majors.length > 0){
+    }
+    if (this.methodType !== 'add' && this.majors.length > 0) {
       this.fillMajors()
     }
   },
   watch: {
-    majors(){
+    majors() {
       this.fillMajors()
-    }
+    },
   },
   data: () => ({
     valid: false,
     table: null,
     firstname: '',
     lastname: '',
-    majorsList:[] ,
+    majorsList: [],
     tableHtmlTitle: '',
     form: {
       major: '',
@@ -120,16 +120,13 @@ export default {
     },
     majorRules: [
       (v) => !!v || 'هذا الحثل مطلوب',
-      (v) => v.length > 4 || 'يجب ان لا يقل اسم التخصص عن 5 احرف'
-
-      ],
+      (v) => v.length > 4 || 'يجب ان لا يقل اسم التخصص عن 5 احرف',
+    ],
     levelRules: [
-        (v) => !!v || 'هذا الحثل مطلوب',
-        (v) => /^[1-9]$/.test(v) || 'يجب ان تكون المستويات ارقام',
-        (v) => /^[1-9]$|^10$/.test(v) || 'يجب ان تكون المستويات اقل من 10',
-
-
-      ],
+      (v) => !!v || 'هذا الحثل مطلوب',
+      (v) => /^[1-9]$/.test(v) || 'يجب ان تكون المستويات ارقام',
+      (v) => /^[1-9]$|^10$/.test(v) || 'يجب ان تكون المستويات اقل من 10',
+    ],
   }),
   methods: {
     addMajor() {
@@ -168,7 +165,7 @@ export default {
         this.form.id = ''
       }
     },
-     fillMajors() {
+    fillMajors() {
       if (this.majors.length > 0) {
         this.majorsList = []
         this.majors.forEach((major) => {

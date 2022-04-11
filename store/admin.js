@@ -7,6 +7,11 @@ export const state = () => ({
   majors: [],
   lectures: [],
   loading: false,
+  show_alert: false,
+  response:{
+    message: '',
+    status_code: null
+  }
 })
 
 export const mutations = {
@@ -34,6 +39,17 @@ export const mutations = {
   SETLOADING(state, payload) {
     state.loading = payload
   },
+
+  SHOWALERT(state, payload) {
+    state.show_alert = true
+    state.response.message = payload.message
+    state.response.status_code = payload.status_code
+  },
+  HIDEALERT(state) {
+    state.show_alert = false
+
+  }
+
 }
 
 export const actions = {
@@ -42,12 +58,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-table', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 5000);
         dispatch('getTables')
 
         commit('SETLOADING', false)
       })
       .catch((error) => {
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 5000);
         commit('SETLOADING', false)
         console.log('Error ', error)
       })
@@ -151,7 +175,7 @@ export const actions = {
   async importLecturers({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-lecturers/',payload)
+      .$post('import-lecturers/', payload)
       .then(() => {
         dispatch('getLecturers')
         commit('SETLOADING', false)
@@ -222,7 +246,7 @@ export const actions = {
   async importStudents({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-students/',payload)
+      .$post('import-students/', payload)
       .then(() => {
         dispatch('getStudents')
         commit('SETLOADING', false)
@@ -293,7 +317,7 @@ export const actions = {
   async importSubjects({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-subjects/',payload)
+      .$post('import-subjects/', payload)
       .then(() => {
         dispatch('getSubjects')
         commit('SETLOADING', false)
@@ -363,7 +387,7 @@ export const actions = {
   async importPeriods({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-periods/',payload)
+      .$post('import-periods/', payload)
       .then(() => {
         dispatch('getPeriods')
         commit('SETLOADING', false)
@@ -493,7 +517,7 @@ export const actions = {
   async importMajors({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-majors/',payload)
+      .$post('import-majors/', payload)
       .then(() => {
         dispatch('getMajors')
         commit('SETLOADING', false)

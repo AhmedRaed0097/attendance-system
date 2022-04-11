@@ -1,0 +1,19 @@
+.small-card {
+    width: 100%;
+
+    .add-student-title {
+        margin-left: 65px;
+    }
+
+    .v-form {
+        width: 48%;
+        margin: 0 auto;
+        padding-left: 60px;
+    }
+}
+
+.v-alert {
+    position: fixed !important;
+    width: 100% !important;
+    z-index: 1 !important;
+}

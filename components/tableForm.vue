@@ -1,6 +1,6 @@
 <template>
   <div class="add-student-wrapper">
-    <v-card>
+    <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
           إضافة جدول جديد
@@ -250,7 +250,10 @@ export default {
             formData.append(key, this.form[key])
         }
         this.$store.dispatch('admin/addTable', formData).then(() => {
-          this.form = {}
+          if(this.response.status_code === 200){
+            this.form = {}
+
+          }
         })
       }
     },
@@ -312,6 +315,9 @@ export default {
     majors() {
       return this.$store.state.admin.majors
     },
+     response(){
+      return this.$store.state.admin.response
+    }
   },
 }
 </script>

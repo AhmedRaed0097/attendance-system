@@ -1,8 +1,11 @@
 <template>
   <v-app class="admin-layout">
+    <v-alert :value="showAlert" border="right"  :type="response.status_code === 200 ? 'success': 'warning'" transition="slide-y-transition">{{response.message}}</v-alert>
     <v-row>
       <v-col
-        cols="2"
+        :cols="
+          $vuetify.breakpoint.mdAndDown === true && drawer === true ? 12 : 2
+        "
         :class="
           $vuetify.breakpoint.mdAndDown && drawer ? 'active-nav' : 'nav-col'
         "
@@ -17,7 +20,7 @@
           <v-divider></v-divider>
 
           <v-list>
-             <!-- =============================== import Data =================================== -->
+            <!-- =============================== import Data =================================== -->
             <div
               class="nav-item-link"
               style="cursor: pointer"
@@ -43,9 +46,7 @@
                   v-show="open_import_data_options === true"
                   class="versions-options"
                 >
-                  <li class="nav-item-link"
-                  
-                  >
+                  <li class="nav-item-link">
                     <v-list-item
                       v-for="[route, icon, text] in import_links"
                       :key="text"
@@ -439,12 +440,13 @@
           alt="burger"
         />
       </v-btn>
-      <v-col cols=" 10">
+      <v-col cols="10">
         <v-main>
           <Nuxt />
         </v-main>
       </v-col>
     </v-row>
+   
   </v-app>
 </template>
 <script>
@@ -496,15 +498,43 @@ export default {
       ['/admin/majors/delete-major', 'mdi-inbox-arrow-down', 'حذف تخصص'],
     ],
     import_links: [
-      ['/admin/import-data/import-majors-data', 'mdi-inbox-arrow-down', 'بيانات التخصصات'],
-      ['/admin/import-data/import-students-data', 'mdi-inbox-arrow-down', 'بيانات الطلاب'],
-      ['/admin/import-data/import-lecturers-data', 'mdi-inbox-arrow-down', 'بيانات المحاضرين'],
-      ['/admin/import-data/import-subjects-data', 'mdi-inbox-arrow-down', 'بيانات المواد'],
-      ['/admin/import-data/import-periods-data', 'mdi-inbox-arrow-down', 'بيانات الفترات'],
+      [
+        '/admin/import-data/import-majors-data',
+        'mdi-inbox-arrow-down',
+        'بيانات التخصصات',
+      ],
+      [
+        '/admin/import-data/import-students-data',
+        'mdi-inbox-arrow-down',
+        'بيانات الطلاب',
+      ],
+      [
+        '/admin/import-data/import-lecturers-data',
+        'mdi-inbox-arrow-down',
+        'بيانات المحاضرين',
+      ],
+      [
+        '/admin/import-data/import-subjects-data',
+        'mdi-inbox-arrow-down',
+        'بيانات المواد',
+      ],
+      [
+        '/admin/import-data/import-periods-data',
+        'mdi-inbox-arrow-down',
+        'بيانات الفترات',
+      ],
     ],
   }),
   beforeCreate() {
     this.$vuetify.rtl = true
+  },
+  computed:{
+    showAlert(){
+      return this.$store.state.admin.show_alert
+    },
+    response(){
+      return this.$store.state.admin.response
+    }
   },
   methods: {
     openDropDown(type) {
@@ -561,7 +591,7 @@ export default {
         this.open_lecturer_options = false
         this.open_subject_options = false
         this.open_period_options = false
-      }else if (type === 'major') {
+      } else if (type === 'major') {
         this.open_majors_options = !this.open_majors_options
         this.open_tables_options = false
         this.open_lectures_options = false
@@ -571,8 +601,7 @@ export default {
         this.open_lecturer_options = false
         this.open_subject_options = false
         this.open_period_options = false
-
-      }else if (type === 'import') {
+      } else if (type === 'import') {
         this.open_import_data_options = !this.open_import_data_options
         this.open_majors_options = false
         this.open_lectures_options = false
@@ -612,7 +641,10 @@ export default {
     align-items: center;
   }
 }
-
+.v-form {
+  width: 90%;
+  margin: 0 auto;
+}
 .nav-item-link {
   text-decoration: none;
   color: #000;
@@ -650,8 +682,8 @@ export default {
   right: 10px !important;
   top: -24px;
 }
-ul{
-  li .v-list-item{
+ul {
+  li .v-list-item {
     padding: 0;
   }
 }
