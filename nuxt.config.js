@@ -30,10 +30,10 @@ export default {
     // { src: '~/plugins/qrCode', mode: 'client', ssr: false },
   ],
 
-server:{
-  host:'0.0.0.0',
-  port:3000
-},
+// server:{
+//   host:'0.0.0.0',
+//   port:3000
+// },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -71,6 +71,10 @@ server:{
     meta: {
       title: 'QR students attendance',
       author: 'Ahmed Raed',
+    },
+    icons: {
+      /* icon options */
+      iconFileName:  'icon.png'
     },
     manifest: {
       name: 'QR Students Attendance',
