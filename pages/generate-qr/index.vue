@@ -1,29 +1,34 @@
 <template>
   <div v-if="showQr" class="qr-wrapper">
     <qrcode-vue :size="qr_size" :value="value"></qrcode-vue>
+    <center>
+      <v-btn @click="deleteQrCode">تراجع</v-btn>
+    </center>
   </div>
   <v-row v-else class="generate-qr-wrapper">
     <v-col cols="12">
-      <v-combobox
+      <v-select
         v-model="lecture"
         :items="lecturerLectures"
-        label="أختر المادة"
+        label="إختر المادة"
         outlined
-        item-text="subject_name"
+        item-text="subject_title"
         item-value="lecture_id"
+        class="lectures-select"
+        return-object
+
       >
-      </v-combobox>
+      </v-select>
     </v-col>
     <v-col cols="12">
-      <v-combobox
+      <v-select
         v-model="week"
         :items="weeks"
         hide-selected
         label="إختر الإسبوع"
         outlined
-        placeholder="إختر الأسبوع"
       >
-        <template v-slot:no-data>
+        <!-- <template v-slot:no-data>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>
@@ -32,12 +37,12 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-        </template>
-      </v-combobox>
+        </template> -->
+      </v-select>
     </v-col>
     <v-col cols="12">
       <center>
-        <v-btn @click="generateQrCode">Create QR Code</v-btn>
+        <v-btn @click="generateQrCode">إنشاء QR code</v-btn>
       </center>
     </v-col>
   </v-row>
@@ -52,7 +57,7 @@ export default {
   },
   data: () => ({
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    lecture: '',
+    lecture: null,
     week: null,
     search: null,
     showQr: false,
@@ -77,14 +82,26 @@ export default {
     },
   },
   methods: {
-    generateQrCode() {
-      if (this.lecture && this.week) {
-        this.value = {
+    async generateQrCode() {
+      if (this.lecture !== null && this.week !== null) {
+        await this.$store.dispatch('lecturers/generateQrCode', {
           lecture_id: this.lecture.lecture_id,
           week_no: this.week,
-        }
+        })
+        this.value =JSON.stringify({
+          lecture_id: this.lecture.lecture_id,
+          week_no: this.week,
+        })  
+        console.log('value ',this.value);
         this.showQr = true
       }
+    },
+    async deleteQrCode() {
+      await this.$store.dispatch('lecturers/removeBatchFromAttendance', {
+        lecture_id: this.lecture.lecture_id,
+        week_no: this.week,
+      })
+        this.showQr = false
     },
   },
 }
@@ -93,9 +110,12 @@ export default {
 
 <style>
 .qr-wrapper {
-  display: flex;
-  align-items: center;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 .generate-qr-wrapper {
   padding: 20px;
