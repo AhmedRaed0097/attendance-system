@@ -28,8 +28,8 @@ export const actions = {
 
             })
     },
-    attendance({ commit }, payload) {
-
+    async scanQr({ commit }, payload) {
+        return await this.$axios.$post(`studentScanAttendance/${payload.student_id}/${payload.lecture_id}/${payload.week_no}`)
     },
     async getLecturesTable({ commit }, payload) {
         commit('SETLOADING', true)

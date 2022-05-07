@@ -84,10 +84,24 @@ export const actions = {
         }).then(() => {
             commit('SETLOADING', false)
             dispatch('getStudentsFroManualAttendance', {lecture_id : payload.lecture_id , week_no:payload.week_no})
-
+            
         }).catch((error) => {
             commit('SETLOADING', false)
             console.log('Error ', error);
         })
-    }
+    },
+    async generateQrCode({ commit }, payload) {
+        commit('SETLOADING', true)
+                console.log('payload ',payload);
+        return await this.$axios.$post(`generate-qr/${payload.lecture_id}/${payload.week_no}`)
+
+    },
+    async removeBatchFromAttendance({ commit }, payload) {
+        commit('SETLOADING', true)
+
+        return await this.$axios.$post(`remove-batch/${payload.lecture_id}/${payload.week_no}`).then((_)=>{
+            commit('SETLOADING', false)
+        })
+
+    },
 }
