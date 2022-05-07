@@ -1,21 +1,32 @@
 <template>
   <div class="scan-qr-wrapper">
     <!-- <qrcode-stream @init="onInit" :camera="camera"></qrcode-stream> -->
-    <StreamBarcodeReader
-      @decode="onDecode"
-      @loaded="onLoaded"
-    ></StreamBarcodeReader>
-    <p>{{ error }}</p>
+    <!-- <div class="scan-from-camera">
+      <StreamBarcodeReader
+        @decode="onDecode"
+        @loaded="onLoaded"
+      ></StreamBarcodeReader>
+      <p>{{ error }}</p>
+    </div> -->
+    <div class="scan-from-image">
+      <ImageBarcodeReader
+        @decode="onImageDecode"
+        @error="onError"
+        ref="selectedImage"
+      ></ImageBarcodeReader>
+    </div>
   </div>
 </template>
 
 <script>
 // import { QrcodeStream } from 'vue-qrcode-reader'
 import { StreamBarcodeReader } from 'vue-barcode-reader'
+import { ImageBarcodeReader } from 'vue-barcode-reader'
 export default {
   components: {
     // QrcodeStream
     StreamBarcodeReader,
+    ImageBarcodeReader,
   },
   data() {
     return {
@@ -57,6 +68,18 @@ export default {
     },
     onLoaded() {
       console.log(`Ready to start scanning barcodes`)
+    },
+    onImageDecode(result){
+      let payload=JSON.parse(result)
+      payload.student_id = 1
+      this.$store.dispatch('students/scanQr',payload).then((response)=>{
+        console.log('response ',response);
+      })
+
+      console.log('result.lecture_id ',payload);
+    },
+    onError(error) {
+      console.log(`Error `,error)
     },
   },
   mounted() {},
