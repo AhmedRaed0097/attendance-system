@@ -1,5 +1,6 @@
 <template>
   <div class="scan-qr-wrapper">
+    <!-- <qrcode-stream @init="onInit" :camera="camera"></qrcode-stream> -->
     <div class="scan-from-camera">
       <StreamBarcodeReader
         @decode="onDecode"
@@ -7,13 +8,13 @@
       ></StreamBarcodeReader>
       <p>{{ error }}</p>
     </div>
-    <!-- <div class="scan-from-image">
+    <div class="scan-from-image">
       <ImageBarcodeReader
         @decode="onImageDecode"
         @error="onError"
         ref="selectedImage"
       ></ImageBarcodeReader>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -62,23 +63,29 @@ export default {
     //     // hide loading indicator
     //   }
     // },
-    onDecode(text) {
-      console.log(`Decode text from QR code is ${text}`)
+    onDecode(result) {
+      let payload = JSON.parse(result)
+      payload.student_id = 1
+      this.$store.dispatch('students/scanQr', payload).then((response) => {
+        console.log('response ', response)
+      })
+
+      console.log('result.lecture_id ', payload)
     },
     onLoaded() {
       console.log(`Ready to start scanning barcodes`)
     },
-    onImageDecode(result){
-      let payload=JSON.parse(result)
+    onImageDecode(result) {
+      let payload = JSON.parse(result)
       payload.student_id = 1
-      this.$store.dispatch('students/scanQr',payload).then((response)=>{
-        console.log('response ',response);
+      this.$store.dispatch('students/scanQr', payload).then((response) => {
+        console.log('response ', response)
       })
 
-      console.log('result.lecture_id ',payload);
+      console.log('result.lecture_id ', payload)
     },
     onError(error) {
-      console.log(`Error `,error)
+      console.log(`Error `, error)
     },
   },
   mounted() {},
