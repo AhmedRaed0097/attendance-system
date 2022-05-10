@@ -46,10 +46,10 @@
               </div>
             </v-col>
             <v-col cols="1" class="student-state-col">
-                  
+
               <div @click="changeAttendanceState(student.id)" class="student-state" >
                 <img
-                  v-if="student.state === 1"
+                  v-if="student.state === true"
                   width="100%"
                   src="~/assets/images/home/Checkmark.svg"
                   alt=""
