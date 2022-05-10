@@ -67,7 +67,7 @@ export default {
       alert('start')
 
       let payload = JSON.parse(result)
-      payload.student_id = 1
+      payload.student_id = 3
       this.$store.dispatch('students/scanQr', payload).then((response) => {
         console.log('response ', response)
       })
@@ -80,7 +80,7 @@ export default {
     },
     onImageDecode(result) {
       let payload = JSON.parse(result)
-      payload.student_id = 3
+      payload.student_id = 1
       this.$store.dispatch('students/scanQr', payload).then((response) => {
         console.log('response ', response)
       })
