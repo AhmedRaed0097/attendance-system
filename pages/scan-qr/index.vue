@@ -1,20 +1,19 @@
 <template>
   <div class="scan-qr-wrapper">
-    <!-- <qrcode-stream @init="onInit" :camera="camera"></qrcode-stream> -->
-    <!-- <div class="scan-from-camera">
+    <div class="scan-from-camera">
       <StreamBarcodeReader
         @decode="onDecode"
         @loaded="onLoaded"
       ></StreamBarcodeReader>
       <p>{{ error }}</p>
-    </div> -->
-    <div class="scan-from-image">
+    </div>
+    <!-- <div class="scan-from-image">
       <ImageBarcodeReader
         @decode="onImageDecode"
         @error="onError"
         ref="selectedImage"
       ></ImageBarcodeReader>
-    </div>
+    </div> -->
   </div>
 </template>
 
