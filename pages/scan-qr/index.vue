@@ -8,13 +8,13 @@
       ></StreamBarcodeReader>
       <p>{{ error }}</p>
     </div>
-    <div class="scan-from-image">
+    <!-- <div class="scan-from-image">
       <ImageBarcodeReader
         @decode="onImageDecode"
         @error="onError"
         ref="selectedImage"
       ></ImageBarcodeReader>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -76,11 +76,13 @@ export default {
       console.log(`Ready to start scanning barcodes`)
     },
     onImageDecode(result) {
+      alert('start')
       let payload = JSON.parse(result)
       payload.student_id = 1
       this.$store.dispatch('students/scanQr', payload).then((response) => {
         console.log('response ', response)
       })
+      alert('end')
 
       console.log('result.lecture_id ', payload)
     },
