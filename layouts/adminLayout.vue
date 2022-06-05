@@ -1,5 +1,5 @@
 <template>
-  <v-app class="admin-layout">
+  <v-app class="adminLayout">
     <v-alert :value="showAlert" border="right"  :type="response.status_code === 200 ? 'success': 'warning'" transition="slide-y-transition">{{response.message}}</v-alert>
     <v-row>
       <v-col
@@ -652,7 +652,6 @@ export default {
     .nav-item-title {
       font-size: 15px;
       text-align: right;
-      font-family: 'AJannatLT';
       font-weight: bold;
       font-stretch: normal;
       font-style: normal;

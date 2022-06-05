@@ -42,6 +42,7 @@ server:{
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxt/postcss8',
     // 'nuxt-vite'
   ],
 
@@ -60,7 +61,38 @@ server:{
     // baseURL: 'http://127.0.0.1:8000/api/',
     baseURL: 'https://students-attendance-api.herokuapp.com/api/',
   },
-
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/login'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/login',
+            method: 'post',
+            propertyName: 'data.token'
+          },
+          logout: false,
+          // logout: {
+          //   url: '/logout',
+          //   method: 'post',
+          //   params: {
+          //     device_id: 'll'
+          //   }
+          // },
+          user: {
+            url: '/profile',
+            method: 'get',
+            propertyName: 'data.user'
+          }
+        }
+      }
+    },
+  },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   // pwa: {
   //   manifest: {
@@ -82,10 +114,10 @@ server:{
       lang: 'ar',
       display: 'standalone'
     },
-    workbox: {
-      cachingExtensions: '@/plugins/workbox-sync.js',
-      enabled: true //should be off actually per workbox docs due to complications when used in prod
-    }
+    // workbox: {
+    //   cachingExtensions: '@/plugins/workbox-sync.js',
+    //   enabled: true //should be off actually per workbox docs due to complications when used in prod
+    // }
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -107,5 +139,12 @@ server:{
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
+  },
 }
