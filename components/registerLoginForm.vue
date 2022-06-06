@@ -1,7 +1,8 @@
 <template>
-  <v-card width="600" height="550" class="tw-my-9">
+  <v-card width="600" height="580" class="tw-my-9">
     <v-card-title class="flex tw-justify-center">
-      <h2 class="tw-text-2xl">تسجيل الدخول</h2>
+      <h2 v-if="formType=== 'login'" class="tw-text-2xl">تسجيل الدخول</h2>
+      <h2 v-else class="tw-text-2xl">إنشاء حساب</h2>
     </v-card-title>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-container class="!tw-items-start !tw-pt-14">
@@ -9,10 +10,10 @@
           <v-col cols="12">
             <v-text-field v-model="form.email" label="البريد الإلكتروني" outlined />
           </v-col>
-          <v-col :cols="formtype === 'login' ? 12 : 6">
+          <v-col :cols="formType === 'login' ? 12 : 6">
             <v-text-field v-model="form.password" label="كلمة المرور" outlined />
           </v-col>
-          <v-col v-if="formtype === 'register'" cols="6">
+          <v-col v-if="formType === 'register'" cols="6">
             <v-text-field v-model="form.password_confirmation" label="تأكيد كلمة المرور" outlined />
           </v-col>
 
@@ -32,7 +33,12 @@
           </v-col>
           <v-col cols="12">
             <div class="tw-flex tw-justify-center">
-              <v-btn @click="userLogin" outlined class="!tw-p-5"> دخول </v-btn>
+              <v-btn v-if="formType === 'login'"  @click="userLogin" outlined class="!tw-p-5"> دخول</v-btn>
+              <v-btn v-else @click="userRegister" outlined class="!tw-p-5"> إنشاء</v-btn>
+            </div>
+            <div class="tw-flex tw-justify-center">
+              <v-btn v-if="formType === 'login'" text @click="goTo('register')" class="!tw-p-5"> لا املك حساب ، إنشاء حساب جديد</v-btn>
+              <v-btn v-else text @click="goTo('login')"  class="!tw-p-5"> لدي حساب ، تسجيل الدخول</v-btn>
             </div>
           </v-col>
         </v-row>
@@ -44,7 +50,7 @@
 <script>
 export default {
   props:{
-    formtype: {
+    formType: {
       type:String,
       default:'login'
     }
@@ -76,7 +82,8 @@ export default {
       const formData = {
         email : this.form.email,
         password: this.form.password,
-        user_type: this.form.user_type
+        user_type: this.form.user_type,
+        device_name:'test'
       }
       try {
         let response = await this.$auth.loginWith('local', { data: formData })
@@ -84,6 +91,17 @@ export default {
       } catch (err) {
         console.log('err ',err)
       }
+    },
+    userRegister(){
+      const formData = new FormData()
+      for (const key in this.form) {
+        formData.append(key , this.form[key])
+      }
+      this.$store.dispatch('auth/register',formData)
+    },
+    goTo(pageName){
+      this.$router.replace(`/auth/${pageName}`)
+
     }
   }
 }

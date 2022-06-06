@@ -4,6 +4,7 @@
       <span>
         {{ app_bar_text }}
       </span>
+      <v-btn text @click="logout">تسجيل الخروج</v-btn>
       <img
         v-if="$route.name !== 'index'"
         @click="$router.back()"
@@ -25,6 +26,11 @@ export default {
   data() {
     return {
       app_bar_text: '',
+    }
+  },
+  methods:{
+    logout(){
+      this.$store.dispatch('auth/logout')
     }
   },
   watch: {
