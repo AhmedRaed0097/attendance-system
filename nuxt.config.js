@@ -58,15 +58,19 @@ server:{
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: 'http://192.168.55.120:8000/api/',
-    // baseURL: 'http://127.0.0.1:8000/api/',
-    baseURL: 'https://students-attendance-api.herokuapp.com/api/',
+    baseURL: 'http://127.0.0.1:8000/api/',
+    // baseURL: 'https://students-attendance-api.herokuapp.com/api/',
+  },
+
+  router: {
+    middleware: ['auth']
   },
   auth: {
     redirect: {
-      login: '/login',
-      logout: '/login',
-      callback: '/login',
-      home: '/login'
+      login: '/auth/login',
+      logout: '/auth/login',
+      callback: '/auth/login',
+      home: '/auth/login'
     },
     strategies: {
       local: {
@@ -76,16 +80,17 @@ server:{
             method: 'post',
             propertyName: 'data.token'
           },
-          logout: false,
-          // logout: {
-          //   url: '/logout',
-          //   method: 'post',
-          //   params: {
-          //     device_id: 'll'
-          //   }
-          // },
+          logout: true
+          ,
+          logout: {
+            url: '/logout',
+            method: 'post',
+            params: {
+              device_id: 'll'
+            }
+          },
           user: {
-            url: '/profile',
+            url: '/user',
             method: 'get',
             propertyName: 'data.user'
           }

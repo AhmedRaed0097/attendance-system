@@ -7,17 +7,17 @@
       <v-container class="!tw-items-start !tw-pt-14">
         <v-row>
           <v-col cols="12">
-            <v-text-field label="البريد الإلكتروني" outlined />
+            <v-text-field v-model="form.email" label="البريد الإلكتروني" outlined />
           </v-col>
-          <v-col cols="6">
-            <v-text-field label="كلمة المرور" outlined />
+          <v-col :cols="formtype === 'login' ? 12 : 6">
+            <v-text-field v-model="form.password" label="كلمة المرور" outlined />
           </v-col>
-          <v-col cols="6">
-            <v-text-field label="تأكيد كلمة المرور" outlined />
+          <v-col v-if="formtype === 'register'" cols="6">
+            <v-text-field v-model="form.password_confirmation" label="تأكيد كلمة المرور" outlined />
           </v-col>
 
           <v-col cols="6" class="tw-mx-auto">
-            <v-radio-group v-model="selectUserType">
+            <v-radio-group v-model="form.user_type">
               <div clas="tw-flex tw-bg-red-500">
                 <v-radio
                   v-for="(type,i) in userTypes"
@@ -32,7 +32,7 @@
           </v-col>
           <v-col cols="12">
             <div class="tw-flex tw-justify-center">
-              <v-btn outlined class="!tw-p-5"> دخول </v-btn>
+              <v-btn @click="userLogin" outlined class="!tw-p-5"> دخول </v-btn>
             </div>
           </v-col>
         </v-row>
@@ -43,6 +43,12 @@
 
 <script>
 export default {
+  props:{
+    formtype: {
+      type:String,
+      default:'login'
+    }
+  },
   data() {
     return {
       userTypes: [
@@ -57,8 +63,29 @@ export default {
       ],
       selectUserType: 'student',
       valid: true,
+      form:{
+        email:'',
+        password:'',
+        password_confirmation:'',
+        user_type:''
+      }
     }
   },
+    methods: {
+    async userLogin() {
+      const formData = {
+        email : this.form.email,
+        password: this.form.password,
+        user_type: this.form.user_type
+      }
+      try {
+        let response = await this.$auth.loginWith('local', { data: formData })
+        console.log('response ',response)
+      } catch (err) {
+        console.log('err ',err)
+      }
+    }
+  }
 }
 </script>
 
