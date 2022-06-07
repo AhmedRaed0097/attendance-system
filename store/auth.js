@@ -7,7 +7,7 @@ export const actions = {
     return await this.$axios.$post('/register', payload)
   },
   async logout ({ commit }) {
-  return await this.$axios.$post('/logout')
+  return await this.$axios.$get('/logout')
 
   },
 }

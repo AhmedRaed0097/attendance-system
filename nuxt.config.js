@@ -71,7 +71,7 @@ server:{
       login: '/auth/login',
       logout: '/auth/login',
       callback: '/auth/login',
-      home: '/'
+      home: '/auth/login'
 
     },
     strategies: {
@@ -82,15 +82,12 @@ server:{
             method: 'post',
             propertyName: 'data.token'
           },
-          logout: true
+          logout: false
           ,
-          logout: {
-            url: '/logout',
-            method: 'post',
-            params: {
-              device_id: 'll'
-            }
-          },
+          // logout: {
+          //   url: '/logout',
+          //   method: 'post',
+          // },
           user: {
             url: '/user',
             method: 'get',
@@ -121,10 +118,10 @@ server:{
       lang: 'ar',
       display: 'standalone'
     },
-    // workbox: {
-    //   cachingExtensions: '@/plugins/workbox-sync.js',
-    //   enabled: true //should be off actually per workbox docs due to complications when used in prod
-    // }
+    workbox: {
+      cachingExtensions: '@/plugins/workbox-sync.js',
+      enabled: true //should be off actually per workbox docs due to complications when used in prod
+    }
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

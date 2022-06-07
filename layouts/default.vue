@@ -30,7 +30,9 @@ export default {
   },
   methods:{
     logout(){
-      this.$store.dispatch('auth/logout')
+      this.$store.dispatch('auth/logout').then(()=>{
+        window.location.reload();
+      })
     }
   },
   watch: {

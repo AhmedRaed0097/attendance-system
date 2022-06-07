@@ -7,7 +7,15 @@ module.exports = {
     "./nuxt.config.{js,ts}",
   ],
     theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'cairo-light': ['Cairo-Light'],
+        'cairo-bold': ['Cairo-Bold'],
+        'lalezar': ['Lalezar'],
+        'oswald-light': ['Oswald-Light'],
+        'oswald-bold': ['Oswald-Bold'],
+      }
+    },
   },
   prefix:'tw-',
   plugins: [],

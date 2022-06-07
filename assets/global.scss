@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .tw-absolute-center {
+    @apply tw-absolute tw-top-0 tw-left-1/2 tw-translate-x-[-50%]
+  }
+}
+@font-face {
+  font-family: 'Cairo-Light';
+  src: url(~/assets/fonts/Cairo/Cairo-Light.ttf);
+}
+@font-face {
+  font-family: 'Cairo-Bold';
+  src: url(~/assets/fonts/Cairo/Cairo-Bold.ttf);
+}
+@font-face {
+  font-family: 'Lalezar';
+  src: url(~/assets/fonts/Lalezar/Lalezar-Regular.ttf);
+}
+@font-face {
+  font-family: 'Oswald-Bold';
+  src: url(~/assets/fonts/Oswald/Oswald-Bold.ttf);
+}
+@font-face {
+  font-family: 'Oswald-Light';
+  src: url(~/assets/fonts/Oswald/Oswald-Light.ttf);
+}
+
+*{
+  font-family:'Cairo-Bold';
+}
+
 .small-card {
     width: 100%;
 
