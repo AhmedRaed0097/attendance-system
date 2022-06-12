@@ -5,7 +5,7 @@
       @decode="onDecode"
       @loaded="onLoaded"
     ></StreamBarcodeReader>
-    <p>{{ error }}</p>
+    <p>{{ error }}</p> 
   </div>
 </template>
 

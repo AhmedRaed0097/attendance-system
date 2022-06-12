@@ -69,6 +69,9 @@ export default {
   align-items: center;
   border-radius:13px !important;
   padding: 5px;
+  &:first-child{
+    margin-top: 20px;
+  }
   .row .col {
     text-align: center;
   }

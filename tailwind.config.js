@@ -14,6 +14,9 @@ module.exports = {
         'lalezar': ['Lalezar'],
         'oswald-light': ['Oswald-Light'],
         'oswald-bold': ['Oswald-Bold'],
+      },
+      color:{
+        'first':'#7C3E66'
       }
     },
   },

@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-app-bar height="70" app class="app-bar">
-      <span>
+      <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
         {{ app_bar_text }}
       </span>
-      <v-btn text @click="logout">تسجيل الخروج</v-btn>
+
       <img
         v-if="$route.name !== 'index'"
         @click="$router.back()"
@@ -13,8 +13,21 @@
         alt=""
       />
     </v-app-bar>
-
+    <v-card class="tw-rounded-sm">
+   
+    </v-card>
     <v-main>
+     <div class="tw-flex tw-justify-between tw-align-center tw-p-3">
+        <img width="35" src="../assets/images/home/student-avatar.svg" alt="student-avatar" class="avatar tw-border-2 tw-border-solid tw-border-gray-400 tw-rounded-full" />
+        <span class="user-name tw-mt-1 tw-flex-1 tw-pr-3">أحمد رائد الظبي</span>
+        <v-btn icon @click="logout">
+          <img
+            width="25"
+            src="~/assets/images/auth/logout.svg"
+            alt="logout-icon"
+          />
+        </v-btn>
+      </div>
       <Nuxt />
     </v-main>
   </v-app>
@@ -28,12 +41,12 @@ export default {
       app_bar_text: '',
     }
   },
-  methods:{
-    logout(){
-      this.$store.dispatch('auth/logout').then(()=>{
-        window.location.reload();
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout').then(() => {
+        window.location.reload()
       })
-    }
+    },
   },
   watch: {
     '$route.name': {
@@ -58,7 +71,7 @@ export default {
       this.app_bar_text = 'جدول المحاضرات'
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     this.$vuetify.rtl = true
   },
 }
@@ -73,7 +86,8 @@ body {
 }
 .app-bar {
   max-height: 80px;
-  background: rgb(111 139 215) !important;
+  // background: rgb(111 139 215) !important;
+  background: #7C3E66 !important;
   .v-toolbar__content {
     display: flex;
     justify-content: space-between;

@@ -6,7 +6,7 @@
       </v-col>
       <v-row v-if="isStudent === true" class="btns-row">
         <v-col cols="6">
-          <v-btn to="/lectures-table" class="home-btn"
+          <v-btn  to="/lectures-table" class="home-btn"
             >جدول المحاضرات اليومي</v-btn
           >
         </v-col>
@@ -89,7 +89,7 @@ export default {
   .home-btn {
     width: 100%;
     height: 80px !important;
-    padding: 0 !important;
+    padding: 20px !important;
   }
 }
 .center-btn-col {

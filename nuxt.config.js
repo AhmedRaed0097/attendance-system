@@ -91,7 +91,7 @@ server:{
           user: {
             url: '/user',
             method: 'get',
-            propertyName: 'data.user'
+            propertyName: 'user'
           }
         }
       }
@@ -130,7 +130,7 @@ server:{
       dark: false,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#7C3E66',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
