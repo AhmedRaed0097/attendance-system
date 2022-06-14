@@ -84,7 +84,7 @@ export const actions = {
         }).then(() => {
             commit('SETLOADING', false)
             dispatch('getStudentsFroManualAttendance', {lecture_id : payload.lecture_id , week_no:payload.week_no})
-            
+
         }).catch((error) => {
             commit('SETLOADING', false)
             console.log('Error ', error);
@@ -99,9 +99,8 @@ export const actions = {
     async removeBatchFromAttendance({ commit }, payload) {
         commit('SETLOADING', true)
 
-        return await this.$axios.$post(`remove-batch/${payload.lecture_id}/${payload.week_no}`).then((_)=>{
-            commit('SETLOADING', false)
-        })
+        return await this.$axios.$post(`remove-batch/${payload.lecture_id}/${payload.week_no}`)
+        commit('SETLOADING', false)
 
     },
 }

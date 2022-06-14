@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29">
+    <g data-name="success icon">
+        <g data-name="Ellipse 57" style="fill:#fff;stroke:#47c55d;stroke-width:2px">
+            <circle cx="14.5" cy="14.5" r="14.5" style="stroke:none"/>
+            <circle cx="14.5" cy="14.5" r="13.5" style="fill:none"/>
+        </g>
+        <path d="M20.588 8.624a.816.816 0 0 0-.663.382L12.25 20.749l-4.972-4.3a.816.816 0 1 0-1.071 1.224l5.686 4.927a.815.815 0 0 0 1.211-.179L21.3 9.9a.816.816 0 0 0-.714-1.275z" transform="translate(1.126 -.956)" style="fill:#47c55d"/>
+    </g>
+</svg>

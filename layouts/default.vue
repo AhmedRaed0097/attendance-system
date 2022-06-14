@@ -1,23 +1,33 @@
 <template>
   <v-app>
-    <v-app-bar v-if="$vuetify.breakpoint.mdAndDown" height="70" app class="app-bar !tw-bg-primary">
+    <v-app-bar
+      v-if="$vuetify.breakpoint.mdAndDown"
+      height="70"
+      app
+      class="app-bar !tw-bg-primary"
+    >
       <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
         {{ app_bar_text }}
       </span>
-
-      <img
-        v-if="$route.name !== 'index'"
-        @click="$router.back()"
-        class="back-icon"
-        src="../assets/images/home/back-icon.svg"
-        alt=""
-      />
+      <div class="tw-flex tw-ml-8">
+        <img
+          v-if="$auth.loggedIn"
+          @click="$router.back()"
+          class="back-icon"
+          src="../assets/images/auth/logout.svg"
+          alt="logout"
+        />
+        <img
+          v-if="$route.name !== 'index'"
+          @click="$router.back()"
+          class="back-icon"
+          src="../assets/images/home/back-icon.svg"
+          alt=""
+        />
+      </div>
     </v-app-bar>
-    <v-card class="tw-rounded-sm">
-
-    </v-card>
+    <v-card class="tw-rounded-sm"> </v-card>
     <v-main>
-
       <Nuxt />
     </v-main>
   </v-app>
@@ -45,9 +55,9 @@ export default {
           this.app_bar_text = 'الرئيسية'
         } else if (this.$route.name === 'lectures-table') {
           this.app_bar_text = 'جدول المحاضرات'
-        }else if (this.$route.name === 'generate-qr') {
+        } else if (this.$route.name === 'generate-qr') {
           this.app_bar_text = 'إنشاء QR CODE'
-        }else if (this.$route.name === 'attendance-table') {
+        } else if (this.$route.name === 'attendance-table') {
           this.app_bar_text = 'جدول الحضور'
         }
       },
