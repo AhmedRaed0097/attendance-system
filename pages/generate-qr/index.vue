@@ -89,10 +89,18 @@ export default {
     showAlert: false,
     alertData: {},
     value: {},
-    qr_size: window.innerWidth - 200,
+    qr_size: null,
   }),
   components: {
     QrcodeVue,
+  },
+  created() {
+    if (window.innerWidth > 900) {
+      this.qr_size = window.innerWidth / 2
+    } else {
+      this.qr_size = window.innerWidth - window.innerWidth * 0.20
+    }
+    window.addEventListener('resize', this.onResize)
   },
   computed: {
     lecturerLectures() {
@@ -103,13 +111,8 @@ export default {
     lecture(val) {
       if (val.last_week !== null) {
         this.weeks = this.weeks.filter((v) => v > val.last_week)
-
-        // this.weeks.splice(0 ,val.last_week )
       }
     },
-    'window.innerWidth'(val){
-      console.log('aa ',val);
-    }
   },
   methods: {
     async generateQrCode() {
@@ -159,6 +162,16 @@ export default {
         this.showAlert = false
       }
     },
+    onResize(e) {
+      if (window.innerWidth > 900) {
+        this.qr_size = window.innerWidth / 2
+      } else {
+      this.qr_size = window.innerWidth - window.innerWidth * 0.20
+      }
+    },
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onResize)
   },
 }
 </script>
