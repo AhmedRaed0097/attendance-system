@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="lds-dual-ring" />
+    <div class="lds-dual-ring after:tw-border-primary after:tw-border-[5px] after:tw-border-solid after:tw-border-y-primary after:tw-border-x-transparent" />
   </div>
 </template>
 
@@ -29,8 +29,6 @@ export default {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid rgb(2 65 237);
-  border-color: rgb(2 65 237) transparent rgb(2 65 237) transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {

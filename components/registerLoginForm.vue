@@ -18,46 +18,50 @@
         alt="login-header-image"
       /> -->
       <div class="form-header" />
-      <v-form ref="form" v-model="valid" lazy-validation class="tw-px-2">
+      <v-form ref="form" v-model="valid" lazy-validation class="tw-px-4">
         <v-row>
-          <v-col cols="12" class="!tw-p-0">
+          <v-col cols="12" class="!tw-p-0 tw-mb-2">
             <v-text-field
               v-model="form.email"
-              color="#7C3E66"
+
               type="email"
               :rules="emailRules"
               label="البريد الإلكتروني"
               validate-on-blur
             />
           </v-col>
-          <v-col cols="12" class="!tw-p-0">
+          <v-col cols="12" class="!tw-p-0 tw-mb-4">
             <v-text-field
               v-model="form.password"
-              color="#7C3E66"
+
               :rules="passwordRules"
               label="كلمة المرور"
               name="password"
-              :append-icon="hidePassword ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="() => (hidePassword = !hidePassword)"
+              @keydown.enter="userLogin"
               :type="hidePassword ? 'password' : 'text'"
               validate-on-blur
-            />
+            >
+            <template v-slot:append>
+                <img width="25" @click="hidePassword = !hidePassword" v-if="hidePassword" class="" src="~/assets/images/auth/visible-eye.svg" alt="visible-eye">
+                <img width="25" @click="hidePassword = !hidePassword" v-else class="" src="~/assets/images/auth/invisible-eye.svg" alt="invisible-eye">
+            </template>
+            </v-text-field>
           </v-col>
-          <v-col v-if="formType === 'register'" cols="12" class="!tw-p-0">
+          <v-col v-if="formType === 'register'" cols="12" class="!tw-p-0 tw-mb-4">
             <v-text-field
               v-model="form.password_confirmation"
-              color="#7C3E66"
+
               :rules="confirmPasswordRules"
-              :append-icon="
-                hidePasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'
-              "
-              @click:append="
-                () => (hidePasswordConfirmation = !hidePasswordConfirmation)
-              "
+
               :type="hidePasswordConfirmation ? 'password' : 'text'"
               label="تأكيد كلمة المرور"
               validate-on-blur
-            />
+            >
+            <template v-slot:append>
+                <img width="25" @click="hidePasswordConfirmation = !hidePasswordConfirmation" v-if="hidePasswordConfirmation" class="" src="~/assets/images/auth/visible-eye.svg" alt="visible-eye">
+                <img width="25" @click="hidePasswordConfirmation = !hidePasswordConfirmation" v-else class="" src="~/assets/images/auth/invisible-eye.svg" alt="invisible-eye">
+            </template>
+            </v-text-field>
           </v-col>
 
           <v-col v-if="formType !== 'login'" cols="12">
@@ -83,10 +87,9 @@
               <v-btn
                 v-if="formType === 'login'"
                 width="90%"
-                color="#7C3E66"
                 dark
                 @click="userLogin"
-                class="!tw-p-6"
+                class="!tw-p-6 !tw-bg-primary"
               >
                 دخول</v-btn
               >
@@ -94,10 +97,9 @@
               <v-btn
                 v-else
                 width="90%"
-                color="#7C3E66"
                 dark
                 @click="userRegister"
-                class="!tw-p-6"
+                class="!tw-p-6 !tw-bg-primary"
               >
                 إنشاء</v-btn
               >

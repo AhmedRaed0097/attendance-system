@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar height="70" app class="app-bar">
+    <v-app-bar v-if="$vuetify.breakpoint.mdAndDown" height="70" app class="app-bar !tw-bg-primary">
       <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
         {{ app_bar_text }}
       </span>
@@ -14,20 +14,10 @@
       />
     </v-app-bar>
     <v-card class="tw-rounded-sm">
-   
+
     </v-card>
     <v-main>
-     <div class="tw-flex tw-justify-between tw-align-center tw-p-3">
-        <img width="35" src="../assets/images/home/student-avatar.svg" alt="student-avatar" class="avatar tw-border-2 tw-border-solid tw-border-gray-400 tw-rounded-full" />
-        <span class="user-name tw-mt-1 tw-flex-1 tw-pr-3">أحمد رائد الظبي</span>
-        <v-btn icon @click="logout">
-          <img
-            width="25"
-            src="~/assets/images/auth/logout.svg"
-            alt="logout-icon"
-          />
-        </v-btn>
-      </div>
+
       <Nuxt />
     </v-main>
   </v-app>
@@ -55,6 +45,10 @@ export default {
           this.app_bar_text = 'الرئيسية'
         } else if (this.$route.name === 'lectures-table') {
           this.app_bar_text = 'جدول المحاضرات'
+        }else if (this.$route.name === 'generate-qr') {
+          this.app_bar_text = 'إنشاء QR CODE'
+        }else if (this.$route.name === 'attendance-table') {
+          this.app_bar_text = 'جدول الحضور'
         }
       },
     },
@@ -87,7 +81,6 @@ body {
 .app-bar {
   max-height: 80px;
   // background: rgb(111 139 215) !important;
-  background: #7C3E66 !important;
   .v-toolbar__content {
     display: flex;
     justify-content: space-between;
@@ -144,11 +137,9 @@ body {
   background-color: #bababa;
 }
 .toggle:checked {
-  background-color: #c8d6ff;
 }
 .toggle:checked:before {
   left: 30px;
-  background-color: #2b62ad;
 }
 .v-application--wrap {
   overflow: hidden;

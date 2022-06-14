@@ -67,6 +67,9 @@
       </v-col>
     </v-row>
     <v-row v-else class="generate-qr-wrapper">
+       <v-col cols="12" class="tw-mt-8 tw-mb-16">
+      <h3 class="!tw-text-center !tw-text-4xl">التحضير اليدوي</h3>
+    </v-col>
       <v-col cols="12">
         <v-combobox
           v-model="lecture"
@@ -159,7 +162,7 @@ export default {
 .generate-qr-wrapper {
   padding: 20px;
   // width: 500px;
-  margin: 50% auto;
+  // margin: 50% auto;
 }
 
 .manual-att-header-col {

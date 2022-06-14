@@ -58,7 +58,7 @@ server:{
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    // baseURL: 'http://192.168.55.120:8000/api/',
+    // baseURL: ' http://192.168.55.117:7000/api/',
     baseURL: 'http://127.0.0.1:8000/api',
     // baseURL: 'https://students-attendance-api.herokuapp.com/api/',
   },
@@ -91,7 +91,7 @@ server:{
           user: {
             url: '/user',
             method: 'get',
-            propertyName: 'user'
+            propertyName: 'data.user'
           }
         }
       }
@@ -138,6 +138,9 @@ server:{
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
+        light:{
+          primary: '#7C3E66',
+        }
       },
     },
   },

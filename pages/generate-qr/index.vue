@@ -6,6 +6,9 @@
     </center>
   </div>
   <v-row v-else class="generate-qr-wrapper">
+    <v-col cols="12" class="tw-mt-8 tw-mb-16">
+      <h3 class="!tw-text-center !tw-text-4xl">إنشاء QR CODE</h3>
+    </v-col>
     <v-col cols="12">
       <v-select
         v-model="lecture"
@@ -42,7 +45,7 @@
     </v-col>
     <v-col cols="12">
       <center>
-        <v-btn @click="generateQrCode">إنشاء QR code</v-btn>
+        <v-btn rounded  class="!tw-py-6 !tw-bg-primary" dark @click="generateQrCode">إنشاء QR code</v-btn>
       </center>
     </v-col>
   </v-row>
@@ -91,7 +94,7 @@ export default {
         this.value =JSON.stringify({
           lecture_id: this.lecture.lecture_id,
           week_no: this.week,
-        })  
+        })
         console.log('value ',this.value);
         this.showQr = true
       }
@@ -119,6 +122,5 @@ export default {
 }
 .generate-qr-wrapper {
   padding: 20px;
-  margin-top: 50%;
 }
 </style>
