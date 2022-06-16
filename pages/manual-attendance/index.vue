@@ -1,132 +1,291 @@
 <template>
   <Loading v-if="loading" />
   <div v-else>
-    <v-row v-if="manualAteendanceData.attendance_data">
-      <v-col cols="12" class="manual-att-header-col">
-        <h3 class="mb-4">
-          تاريخ التحضير :
-          {{
-            manualAteendanceData.attendance_data.attendance_date.split('T')[0]
-          }}
-        </h3>
-        <p>
-          اسم المادة : {{ manualAteendanceData.attendance_data.subject_name }}
-        </p>
-        <p>رقم الاسبوع : {{ manualAteendanceData.attendance_data.week_no }}</p>
-      </v-col>
+    <Alert
+      :alert-visible="showAlert"
+      :alert-data="alertData"
+      @closeModal="isAlertClosed"
+    />
+    <v-container>
+      <v-form ref="form" lazy-validation>
+        <v-row v-if="manualAteendanceData.attendance_data">
+          <v-col cols="12" class="manual-att-header-col">
+            <h3 class="mb-4">
+              تاريخ التحضير :
+              {{
+                manualAteendanceData.attendance_data.attendance_date.split(
+                  'T'
+                )[0]
+              }}
+            </h3>
+            <p>
+              اسم المادة :
+              {{ manualAteendanceData.attendance_data.subject_name }}
+            </p>
+            <p>
+              رقم الاسبوع : {{ manualAteendanceData.attendance_data.week_no }}
+            </p>
+          </v-col>
 
-      <v-col
-        cols="12"
-        v-for="(student, i) in manualAteendanceData.students_data"
-        :key="i"
-      >
-        <v-card class="student-data-card">
-          <v-row class="card-row-data">
-            <v-col cols="1" class="student-no">
-              <span>{{ i + 1 }}</span>
+          <v-row dense class="!tw-contents">
+            <v-col cols="6" md="5">
+              <v-combobox
+                v-model="lecture"
+                :items="lecturerLectures"
+                :rules="requiredRules"
+                validate-on-blur
+                label="أختر المادة"
+                outlined
+                item-text="subject_name"
+                item-value="lecture_id"
+              >
+              </v-combobox>
             </v-col>
-            <v-col cols="3">
-              <div class="student-name">
-                <span>{{ student.student_name }}</span>
-              </div>
+            <v-col cols="6" md="5">
+              <v-combobox
+                v-model="week"
+                :items="weeks"
+                :rules="requiredRules"
+                validate-on-blur
+                hide-selected
+                label="إختر الإسبوع"
+                outlined
+                placeholder="إختر الأسبوع"
+              >
+                <template v-slot:no-data>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-list-item-title> لا توجد بيانات . </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </template>
+              </v-combobox>
             </v-col>
-            <v-col cols="2">
-              <div class="student-major">
-                <span>{{ student.major }}</span>
-              </div>
-            </v-col>
-            <v-col cols="3">
-              <div class="student-batch-type">
-                <span>{{ student.batch_type }}</span>
-              </div>
-            </v-col>
-            <v-col cols="2">
-              <div class="student-level">
-                <span>{{ student.level }}</span>
-              </div>
-            </v-col>
-            <v-col cols="1" class="student-state-col">
-
-              <div @click="changeAttendanceState(student.id)" class="student-state" >
-                <img
-                  v-if="student.state === true"
-                  width="100%"
-                  src="~/assets/images/home/Checkmark.svg"
-                  alt=""
-                />
-                <img
-                  v-else
-                  width="100%"
-                  src="~/assets/images/home/cross.svg"
-                  alt=""
-                />
-              </div>
+            <v-col cols="12" md="2" class="!tw-flex">
+              <v-btn
+                width="100"
+                height="45"
+                rounded
+                :loading="loading"
+                class="!tw-mx-auto lg:!tw-mx-0 !tw-mt-1.5 !tw-bg-primary"
+                dark
+                @click="getStudentsForManualAttendance"
+                >جلب</v-btn
+              >
             </v-col>
           </v-row>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row v-else class="generate-qr-wrapper">
-       <v-col cols="12" class="tw-mt-8 tw-mb-16">
-      <h3 class="!tw-text-center !tw-text-4xl">التحضير اليدوي</h3>
-    </v-col>
-      <v-col cols="12">
-        <v-combobox
-          v-model="lecture"
-          :items="lecturerLectures"
-          label="أختر المادة"
-          outlined
-          item-text="subject_name"
-          item-value="lecture_id"
+
+          <v-row>
+            <v-col cols="12">
+              <v-row>
+                <v-col cols="12" class="!tw-px-6">
+                  <v-data-table
+                    :headers="headers"
+                    :items="manualAteendanceData.students_data"
+                    item-key="student_id"
+                    :search="search"
+                    :custom-filter="filterStudents"
+                    class="elevation-1 tw-border-2 tw-border-primary !tw-rounded-lg"
+                    hide-default-footer
+                  >
+                    <template v-slot:top>
+                      <v-text-field
+                        v-model="search"
+                        clearable
+                        label="بحث (اسم الطالب)"
+                        class="mx-4"
+                      ></v-text-field>
+                    </template>
+                    <template v-slot:no-data>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            لاتوجد بيانات .
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
+                    <template v-slot:no-results>
+                      <v-list-item>
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            لاتوجد بيانات مطابقة لما تم البحث عنه"<strong>{{
+                              search
+                            }}</strong
+                            >" .
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
+                    <template v-slot:[`item.student_id`]="{ item }">
+                      <p>{{ item.id }}</p>
+                    </template>
+                    <template v-slot:[`item.stuednt_name`]="{ item }">
+                      <p>{{ item.stuednt_name }}</p>
+                    </template>
+                    <template v-slot:[`item.major`]="{ item }">
+                      <p>{{ item.major }}</p>
+                    </template>
+                    <template v-slot:[`item.batch_type`]="{ item }">
+                      <p>{{ item.batch_type }}</p>
+                    </template>
+                    <template v-slot:[`item.level`]="{ item }">
+                      <p>{{ item.level }}</p>
+                    </template>
+                    <template v-slot:[`item.state`]="{ item }">
+                      <!-- <img
+                  v-if="item.state === true || item.state === 1"
+                  width="30"
+                  src="~/assets/images/home/Checkmark.svg"
+                  alt=""
+                  class="tw-mx-auto tw-cursor-pointer"
+                /> -->
+                      <v-chip
+                        v-if="item.state === true || item.state"
+                        small
+                        color="#dfdfdf"
+                        text-color="#22c55e"
+                        @click="changeAttendanceState(item.id)"
+                      >
+                        حاضر
+                      </v-chip>
+                      <v-chip
+                        v-else
+                        small
+                        color="#dfdfdf"
+                        text-color="#ff5555"
+                        @click="changeAttendanceState(item.id)"
+                      >
+                        غائب
+                      </v-chip>
+                      <!-- <img
+                  v-else
+                  width="30"
+                  src="~/assets/images/home/cross.svg"
+                  alt=""
+                  class="tw-mx-auto tw-cursor-pointer"
+                /> -->
+                    </template>
+                  </v-data-table>
+                </v-col>
+              </v-row>
+              <!-- </v-card> -->
+            </v-col>
+          </v-row>
+        </v-row>
+        <v-row
+          v-if="!manualAteendanceData.attendance_data"
+          class="generate-qr-wrapper"
         >
-        </v-combobox>
-      </v-col>
-      <v-col cols="12">
-        <v-combobox
-          v-model="week"
-          :items="weeks"
-          hide-selected
-          label="إختر الإسبوع"
-          outlined
-          placeholder="إختر الأسبوع"
-        >
-          <template v-slot:no-data>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  No results matching "<strong>{{ search }}</strong
-                  >". Press <kbd>enter</kbd> to create a new one
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </template>
-        </v-combobox>
-      </v-col>
-      <v-col cols="12">
-        <center>
-          <v-btn @click="getStudentsForManualAttendance">Get Students</v-btn>
-        </center>
-      </v-col>
-    </v-row>
+          <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="12" class="tw-mt-8 tw-mb-16">
+            <h3 class="!tw-text-center !tw-text-4xl">التحضير اليدوي</h3>
+          </v-col>
+          <v-col cols="12">
+            <v-combobox
+              v-model="lecture"
+              :items="lecturerLectures"
+              :rules="requiredRules"
+              validate-on-blur
+              label="أختر المادة"
+              outlined
+              item-text="subject_name"
+              item-value="lecture_id"
+            >
+            </v-combobox>
+          </v-col>
+          <v-col cols="12">
+            <v-combobox
+              v-model="week"
+              :items="weeks"
+              :rules="requiredRules"
+              validate-on-blur
+              hide-selected
+              label="إختر الإسبوع"
+              outlined
+              placeholder="إختر الأسبوع"
+            >
+              <template v-slot:no-data>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      لاتوجد بيانات مطابقة لما تم البحث عنه"<strong>{{
+                        search
+                      }}</strong
+                      >" .
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-combobox>
+          </v-col>
+          <v-col cols="12">
+            <center>
+              <v-btn
+                width="100"
+                height="45"
+                rounded
+                :loading="loading"
+                class="!tw-mx-auto lg:!tw-mx-0 !tw-mt-1.5 !tw-bg-primary"
+                dark
+                @click="getStudentsForManualAttendance"
+                >جلب</v-btn
+              >
+            </center>
+          </v-col>
+        </v-row>
+      </v-form>
+    </v-container>
   </div>
 </template>
 
 <script>
 export default {
   fetch() {
-    this.$store.dispatch('lecturers/getAllLectures', 1)
+    this.$store.dispatch('lecturers/getLecturerLectures', 1)
   },
   data: () => ({
+    showAlert: false,
+    alertData: {},
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     lecture: '',
     week: null,
+    search: '',
     search: null,
+    headers: [
+      { text: 'الرقم', align: 'center', value: 'student_id', sortable: false },
+
+      {
+        text: 'إسم الطلب',
+        align: 'center',
+        value: 'student_name',
+        sortable: false,
+      },
+
+      { text: 'التخصص', align: 'center', value: 'major', sortable: false },
+
+      {
+        text: 'نوع القبول',
+        align: 'center',
+        value: 'batch_type',
+        sortable: false,
+      },
+
+      { text: 'المستوى', align: 'center', value: 'level', sortable: false },
+
+      { text: 'الحالة', align: 'center', value: 'state', sortable: false },
+    ],
+    requiredRules: [(v) => !!v || 'الحقل مطلوب'],
   }),
   watch: {
     lecture(val) {
-      if (val.last_week !== null) {
-        // this.weeks.splice(0 ,val.last_week )
-        this.weeks = this.weeks.filter((v) => v <= val.last_week)
+      if (val && val.last_week) {
+        this.weeks = []
+        for (let i = 0; i < val.last_week; i++) {
+          this.weeks.push(i + 1)
+        }
+      } else {
+        this.week = null
+        this.weeks = []
       }
     },
   },
@@ -143,20 +302,50 @@ export default {
   },
   methods: {
     getStudentsForManualAttendance() {
-      this.$store.dispatch('lecturers/getStudentsFroManualAttendance', {
+      if ((this.week && this.lecture) || this.$refs.form.validate()) {
+        this.$store
+          .dispatch('lecturers/getStudentsFroManualAttendance', {
+            lecture_id: this.lecture.lecture_id,
+            week_no: this.week,
+          })
+          .then((response) => {
+            this.setAlertData(response)
+          })
+          .catch((error) => {
+             this.setAlertData(error.response.data)
+          })
+      } else {
+      }
+    },
+    changeAttendanceState(studentId) {
+      console.log('this.lecture.lecture_id ', this.lecture.lecture_id)
+      console.log('week ', this.week)
+      this.$store.dispatch('lecturers/changeAttendanceState', {
         lecture_id: this.lecture.lecture_id,
+        student_id: studentId,
         week_no: this.week,
       })
     },
-    changeAttendanceState(studentId){
-      console.log('this.lecture.lecture_id ',this.lecture.lecture_id);
-      console.log('week ',this.week);
-      this.$store.dispatch('lecturers/changeAttendanceState',{lecture_id:this.lecture.lecture_id , student_id:studentId ,week_no : this.week})
-    }
+    filterStudents(value, search, item) {
+      return (
+        value != null &&
+        search != null &&
+        typeof value === 'string' &&
+        value.toString().indexOf(search) !== -1
+      )
+    },
+    setAlertData(data) {
+      this.alertData = data
+      this.showAlert = true
+    },
+    isAlertClosed(payload) {
+      if (payload.value) {
+        this.showAlert = false
+      }
+    },
   },
 }
 </script>
-
 
 <style lang="scss">
 .generate-qr-wrapper {
@@ -181,8 +370,8 @@ export default {
 .card-row-data {
   display: flex;
   align-items: center;
-  .col{
-    padding: 7px ;
+  .col {
+    padding: 7px;
   }
 }
 

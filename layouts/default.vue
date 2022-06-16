@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar
-      v-if="$vuetify.breakpoint.mdAndDown"
+      v-if="$vuetify.breakpoint.smAndDown"
       height="70"
       app
       class="app-bar !tw-bg-primary"
@@ -9,18 +9,19 @@
       <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
         {{ app_bar_text }}
       </span>
-      <div class="tw-flex tw-ml-8">
+      <div class="tw-flex tw-gap-x-2.5 !tw-ml-[-10px]">
         <img
+        width="25"
           v-if="$auth.loggedIn"
-          @click="$router.back()"
-          class="back-icon"
+          @click="$auth.logout()"
+          class="back-icon tw-mr-6"
           src="../assets/images/auth/logout.svg"
           alt="logout"
         />
         <img
+          width="25"
           v-if="$route.name !== 'index'"
           @click="$router.back()"
-          class="back-icon"
           src="../assets/images/home/back-icon.svg"
           alt=""
         />
@@ -59,6 +60,8 @@ export default {
           this.app_bar_text = 'إنشاء QR CODE'
         } else if (this.$route.name === 'attendance-table') {
           this.app_bar_text = 'جدول الحضور'
+        }else if (this.$route.name === 'manual-attendance') {
+          this.app_bar_text = 'التحضير اليدوي'
         }
       },
     },
@@ -73,6 +76,8 @@ export default {
       this.app_bar_text = 'الرئيسية'
     } else if (this.$route.name === 'lectures-table') {
       this.app_bar_text = 'جدول المحاضرات'
+    } else if (this.$route.name === 'manual-attendance') {
+      this.app_bar_text = 'التحضير اليدوي'
     }
   },
   beforeCreate() {
@@ -86,7 +91,9 @@ body {
 }
 .v-main {
   max-width: 100%;
-  margin: 0 auto;
+
+  // padding: 0 100px !important;
+  // margin: 0 auto;
 }
 .app-bar {
   max-height: 80px;
@@ -102,9 +109,6 @@ body {
     height: 100% !important;
     color: #fff;
   }
-}
-.back-icon {
-  margin-left: 0px;
 }
 .toggle {
   -webkit-appearance: none;

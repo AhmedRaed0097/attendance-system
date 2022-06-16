@@ -1,35 +1,94 @@
 <template>
   <div>
-    <v-card
-      class="lecture-card"
-      v-for="(lecture, index) in attendanceData"
-      :key="index"
-    >
-      <v-row class="attendance-row-data">
-        <v-col cols="2">
-          <div class="lecture-no">
-            <span>{{ lecture.id }}</span>
-          </div>
-        </v-col>
-        <v-col cols="4" class="pl-0 pr-0">
-          <div class="lecture-name">
-            <span>{{ lecture.subject_name }}</span>
-          </div>
-        </v-col>
-        <v-col cols="4">
-          <div class="lecture-PERIOD">
-            <p class="mb-0">{{ lecture.day }}</p>
-            <span>{{ lecture.from }} - {{ lecture.to }}</span>
-          </div>
-        </v-col>
-        <v-col cols="2">
-          <div class="lecture-PERIOD">
-            <img  width="100%" src="~/assets/images/home/Checkmark.svg" alt="" />
-            <!-- <img v-else width="100%" src="~/assets/images/home/cross.svg" alt="" /> -->
-          </div>
-        </v-col>
-      </v-row>
-    </v-card>
+    <Loading v-if="loading" />
+
+    <v-row v-else>
+      <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="12">
+        <div class="header">
+          <h3 class="tw-text-3xl tw-mt-10 tw-mb-2 tw-text-center">
+            جدول الحضور
+          </h3>
+        </div>
+      </v-col>
+      <v-col cols="12" class="!tw-px-6">
+        <v-data-table
+          :headers="headers"
+          :items="attendanceData"
+          item-key="id"
+          :search="search"
+          :custom-filter="filterLectures"
+          class="elevation-1 tw-border-2 tw-border-primary !tw-rounded-lg"
+          hide-default-footer
+        >
+          <template v-slot:top>
+            <v-text-field
+              v-model="search"
+              clearable
+              label="بحث (اسم المادة)"
+              class="mx-4"
+            ></v-text-field>
+            <!-- <v-select
+              v-model="filterdState"
+              :items="states"
+              clearable
+              validate-on-blur
+              label="الحالة"
+              outlined
+              item-text="text"
+              item-value="value"
+            >
+            </v-select> -->
+          </template>
+          <template v-slot:no-data>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title> لاتوجد بيانات . </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+          <template v-slot:no-results>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <p class="tw-text-sm">
+                    لاتوجد بيانات مطابقة لما تم البحث عنه"<strong>{{
+                      search
+                    }}</strong
+                    >" .
+                  </p>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+          <template v-slot:[`item.id`]="{ item }">
+            <p>{{ item.id }}</p>
+          </template>
+          <template v-slot:[`item.subject_name`]="{ item }">
+            <p>{{ item.subject_name }}</p>
+          </template>
+          <template v-slot:[`item.day`]="{ item }">
+            <p class="mb-0">{{ item.day }}</p>
+            <span>{{ item.from }} - {{ item.to }}</span>
+          </template>
+          <template v-slot:[`item.week_no`]="{ item }">
+            {{ item.week_no }}
+          </template>
+          <template v-slot:[`item.state`]="{ item }">
+            <v-chip
+              v-if="item.state === true || item.state"
+              small
+              color="#dfdfdf"
+              text-color="#22c55e"
+            >
+              حاضر
+            </v-chip>
+            <v-chip v-else small color="#dfdfdf" text-color="#ff5555">
+              غائب
+            </v-chip>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -54,9 +113,37 @@ export default {
           from_to: '12 - 2',
         },
       ],
+      headers: [
+        { text: 'الرقم', align: 'center', value: 'id' },
+        {
+          text: 'إسم المادة',
+          align: 'center',
+          value: 'subject_name',
+        },
+
+        { text: 'اليوم/الفترة', align: 'center', value: 'day' },
+
+        {
+          text: 'رقم الأسبوع',
+          align: 'center',
+          value: 'week_no',
+        },
+
+        {
+          text: 'الحالة',
+          align: 'center',
+          value: 'state'
+        },
+      ],
+      search: '',
+      filterdState: '',
+      states: [
+        { text: 'حاضر', value: '1' },
+        { text: 'غائب', value: '0' },
+      ],
     }
   },
-  fetch() {
+  created() {
     this.$store.dispatch('students/getAttendanceTable', {
       student_id: 3,
     })
@@ -67,6 +154,16 @@ export default {
     },
     loading() {
       return this.$store.state.students.loading
+    },
+  },
+  methods: {
+    filterLectures(value, search, item) {
+      return (
+        value != null &&
+        search != null &&
+        typeof value === 'string' &&
+        value.toString().toUpperCase().indexOf(search.toUpperCase()) !== -1
+      )
     },
   },
 }
@@ -93,4 +190,3 @@ export default {
   }
 }
 </style>
-

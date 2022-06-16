@@ -4,14 +4,11 @@ export const mutations = {}
 
 export const actions = {
   async login({commit},payload){
-    try {
-      let response = await this.$auth.loginWith('local', { data: {...payload , device_name: 'test'}})
-      console.log('response ', response)
-    } catch (err) {
-      console.log('err ', err)
-    }
+
+      return await this.$auth.loginWith('local', { data: {...payload , device_name: 'test'}})
+
   },
-  
+
   async register({ commit }, payload) {
     const response = await this.$axios.$post('/register', payload)
     return response

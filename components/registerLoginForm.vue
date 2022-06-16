@@ -1,8 +1,8 @@
 <template>
-  <v-container class="!tw-min-h-[85vh]">
+  <v-container class="!tw-min-h-[100vh] !tw-flex !tw-justify-center !tw-items-center">
     <v-card
       width="400"
-      class="tw-mt-3 tw-pb-5 tw-border !tw-rounded-xl tw-border-slate-500"
+      class="tw-mt-3 tw-mx-auto tw-pb-5 tw-border !tw-rounded-xl tw-border-slate-500"
     >
       <v-card-title class="tw-absolute-center !tw-pt-0">
         <h2 v-if="formType === 'login'" class="tw-text-2xl tw-font-lalezar">
@@ -86,6 +86,7 @@
             <div class="tw-flex tw-justify-center !tw-p-0">
               <v-btn
                 v-if="formType === 'login'"
+                :loading="loading"
                 width="90%"
                 dark
                 @click="userLogin"
@@ -96,6 +97,7 @@
 
               <v-btn
                 v-else
+                :loading="loading"
                 width="90%"
                 dark
                 @click="userRegister"
@@ -134,6 +136,7 @@ export default {
   },
   data() {
     return {
+      loading: false ,
       userTypes: [
         {
           label: 'طالب',
@@ -141,7 +144,7 @@ export default {
         },
         {
           label: 'محاضر',
-          value: 'lecture',
+          value: 'lecturer',
         },
       ],
       selectUserType: 'student',
@@ -187,7 +190,18 @@ export default {
         email: this.form.email,
         password: this.form.password,
       }
+      this.loading = true
       await this.$store.dispatch('auth/login', formData)
+      .then((response)=>{
+            console.log('responsexx ',{...response});
+            // alert(response)
+          }).catch((error)=>{
+            console.log('error ',{...error});
+
+            alert(error.response.data.message)
+          })
+      this.loading = false
+
     },
     async userRegister() {
       if (this.$refs.form.validate()) {

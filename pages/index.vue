@@ -25,10 +25,10 @@
             />
           </div>
         </div>
-        <div class="user-data tw-text-center tw-mb-6 sm:tw-mt-4">
-          <h3 class="tw-text-xl tw-mb-1">أحمد رائد الظبي</h3>
-          <p class="tw-text-xs !tw-mb-1">علوم الحاسوب</p>
-          <p class="tw-text-xs">المستوى الرابع</p>
+        <div v-if="user" class="user-data tw-text-center tw-mb-6 tw-mt-0 sm:tw-mt-2">
+          <h3 class="tw-text-xl tw-mb-1">{{user.name}}</h3>
+          <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">علوم الحاسوب</p>
+          <p v-if="user.user_type === 'student'" class="tw-text-xs">المستوى الرابع</p>
         </div>
       </v-col>
       <v-row v-if="isStudent === true" class="btns-row">
@@ -42,7 +42,7 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول المحاضرات اليومي </span>
+              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول محاضرات اليوم </span>
             </template>
           </btn-component>
         </v-col>
@@ -107,7 +107,7 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول المحاضرات اليومي </span>
+              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول محاضرات اليوم </span>
             </template>
           </btn-component>
         </v-col>
@@ -174,6 +174,11 @@ export default {
     return {
       type: 'student',
       isStudent: false,
+    }
+  },
+  computed:{
+    user(){
+      return this.$auth.user
     }
   },
   methods: {

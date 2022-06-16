@@ -1,5 +1,10 @@
 <template>
   <div class="tw-h-full">
+    <Alert
+      :alert-visible="showAlert"
+      :alert-data="alertData"
+      @closeModal="isAlertClosed"
+    />
     <div v-if="showQr" class="qr-wrapper">
       <qrcode-vue :size="qr_size" :value="value"></qrcode-vue>
       <center>
@@ -38,16 +43,6 @@
           label="إختر الإسبوع"
           outlined
         >
-          <!-- <template v-slot:no-data>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>
-                No results matching "<strong>{{ search }}</strong
-                >". Press <kbd>enter</kbd> to create a new one
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template> -->
         </v-select>
       </v-col>
       <v-col cols="12">
@@ -63,11 +58,6 @@
         </center>
       </v-col>
     </v-row>
-    <Alert
-      :alert-visible="showAlert"
-      :alert-data="alertData"
-      @closeModal="isAlertClosed"
-    />
   </div>
 </template>
 
@@ -77,7 +67,7 @@ import QrcodeVue from 'qrcode.vue'
 
 export default {
   fetch() {
-    this.$store.dispatch('lecturers/getAllLectures', 1)
+    this.$store.dispatch('lecturers/getLecturerLectures', 1)
   },
   data: () => ({
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
