@@ -1,5 +1,5 @@
 <template>
-  <div class="add-student-wrapper">
+  <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
@@ -13,7 +13,12 @@
         </h2>
       </v-card-title>
       <v-form v-model="valid" ref="form">
-        <v-row v-if="methodType === 'add' || (methodType === 'edit' && table)">
+        <v-row
+          v-if="
+            methodType === 'add' ||
+            (methodType === 'edit' && form.title.length > 0)
+          "
+        >
           <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.major"
@@ -46,8 +51,8 @@
           <v-col cols="12" md="6">
             <p
               class="mt-4 pointer"
-              v-if="form.title"
-              v-html="this.tableHtmlTitle"
+              v-if="tableHtmlTitle"
+              v-html="tableHtmlTitle"
             ></p>
             <v-btn text class="mt-4" v-else @click="showTableTitle"
               >عرض عنوان الجدول</v-btn
@@ -56,10 +61,10 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                v-if="methodType === 'add'"
                 width="140"
                 height="45"
                 class="font-weight-bold"
-                v-if="methodType === 'add'"
                 @click="addTable"
                 >إضافة</v-btn
               >
@@ -77,11 +82,11 @@
         <v-row v-else>
           <v-col cols="12">
             <v-autocomplete
-              v-model="form.id"
+              v-model="form"
               :items="tablesList"
               item-text="title"
-              item-value="id"
               outlined
+              return-object
               label="إختيار جدول"
             ></v-autocomplete>
           </v-col>
@@ -130,14 +135,22 @@ export default {
       this.fillMajors()
     },
     'form.major'(val) {
-      const selectedMajor = this.majorsList.filter((majorData) => majorData.major === this.form.major )
-      if(selectedMajor.length > 0){
-        this.selectedMajorLevels=[]
+      const selectedMajor = this.majorsList.filter(
+        (majorData) => majorData.major === this.form.major
+      )
+      if (selectedMajor.length > 0) {
+        this.selectedMajorLevels = []
         for (let index = 0; index < selectedMajor[0].levels; index++) {
           this.selectedMajorLevels[index] = this.levels[index]
-
         }
       }
+      this.tableHtmlTitle = null
+    },
+    'form.level'(val) {
+      this.tableHtmlTitle = null
+    },
+    'form.batch_type'(val) {
+      this.tableHtmlTitle = null
     },
   },
   data: () => ({
@@ -146,7 +159,7 @@ export default {
     firstname: '',
     lastname: '',
     tablesList: [],
-    selectedMajorLevels:[],
+    selectedMajorLevels: [],
     tableHtmlTitle: '',
     form: {
       title: '',
@@ -250,9 +263,8 @@ export default {
             formData.append(key, this.form[key])
         }
         this.$store.dispatch('admin/addTable', formData).then(() => {
-          if(this.response.status_code === 200){
+          if (this.response.status_code === 200) {
             this.form = {}
-
           }
         })
       }
@@ -315,9 +327,9 @@ export default {
     majors() {
       return this.$store.state.admin.majors
     },
-     response(){
+    response() {
       return this.$store.state.admin.response
-    }
+    },
   },
 }
 </script>

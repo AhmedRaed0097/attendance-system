@@ -23,8 +23,6 @@ export const actions = {
       .loginWith('local', {
         data: formData,
       })
-      .then((response) => {})
-      .catch((error) => {})
   },
   async scanQr({ commit }, payload) {
     return await this.$axios.$post(

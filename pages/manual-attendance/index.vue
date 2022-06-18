@@ -23,6 +23,18 @@
               {{ manualAteendanceData.attendance_data.subject_name }}
             </p>
             <p>
+              التخصص :
+              {{ manualAteendanceData.attendance_data.major }}
+            </p>
+            <p>
+              المستوى :
+              {{ manualAteendanceData.attendance_data.level }}
+            </p>
+            <p>
+              نوع القبول :
+              {{ manualAteendanceData.attendance_data.batch_type }}
+            </p>
+            <p>
               رقم الاسبوع : {{ manualAteendanceData.attendance_data.week_no }}
             </p>
           </v-col>
@@ -74,7 +86,6 @@
               >
             </v-col>
           </v-row>
-
           <v-row>
             <v-col cols="12">
               <v-row>
@@ -85,7 +96,11 @@
                     item-key="student_id"
                     :search="search"
                     :custom-filter="filterStudents"
-                    class="elevation-1 tw-border-2 tw-border-primary !tw-rounded-lg"
+                    class="
+                      elevation-1
+                      tw-border-2 tw-border-primary
+                      !tw-rounded-lg
+                    "
                     hide-default-footer
                   >
                     <template v-slot:top>
@@ -123,23 +138,7 @@
                     <template v-slot:[`item.stuednt_name`]="{ item }">
                       <p>{{ item.stuednt_name }}</p>
                     </template>
-                    <template v-slot:[`item.major`]="{ item }">
-                      <p>{{ item.major }}</p>
-                    </template>
-                    <template v-slot:[`item.batch_type`]="{ item }">
-                      <p>{{ item.batch_type }}</p>
-                    </template>
-                    <template v-slot:[`item.level`]="{ item }">
-                      <p>{{ item.level }}</p>
-                    </template>
                     <template v-slot:[`item.state`]="{ item }">
-                      <!-- <img
-                  v-if="item.state === true || item.state === 1"
-                  width="30"
-                  src="~/assets/images/home/Checkmark.svg"
-                  alt=""
-                  class="tw-mx-auto tw-cursor-pointer"
-                /> -->
                       <v-chip
                         v-if="item.state === true || item.state"
                         small
@@ -158,18 +157,10 @@
                       >
                         غائب
                       </v-chip>
-                      <!-- <img
-                  v-else
-                  width="30"
-                  src="~/assets/images/home/cross.svg"
-                  alt=""
-                  class="tw-mx-auto tw-cursor-pointer"
-                /> -->
                     </template>
                   </v-data-table>
                 </v-col>
               </v-row>
-              <!-- </v-card> -->
             </v-col>
           </v-row>
         </v-row>
@@ -177,7 +168,11 @@
           v-if="!manualAteendanceData.attendance_data"
           class="generate-qr-wrapper"
         >
-          <v-col v-if="$vuetify.breakpoint.mdAndUp" cols="12" class="tw-mt-8 tw-mb-16">
+          <v-col
+            v-if="$vuetify.breakpoint.mdAndUp"
+            cols="12"
+            class="tw-mt-8 tw-mb-16"
+          >
             <h3 class="!tw-text-center !tw-text-4xl">التحضير اليدوي</h3>
           </v-col>
           <v-col cols="12">
@@ -261,17 +256,6 @@ export default {
         sortable: false,
       },
 
-      { text: 'التخصص', align: 'center', value: 'major', sortable: false },
-
-      {
-        text: 'نوع القبول',
-        align: 'center',
-        value: 'batch_type',
-        sortable: false,
-      },
-
-      { text: 'المستوى', align: 'center', value: 'level', sortable: false },
-
       { text: 'الحالة', align: 'center', value: 'state', sortable: false },
     ],
     requiredRules: [(v) => !!v || 'الحقل مطلوب'],
@@ -291,7 +275,7 @@ export default {
   },
   computed: {
     lecturerLectures() {
-      return this.$store.state.lecturers.all_lectures
+      return this.$store.state.lecturers.lecturerLectures
     },
     manualAteendanceData() {
       return this.$store.state.lecturers.manual_attendance_data
@@ -312,7 +296,7 @@ export default {
             this.setAlertData(response)
           })
           .catch((error) => {
-             this.setAlertData(error.response.data)
+            this.setAlertData(error.response.data)
           })
       } else {
       }
@@ -320,11 +304,22 @@ export default {
     changeAttendanceState(studentId) {
       console.log('this.lecture.lecture_id ', this.lecture.lecture_id)
       console.log('week ', this.week)
-      this.$store.dispatch('lecturers/changeAttendanceState', {
-        lecture_id: this.lecture.lecture_id,
-        student_id: studentId,
-        week_no: this.week,
-      })
+      this.$store
+        .dispatch('lecturers/changeAttendanceState', {
+          lecture_id: this.lecture.lecture_id,
+          student_id: studentId,
+          week_no: this.week,
+        })
+        .then(async (response) => {
+          await this.$store.dispatch('lecturers/getStudentsFroManualAttendance', {
+            lecture_id: this.lecture.lecture_id,
+            week_no: this.week,
+          })
+            this.setAlertData(response)
+        })
+        .catch((error) => {
+          this.setAlertData(error.response.data)
+        })
     },
     filterStudents(value, search, item) {
       return (

@@ -28,8 +28,8 @@ export const actions = {
       .loginWith('local', {
         data: formData,
       })
-      .then((response) => {})
-      .catch((error) => {})
+      .then((response) => { })
+      .catch((error) => { })
   },
   async getStudentsFroManualAttendance({ commit }, payload) {
     commit('SETLOADING', true)
@@ -74,7 +74,7 @@ export const actions = {
   },
   async changeAttendanceState({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
-    return await this.$axios
+    const response = await this.$axios
       .$post(
         `student-attend/${payload.student_id}/${payload.lecture_id}/${payload.week_no}`,
         {
@@ -84,17 +84,8 @@ export const actions = {
           },
         }
       )
-      .then(() => {
-        commit('SETLOADING', false)
-        dispatch('getStudentsFroManualAttendance', {
-          lecture_id: payload.lecture_id,
-          week_no: payload.week_no,
-        })
-      })
-      .catch((error) => {
-        commit('SETLOADING', false)
-        console.log('Error ', error)
-      })
+    commit('SETLOADING', false)
+    return response
   },
   async generateQrCode({ commit }, payload) {
     commit('SETLOADING', true)

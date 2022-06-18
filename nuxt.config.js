@@ -59,8 +59,8 @@ server:{
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: ' http://192.168.55.124:8000/api',
-    // baseURL: 'http://127.0.0.1:8000/api',
-    baseURL: 'https://students-attendance-api.herokuapp.com/api/',
+    baseURL: 'http://127.0.0.1:8000/api',
+    // baseURL: 'https://students-attendance-api.herokuapp.com/api/',
   },
 
   router: {
@@ -91,7 +91,7 @@ server:{
           user: {
             url: '/user',
             method: 'get',
-            propertyName: 'data.user'
+            propertyName: 'user'
           }
         }
       }
@@ -120,7 +120,7 @@ server:{
     },
     workbox: {
       cachingExtensions: '@/plugins/workbox-sync.js',
-      enabled: true //should be off actually per workbox docs due to complications when used in prod
+      enabled: false //should be off actually per workbox docs due to complications when used in prod
     }
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

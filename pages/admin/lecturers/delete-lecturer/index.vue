@@ -1,5 +1,5 @@
 <template>
-  <div class="add-member-wrapper">
+  <div class="add-member-wrapper tw-w-full">
     <lecturer-form :method-type="'delete'" />
   </div>
 </template>

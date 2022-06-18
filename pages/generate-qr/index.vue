@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     lecturerLectures() {
-      return this.$store.state.lecturers.all_lectures
+      return this.$store.state.lecturers.lecturerLectures
     },
   },
   watch: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="add-student-wrapper">
+  <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">

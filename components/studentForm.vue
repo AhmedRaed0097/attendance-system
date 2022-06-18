@@ -1,5 +1,5 @@
 <template>
-  <div class="add-student-wrapper">
+  <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-student-title">
@@ -267,19 +267,22 @@ export default {
 </script>
 
 <style lang="scss">
-.add-student-wrapper {
+.form-wrapper {
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
 
   .v-card {
     height: 500px;
-    width: 900px;
     padding: 10px 30px;
     .v-card__title .add-student-title {
       width: 100% !important;
       text-align: center;
       margin-bottom: 30px;
+    }
+    @media(min-width: 1264px ) and (max-width : 1400px) {
+          padding-right: 190px;
     }
   }
 }

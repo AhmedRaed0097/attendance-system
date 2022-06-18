@@ -32,19 +32,19 @@
   font-family:'Cairo-Bold';
 }
 
-.small-card {
-    width: 100%;
+// .small-card {
+//     width: 100%;
 
-    .add-student-title {
-        margin-left: 65px;
-    }
+//     .add-student-title {
+//         margin-left: 65px;
+//     }
 
-    .v-form {
-        width: 48%;
-        margin: 0 auto;
-        padding-left: 60px;
-    }
-}
+//     .v-form {
+//         width: 48%;
+//         margin: 0 auto;
+//         padding-left: 60px;
+//     }
+// }
 
 .v-alert {
     position: fixed !important;
@@ -91,4 +91,7 @@
     font-weight: normal;
     color: #e5e5e5;
   }
+}
+.admin-alert{
+  z-index: 30 !important;
 }

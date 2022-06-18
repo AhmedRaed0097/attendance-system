@@ -62,7 +62,7 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 5000);
+        }, 3000);
         dispatch('getTables')
 
         commit('SETLOADING', false)
@@ -71,7 +71,7 @@ export const actions = {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 5000);
+        }, 3000);
         commit('SETLOADING', false)
         console.log('Error ', error)
       })
@@ -82,10 +82,18 @@ export const actions = {
       .$get('get-tables', payload)
       .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         commit('SETTABLES', response.data)
       })
       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -93,12 +101,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-table', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getTables')
       })
       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -107,11 +123,19 @@ export const actions = {
     return await this.$axios
       .$delete(`delete-table/${payload}`)
       .then((response) => {
-        dispatch('getTables')
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getTables')
       })
       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -123,12 +147,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-lecturer', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLecturers')
       })
       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -137,11 +169,19 @@ export const actions = {
     return await this.$axios
       .$get('get-lecturers', payload)
       .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         commit('SETLECTURERS', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -149,12 +189,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-lecturer', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLecturers')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -162,12 +210,16 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-lecturer/${payload}`)
-      .then(() => {
+      .then((response) => {
         dispatch('getLecturers')
         commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -176,12 +228,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('import-lecturers/', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLecturers')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -195,12 +255,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-student', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getStudents')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -209,11 +277,15 @@ export const actions = {
     return await this.$axios
       .$get('get-students', payload)
       .then((response) => {
+        commit('SETLOADING', false)
         commit('SETSTUDENTS', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -221,12 +293,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-student', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getStudents')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -234,12 +314,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-student/${payload}`)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getStudents')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -247,12 +335,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('import-students/', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getStudents')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -265,12 +361,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-subject', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getSubjects')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -279,11 +383,15 @@ export const actions = {
     return await this.$axios
       .$get('get-subjects', payload)
       .then((response) => {
+        commit('SETLOADING', false)
         commit('SETSUBJECTS', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -291,12 +399,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-subject', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getSubjects')
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -304,12 +420,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-subject/${payload}`)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getSubjects')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -318,12 +442,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('import-subjects/', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getSubjects')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -335,12 +467,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-period', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getPeriods')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -349,11 +489,15 @@ export const actions = {
     return await this.$axios
       .$get('get-periods', payload)
       .then((response) => {
+        commit('SETLOADING', false)
         commit('SETPERIODS', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -361,12 +505,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-period', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getPeriods')
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -374,12 +526,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-period/${payload}`)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getPeriods')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -388,12 +548,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('import-periods/', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getPeriods')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -406,13 +574,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-lecture', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLectures')
-
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -421,11 +596,15 @@ export const actions = {
     return await this.$axios
       .$get('get-lectures', payload)
       .then((response) => {
+        commit('SETLOADING', false)
         commit('SETLECTURES', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -433,12 +612,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-lecture', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLectures')
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -446,12 +633,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-lecture/${payload}`)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getLectures')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -464,13 +659,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('add-major', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getMajors')
-
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -479,11 +681,15 @@ export const actions = {
     return await this.$axios
       .$get('get-majors', payload)
       .then((response) => {
+        commit('SETLOADING', false)
         commit('SETMAJORS', response.data)
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -491,12 +697,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('update-major', payload)
-      .then(() => {
+      .then((response) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getMajors')
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -504,12 +718,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$delete(`delete-major/${payload}`)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getMajors')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },
@@ -518,12 +740,20 @@ export const actions = {
     commit('SETLOADING', true)
     return await this.$axios
       .$post('import-majors/', payload)
-      .then(() => {
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         dispatch('getMajors')
-        commit('SETLOADING', false)
       })
-      .catch((error) => {
+       .catch((error) => {
         commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
         console.log('Error ', error)
       })
   },

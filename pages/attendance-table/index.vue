@@ -114,25 +114,28 @@ export default {
         },
       ],
       headers: [
-        { text: 'الرقم', align: 'center', value: 'id' },
+        { text: 'الرقم', align: 'center', value: 'id', sortable: true },
         {
           text: 'إسم المادة',
           align: 'center',
           value: 'subject_name',
+          sortable: true,
         },
 
-        { text: 'اليوم/الفترة', align: 'center', value: 'day' },
+        { text: 'اليوم/الفترة', align: 'center', value: 'day', sortable: true },
 
         {
           text: 'رقم الأسبوع',
           align: 'center',
           value: 'week_no',
+          sortable: true,
         },
 
         {
           text: 'الحالة',
           align: 'center',
-          value: 'state'
+          value: 'state',
+          sortable: true,
         },
       ],
       search: '',
