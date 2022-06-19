@@ -4,7 +4,7 @@
       width="400"
       class="tw-mt-3 tw-mx-auto tw-pb-5 tw-border !tw-rounded-xl tw-border-slate-500"
     >
-      <v-card-title class="tw-absolute-center !tw-pt-0">
+      <v-card-title class="!tw-pt-0">
         <h2 v-if="formType === 'login'" class="tw-text-2xl tw-font-lalezar">
           تسجيل الدخول
         </h2>

@@ -101,9 +101,11 @@
                 >تعديل</v-btn
               >
               <v-btn
-                width="140"
+                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 v-if="methodType === 'delete'"
                 @click="deleteLecture"
                 >حذف</v-btn

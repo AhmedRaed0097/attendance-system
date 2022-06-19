@@ -63,7 +63,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'add'"
                 @click="addPeriod"
                 >إضافة</v-btn
@@ -71,15 +73,19 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'edit'"
                 @click="updatePeriod"
                 >تعديل</v-btn
               >
               <v-btn
-                width="140"
+               width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 v-if="methodType === 'delete'"
                 @click="deletePeriod"
                 >حذف</v-btn

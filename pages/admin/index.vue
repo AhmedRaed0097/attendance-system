@@ -1,9 +1,21 @@
 <template>
   <div class="home-wrapper">
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea, hic
-      perspiciatis. Sint, rem? Reiciendis, quibusdam perferendis debitis eius.
-    </p>
+    <div class="tw-min-h-[100vh] tw-pt-5 tw-flex tw-flex-col tw-gap-32">
+      <div class="title-containercenter tw-pt-3">
+        <h3 class="!tw-text-center tw-text-4xl !tw-py-5 ">
+            نظام تحضير الطلاب باستخدام تقنية ال
+            <span class="tw-text-primary">
+              (QR Code)
+
+            </span>
+        </h3>
+
+      </div>
+      <div class="image-container">
+        <img width="100%" src="~/assets/images/admin/home-page.jpg" alt="home-image">
+
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,7 +29,6 @@ export default {
 .home-wrapper{
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
 }
 </style>

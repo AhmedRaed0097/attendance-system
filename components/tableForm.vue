@@ -62,9 +62,11 @@
             <div class="add-btn-wrapper">
               <v-btn
                 v-if="methodType === 'add'"
-                width="140"
+                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 @click="addTable"
                 >إضافة</v-btn
               >
@@ -72,7 +74,9 @@
                 v-else
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 @click="updateTable"
                 >تعديل</v-btn
               >
@@ -96,7 +100,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 @click="deleteTable"
                 >حذف</v-btn
               >

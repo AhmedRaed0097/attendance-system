@@ -43,7 +43,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'add'"
                 @click="addSubject"
                 >إضافة</v-btn
@@ -51,7 +53,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'edit'"
                 @click="updateSubject"
                 >تعديل</v-btn
@@ -59,7 +63,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 v-if="methodType === 'delete'"
                 @click="deleteSubject"
                 >حذف</v-btn
@@ -153,11 +159,11 @@ export default {
     deleteSubject() {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteSubject', this.form.id).then(() => {
-           if(this.response.status_code === 200){
-          this.form = {
-            subject_name: '',
-          }
-          this.$refs.form.resetValidation()
+          if (this.response.status_code === 200) {
+            this.form = {
+              subject_name: '',
+            }
+            this.$refs.form.resetValidation()
           }
         })
       }
@@ -172,9 +178,9 @@ export default {
     subjects() {
       return this.$store.state.admin.subjects
     },
-     response(){
+    response() {
       return this.$store.state.admin.response
-    }
+    },
   },
 }
 </script>

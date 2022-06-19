@@ -27,10 +27,7 @@
           </v-col>
         </v-row>
         <v-row v-else>
-          <v-col
-            cols="12"
-            md="6"
-          >
+          <v-col cols="12" md="6">
             <v-text-field
               v-model="form.lecturer_name"
               :rules="nameRules"
@@ -39,10 +36,7 @@
               outlined
             ></v-text-field>
           </v-col>
-          <v-col
-            cols="12"
-            md="6"
-          >
+          <v-col cols="12" md="6">
             <v-autocomplete
               v-model="form.state"
               :items="items"
@@ -67,9 +61,11 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
-                width="140"
+                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'add'"
                 @click="addLecturer"
                 >إضافة</v-btn
@@ -77,7 +73,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'edit'"
                 @click="updateLecturer"
                 >تعديل</v-btn
@@ -85,7 +83,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 v-if="methodType === 'delete'"
                 @click="deleteLecturer"
                 >حذف</v-btn

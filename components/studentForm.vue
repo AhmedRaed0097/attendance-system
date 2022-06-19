@@ -78,8 +78,9 @@
             <div class="add-btn-wrapper">
               <v-btn
                 width="140"
-                height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'add'"
                 @click="addStudent"
                 >إضافة</v-btn
@@ -87,7 +88,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 v-if="methodType === 'edit'"
                 @click="updateStudent"
                 >تعديل</v-btn
@@ -95,7 +98,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-error"
+                dark
                 v-if="methodType === 'delete'"
                 @click="deleteStudent"
                 >حذف</v-btn
@@ -281,8 +286,8 @@ export default {
       text-align: center;
       margin-bottom: 30px;
     }
-    @media(min-width: 1264px ) and (max-width : 1400px) {
-          padding-right: 190px;
+    @media (min-width: 1264px) and (max-width: 1490px) {
+      // padding-right: 190px;
     }
   }
 }

@@ -1,7 +1,15 @@
 <template>
-  <v-navigation-drawer absolute :right="true" v-model="drawer">
-    <v-sheet color="user-data grey lighten-4" class="pa-4">
-      <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
+  <v-navigation-drawer
+    absolute
+    :right="true"
+    v-model="drawer"
+    class="!tw-rounded-md !tw-border-primary !tw-border-2 !tw-border-solid !tw-bg-admin-primary"
+  >
+    <v-sheet
+      color="#fff"
+      class="user-data !tw-rounded-md tw-py-4 !tw-bg-admin-primary-dark"
+    >
+      <v-avatar class="mb-4" color="#fff" size="64"></v-avatar>
 
       <div>john@vuetifyjs.com</div>
     </v-sheet>
@@ -38,13 +46,18 @@
           >
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in import_links"
+                v-for="[route, text] in import_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -86,13 +99,18 @@
           <ul v-show="open_majors_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in majors_links"
+                v-for="[route, text] in majors_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -134,13 +152,18 @@
           <ul v-show="open_student_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in student_links"
+                v-for="[route, text] in student_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -181,13 +204,18 @@
           <ul v-show="open_lecturer_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in lecturer_links"
+                v-for="[route, text] in lecturer_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -227,13 +255,18 @@
           <ul v-show="open_subject_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in subject_links"
+                v-for="[route, text] in subject_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -274,13 +307,18 @@
           <ul v-show="open_period_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in period_links"
+                v-for="[route, text] in period_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -321,13 +359,18 @@
           <ul v-show="open_lectures_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in lecture_links"
+                v-for="[route, text] in lecture_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -367,13 +410,18 @@
           <ul v-show="open_tables_options === true" class="versions-options">
             <li class="nav-item-link">
               <v-list-item
-                v-for="[route, icon, text] in table_links"
+                v-for="[route, text] in table_links"
                 :key="text"
                 link
                 :to="route"
               >
                 <v-list-item-icon>
-                  <v-icon>{{ icon }}</v-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
                 </v-list-item-icon>
 
                 <v-list-item-content>
@@ -411,86 +459,46 @@ export default {
       open_period_options: false,
       open_lectures_options: false,
       student_links: [
-        ['/admin/students/add-student', 'mdi-inbox-arrow-down', 'إضافة طالب'],
-        ['/admin/students/edit-student', 'mdi-inbox-arrow-down', 'تعديل طالب'],
-        ['/admin/students/delete-student', 'mdi-inbox-arrow-down', 'حذف طالب'],
+        ['/admin/students/add-student', 'إضافة طالب'],
+        ['/admin/students/edit-student', 'تعديل طالب'],
+        ['/admin/students/delete-student', 'حذف طالب'],
       ],
       lecturer_links: [
-        [
-          '/admin/lecturers/add-lecturer',
-          'mdi-inbox-arrow-down',
-          'إضافة محاضر',
-        ],
-        [
-          '/admin/lecturers/edit-lecturer',
-          'mdi-inbox-arrow-down',
-          'تعديل محاضر',
-        ],
-        [
-          '/admin/lecturers/delete-lecturer',
-          'mdi-inbox-arrow-down',
-          'حذف محاضر',
-        ],
+        ['/admin/lecturers/add-lecturer', 'إضافة محاضر'],
+        ['/admin/lecturers/edit-lecturer', 'تعديل محاضر'],
+        ['/admin/lecturers/delete-lecturer', 'حذف محاضر'],
       ],
       subject_links: [
-        ['/admin/subjects/add-subject', 'mdi-inbox-arrow-down', 'إضافة مادة'],
-        ['/admin/subjects/edit-subject', 'mdi-inbox-arrow-down', 'تعديل مادة'],
-        ['/admin/subjects/delete-subject', 'mdi-inbox-arrow-down', 'حذف مادة'],
+        ['/admin/subjects/add-subject', 'إضافة مادة'],
+        ['/admin/subjects/edit-subject', 'تعديل مادة'],
+        ['/admin/subjects/delete-subject', 'حذف مادة'],
       ],
       period_links: [
-        ['/admin/periods/add-period', 'mdi-inbox-arrow-down', 'إضافة فترة'],
-        ['/admin/periods/edit-period', 'mdi-inbox-arrow-down', 'تعديل فترة'],
-        ['/admin/periods/delete-period', 'mdi-inbox-arrow-down', 'حذف فترة'],
+        ['/admin/periods/add-period', 'إضافة فترة'],
+        ['/admin/periods/edit-period', 'تعديل فترة'],
+        ['/admin/periods/delete-period', 'حذف فترة'],
       ],
       lecture_links: [
-        ['/admin/lectures/add-lecture', 'mdi-inbox-arrow-down', 'إضافة محاضرة'],
-        [
-          '/admin/lectures/edit-lecture',
-          'mdi-inbox-arrow-down',
-          'تعديل محاضرة',
-        ],
-        [
-          '/admin/lectures/delete-lecture',
-          'mdi-inbox-arrow-down',
-          'حذف محاضرة',
-        ],
+        ['/admin/lectures/add-lecture', 'إضافة محاضرة'],
+        ['/admin/lectures/edit-lecture', 'تعديل محاضرة'],
+        ['/admin/lectures/delete-lecture', 'حذف محاضرة'],
       ],
       table_links: [
-        ['/admin/tables/add-table', 'mdi-inbox-arrow-down', 'إضافة جدول'],
-        ['/admin/tables/edit-table', 'mdi-inbox-arrow-down', 'تعديل جدول'],
-        ['/admin/tables/delete-table', 'mdi-inbox-arrow-down', 'حذف جدول'],
+        ['/admin/tables/add-table', 'إضافة جدول'],
+        ['/admin/tables/edit-table', 'تعديل جدول'],
+        ['/admin/tables/delete-table', 'حذف جدول'],
       ],
       majors_links: [
-        ['/admin/majors/add-major', 'mdi-inbox-arrow-down', 'إضافة تخصص'],
-        ['/admin/majors/edit-major', 'mdi-inbox-arrow-down', 'تعديل تخصص'],
-        ['/admin/majors/delete-major', 'mdi-inbox-arrow-down', 'حذف تخصص'],
+        ['/admin/majors/add-major', 'إضافة تخصص'],
+        ['/admin/majors/edit-major', 'تعديل تخصص'],
+        ['/admin/majors/delete-major', 'حذف تخصص'],
       ],
       import_links: [
-        [
-          '/admin/import-data/import-majors-data',
-          'mdi-inbox-arrow-down',
-          'بيانات التخصصات',
-        ],
-        [
-          '/admin/import-data/import-students-data',
-          'mdi-inbox-arrow-down',
-          'بيانات الطلاب',
-        ],
-        [
-          '/admin/import-data/import-lecturers-data',
-          'mdi-inbox-arrow-down',
-          'بيانات المحاضرين',
-        ],
-        [
-          '/admin/import-data/import-subjects-data',
-          'mdi-inbox-arrow-down',
-          'بيانات المواد',
-        ],
-        [
-          '/admin/import-data/import-periods-data',
-          'mdi-inbox-arrow-down',
-          'بيانات الفترات',
-        ],
+        ['/admin/import-data/import-majors-data', 'بيانات التخصصات'],
+        ['/admin/import-data/import-students-data', 'بيانات الطلاب'],
+        ['/admin/import-data/import-lecturers-data', 'بيانات المحاضرين'],
+        ['/admin/import-data/import-subjects-data', 'بيانات المواد'],
+        ['/admin/import-data/import-periods-data', 'بيانات الفترات'],
       ],
     }
   },
@@ -588,17 +596,50 @@ export default {
 .add-member-wrapper {
   min-height: 100vh;
   width: 100%;
+  background: #f1f1f1;
   display: flex;
   justify-content: center;
-  .form-wrapper .v-card {
-    box-shadow: none !important;
-    width: 100%;
-    h2 {
-      font-size: 35px;
-      margin-top: 62px;
-      margin-bottom: 140px !important;
+  align-items: center;
+  .form-wrapper {
+    height: 90vh;
+    .v-card {
+      box-shadow: none !important;
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #7C3E66;
+      border-radius: 10px;
+      @media (min-width: 750px) {
+        margin-left: 9%;
+      }
+      @media (min-width: 750px) and (max-width: 1264px) {
+        width: 80%;
+      }
+      @media (min-width: 1264px) {
+        width: 65%;
+      }
+      @media (min-width: 1700px) {
+        width: 72%;
+      }
+      @media (min-width: 2000px) {
+        width: 77%;
+      }
+      h2 {
+        font-size: 35px;
+        margin-top: 62px;
+        margin-bottom: 60px !important;
+        @media (max-width: 1000px) {
+          font-size: 25px;
+        }
+      }
+      .v-card__title {
+        margin-bottom: 200px;
+      }
     }
   }
+}
+.add-btn-wrapper{
+  margin-top: 50px;
 }
 .v-navigation-drawer {
   height: 100vh !important;
@@ -648,7 +689,11 @@ export default {
   right: 10px !important;
   top: -24px;
 }
+.active {
+  background: rgb(18, 85, 185);
+}
 ul {
+  padding: 0 !important;
   li .v-list-item {
     padding: 0;
   }

@@ -56,7 +56,9 @@
               <v-btn
                 width="140"
                 height="45"
-                class="font-weight-bold"
+                rounded
+                class="!tw-py-6 !tw-bg-primary"
+                dark
                 @click="importData"
                 >إستيراد</v-btn
               >

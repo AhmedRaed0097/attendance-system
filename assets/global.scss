@@ -6,7 +6,12 @@
   .tw-absolute-center {
     @apply tw-absolute tw-top-0 tw-left-1/2 tw-translate-x-[-50%]
   }
+  .primary-btn{
+    @apply tw-py-6 tw-bg-primary
+  }
+
 }
+
 @font-face {
   font-family: 'Cairo-Light';
   src: url(~/assets/fonts/Cairo/Cairo-Light.ttf);

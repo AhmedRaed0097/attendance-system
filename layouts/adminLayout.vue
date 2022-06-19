@@ -36,14 +36,12 @@
         />
       </v-btn>
     <v-row >
-    <v-container>
 
       <v-col cols="12">
         <v-main>
           <Nuxt />
         </v-main>
       </v-col>
-    </v-container>
     </v-row>
   </v-app>
 </template>

@@ -48,8 +48,8 @@
       <v-col cols="12">
         <center>
           <v-btn
-            rounded
             :loading="loading"
+            rounded
             class="!tw-py-6 !tw-bg-primary"
             dark
             @click="generateQrCode"

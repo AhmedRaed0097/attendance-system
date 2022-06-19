@@ -91,7 +91,7 @@ server:{
           user: {
             url: '/user',
             method: 'get',
-            propertyName: 'user'
+            propertyName: 'data.user'
           }
         }
       }
