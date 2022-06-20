@@ -153,10 +153,10 @@ export default {
   },
   computed: {
     attendanceData() {
-      return this.$store.state.students.attendance_table_data
+      return this.$store.state.student.attendance_table_data
     },
     loading() {
-      return this.$store.state.students.loading
+      return this.$store.state.student.loading
     },
   },
   methods: {

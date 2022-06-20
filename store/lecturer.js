@@ -23,14 +23,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }, formData) {
-    await this.$auth
-      .loginWith('local', {
-        data: formData,
-      })
-      .then((response) => { })
-      .catch((error) => { })
-  },
+  async login({commit},payload){
+
+    // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
+
+
+    const response = await this.$axios.$post('/lecturer/login', payload)
+    return response
+
+},
   async getStudentsFroManualAttendance({ commit }, payload) {
     commit('SETLOADING', true)
 

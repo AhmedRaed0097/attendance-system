@@ -70,7 +70,7 @@ server:{
     redirect: {
       login: '/auth/login',
       logout: '/auth/login',
-      callback: '/auth/login',
+      callback: false,
       home: '/'
 
     },
@@ -89,12 +89,70 @@ server:{
           //   method: 'post',
           // },
           user: {
-            url: '/user',
+            url: '/student/user',
             method: 'get',
             propertyName: 'data.user'
           }
         }
-      }
+      },
+      myown: {
+        endpoints: {
+          login: {
+            url: '/student/login',
+            method: 'post',
+            propertyName: 'data.token'
+          },
+          logout: false
+          ,
+          // logout: {
+          //   url: '/logout',
+          //   method: 'post',
+          // },
+          user: {
+            url: '/student/user',
+            method: 'get',
+            propertyName: 'data.user'
+          }
+        }
+      },
+      laravelJWT: {
+        url: '/laravel',
+        endpoints: {
+          login: {
+            url: '/api/auth/jwt/login'
+          },
+          refresh: {
+            url: '/api/auth/jwt/refresh'
+          },
+          logout: {
+            url: '/api/auth/jwt/logout'
+          },
+          user: {
+            url: '/api/auth/jwt/user'
+          }
+        }
+      },
+      // student: {
+      //   scheme: '~/schemes/customScheme',
+      //   endpoints: {
+      //     login: {
+      //       url: '/student/login',
+      //       method: 'post',
+      //       propertyName: 'data.token'
+      //     },
+      //     logout: false
+      //     ,
+      //     // logout: {
+      //     //   url: '/logout',
+      //     //   method: 'post',
+      //     // },
+      //     user: {
+      //       url: '/student/user',
+      //       method: 'get',
+      //       propertyName: 'data.user'
+      //     }
+      //   }
+      // }
     },
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa

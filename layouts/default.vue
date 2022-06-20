@@ -13,7 +13,7 @@
         <img
         width="25"
           v-if="$auth.loggedIn"
-          @click="$auth.logout()"
+          @click="logout()"
           class="back-icon tw-mr-6"
           src="../assets/images/auth/logout.svg"
           alt="logout"
@@ -44,10 +44,16 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('auth/logout').then(() => {
+      // this.$auth.logout()
+      this.$store.dispatch(`${this.user.user_type}/logout`).then(() => {
         window.location.reload()
       })
     },
+  },
+  computed:{
+    user(){
+      return this.$auth.user
+    }
   },
   watch: {
     '$route.name': {

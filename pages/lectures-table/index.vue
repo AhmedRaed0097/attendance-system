@@ -108,13 +108,13 @@ export default {
   computed: {
     lecturesData() {
       if (this.$auth.user.user_type === 'student') {
-        return this.$store.state.students.lectures_table_data
+        return this.$store.state.student.lectures_table_data
       } else {
-        return this.$store.state.lecturers.lecturerLectures
+        return this.$store.state.lecturer.lecturerLectures
       }
     },
     loading() {
-      return this.$store.state.students.loading
+      return this.$store.state.student.loading
     },
   },
   methods: {

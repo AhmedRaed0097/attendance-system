@@ -275,13 +275,13 @@ export default {
   },
   computed: {
     lecturerLectures() {
-      return this.$store.state.lecturers.lecturerLectures
+      return this.$store.state.lecturer.lecturerLectures
     },
     manualAteendanceData() {
-      return this.$store.state.lecturers.manual_attendance_data
+      return this.$store.state.lecturer.manual_attendance_data
     },
     loading() {
-      return this.$store.state.lecturers.loading
+      return this.$store.state.lecturer.loading
     },
   },
   methods: {

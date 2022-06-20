@@ -18,11 +18,24 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }, formData) {
-    await this.$auth
-      .loginWith('local', {
-        data: formData,
-      })
+  async login({ commit }, payload) {
+    console.log('enter login');
+    return await this.$auth.loginWith('laravelJWT', { data: payload})
+
+    // const response = await this.$axios.$post('/student/login', payload)
+    // return response
+  },
+  async logout({ commit }) {
+    // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
+
+    const response = await this.$axios.$post('/student/logout')
+    return response
+  },
+  async setPassword({ commit }, payload) {
+    // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
+
+    const response = await this.$axios.$post('/student/set-password', payload)
+    return response
   },
   async scanQr({ commit }, payload) {
     return await this.$axios.$post(
