@@ -13,7 +13,7 @@
         <img
         width="25"
           v-if="$auth.loggedIn"
-          @click="logout()"
+          @click="$auth.logout()"
           class="back-icon tw-mr-6"
           src="../assets/images/auth/logout.svg"
           alt="logout"

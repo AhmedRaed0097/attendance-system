@@ -1,20 +1,25 @@
 <template>
   <v-container
-    class="!tw-min-h-[100vh] !tw-flex tw-flex-col !tw-justify-evenly !tw-items-center"
+    class="!tw-min-h-[100vh] !tw-flex tw-flex-col !tw-justify-center !tw-items-center"
   >
     <Alert
       :alert-visible="showAlert"
       :alert-data="alertData"
       @closeModal="isAlertClosed"
     />
-    <h2 v-if="formType === 'login'" class="!tw-text-3xl tw-font-lalezar">
-      تسجيل الدخول
-    </h2>
-    <h2 v-else class="!tw-text-3xl tw-font-lalezar">إنشاء حساب</h2>
     <v-card
       width="400"
       class="tw-relative tw-mt-3 tw-mx-auto tw-pb-5 tw-border !tw-rounded-xl tw-border-slate-500"
     >
+      <h2
+        v-if="!showResetPassword"
+        class="!tw-text-3xl tw-font-lalezar tw-text-center"
+      >
+        تسجيل الدخول
+      </h2>
+      <h2 v-else class="!tw-text-3xl tw-font-lalezar tw-text-center">
+        تعيين كلمة المرور
+      </h2>
       <!-- <v-card-title
         class="!tw-absolute tw-w-full !tw-pt-1 tw-flex tw-justify-center"
       >
@@ -146,15 +151,28 @@
               >
             </div>
             <div class="tw-flex tw-justify-center">
-              <v-btn
+              <!-- <v-btn
                 v-if="formType === 'login'"
                 text
                 @click="goTo('register')"
                 class="!tw-p-5"
               >
                 لا املك حساب ، إنشاء حساب جديد</v-btn
+              > -->
+              <v-btn
+                v-if="!showResetPassword"
+                text
+                @click="showResetPassword = true"
+                class="!tw-p-5"
               >
-              <v-btn v-else text @click="goTo('login')" class="!tw-p-5">
+                تسجيل الدخول للمرة الأولى</v-btn
+              >
+              <v-btn
+                v-else
+                text
+                @click="showResetPassword = false"
+                class="!tw-p-5"
+              >
                 املك حساب ، تسجيل الدخول</v-btn
               >
             </div>
@@ -219,29 +237,29 @@ export default {
   methods: {
     async userLogin() {
       if (this.$refs.form.validate()) {
-        // const formData = new FormData()
-        // formData.append('email', this.form.email)
-        // formData.append('password', this.form.password)
-        // formData.append('device_name', 'test')
-        const formData={
-          email : this.form.email,
-          password :  this.form.password
+        const formData = {
+          email: this.form.email,
+          password: this.form.password,
+          user_type: 'student',
         }
         this.loading = true
         await this.$store
-          .dispatch(`${this.user_type}/login`, formData)
+          .dispatch(`auth/login`, formData)
           .then((response) => {
-            if (response.status_code === 2010) {
-              this.setAlertData(response)
-              this.showResetPassword = true
-            } else {
-              // this.$auth.setUser({...response.data.user})
-            }
-            console.log('responsexx ', { ...response })
+            this.setAlertData(response)
+            this.showResetPassword = true
           })
           .catch((error) => {
-            console.log('error ', { ...error })
-            this.setAlertData(error.response.data)
+            if (error.response.status === 401) {
+              const response = {
+                message:
+                  'المستخدم غير موجود ، الرجاء التأكد من البريد الإلتكروني او كلمة المرور.',
+                status_code: 401,
+              }
+              this.setAlertData(response)
+            } else {
+              this.setAlertData(error.response.data)
+            }
           })
         this.loading = false
       }
@@ -255,22 +273,14 @@ export default {
           'password_confirmation',
           this.form.password_confirmation
         )
+        formData.append('user_type', this.user_type)
         formData.append('device_name', 'test')
         this.loading = true
         await this.$store
-          .dispatch('student/setPassword', formData)
+          .dispatch('auth/setPassword', formData)
           .then((response) => {
             this.setAlertData(response)
             this.showResetPassword = false
-            // setTimeout(async () => {
-            //   const loginFormData = new FormData()
-            //   loginFormData.append('email', this.form.email)
-            //   loginFormData.append('password', this.form.password)
-            //   loginFormData.append('device_name', 'test')
-
-            //   await this.$store.dispatch('student/login', loginFormData)
-
-            // }, 600);
           })
           .catch((error) => {
             this.setAlertData(error.response.data)

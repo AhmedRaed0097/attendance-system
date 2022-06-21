@@ -82,14 +82,14 @@ server:{
             method: 'post',
             propertyName: 'data.token'
           },
-          logout: false
+          logout: true
           ,
-          // logout: {
-          //   url: '/logout',
-          //   method: 'post',
-          // },
+          logout: {
+            url: '/logout',
+            method: 'post',
+          },
           user: {
-            url: '/student/user',
+            url: '/user',
             method: 'get',
             propertyName: 'data.user'
           }
@@ -102,12 +102,12 @@ server:{
             method: 'post',
             propertyName: 'data.token'
           },
-          logout: false
+          logout: true
           ,
-          // logout: {
-          //   url: '/logout',
-          //   method: 'post',
-          // },
+          logout: {
+            url: '/logout',
+            method: 'post',
+          },
           user: {
             url: '/student/user',
             method: 'get',

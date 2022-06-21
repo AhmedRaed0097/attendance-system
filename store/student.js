@@ -31,12 +31,7 @@ export const actions = {
     const response = await this.$axios.$post('/student/logout')
     return response
   },
-  async setPassword({ commit }, payload) {
-    // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
 
-    const response = await this.$axios.$post('/student/set-password', payload)
-    return response
-  },
   async scanQr({ commit }, payload) {
     return await this.$axios.$post(
       `studentScanAttendance/${payload.student_id}/${payload.lecture_id}/${payload.week_no}`
