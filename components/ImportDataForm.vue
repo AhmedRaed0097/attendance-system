@@ -1,6 +1,6 @@
 <template>
   <div class="form-wrapper">
-    <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }" >
+    <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 class="add-student-title" v-if="dataType === 'students'">
           إستيراد بيانات الطلاب
@@ -13,7 +13,8 @@
         </h2>
         <h2 class="add-student-title" v-if="dataType === 'subjects'">
           إستيراد بيانات المواد
-        </h2> <h2 class="add-student-title" v-if="dataType === 'periods'">
+        </h2>
+        <h2 class="add-student-title" v-if="dataType === 'periods'">
           إستيراد بيانات الفترات
         </h2>
       </v-card-title>
@@ -24,6 +25,7 @@
               v-model="form.file"
               :rules="requiredRules"
               outlined
+              validate-on-blur
               label="إختر الملف"
             ></v-file-input>
           </v-col>
@@ -35,6 +37,7 @@
               item-text="text"
               item-value="value"
               outlined
+              validate-on-blur
               label="الحالة"
             ></v-autocomplete>
           </v-col>
@@ -46,6 +49,7 @@
               item-text="title"
               item-value="id"
               outlined
+              validate-on-blur
               label="الدفعة"
             ></v-autocomplete>
           </v-col>
@@ -147,10 +151,10 @@ export default {
         } else if (this.dataType === 'majors') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importMajors', formData)
-        }else if (this.dataType === 'subjects') {
+        } else if (this.dataType === 'subjects') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importSubjects', formData)
-        }else if (this.dataType === 'periods') {
+        } else if (this.dataType === 'periods') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importPeriods', formData)
         }
@@ -160,5 +164,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

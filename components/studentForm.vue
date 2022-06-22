@@ -16,16 +16,17 @@
         <v-row
           v-if="
             methodType === 'add' ||
-            (methodType === 'edit' && form.student_name.length > 0)
+            (methodType === 'edit' && form.name.length > 0)
           "
         >
           <v-col cols="12" :md="6">
             <v-text-field
-              v-model="form.student_name"
+              v-model="form.name"
               :rules="nameRules"
               label="إسم الطالب"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
           <v-col cols="12" :md="6">
@@ -35,6 +36,7 @@
               label="البريد الإلكتروني"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -45,6 +47,7 @@
               item-text="title"
               item-value="id"
               outlined
+              validate-on-blur
               label="الدفعة"
             ></v-autocomplete>
           </v-col>
@@ -56,6 +59,7 @@
               item-text="text"
               item-value="value"
               outlined
+              validate-on-blur
               label="الحالة"
             ></v-autocomplete>
           </v-col>
@@ -66,8 +70,9 @@
               v-model="form"
               :items="studentsList"
               :rules="requiredRules"
-              item-text="student_name"
+              item-text="name"
               outlined
+              validate-on-blur
               label="اسم الطالب"
               return-object
             ></v-autocomplete>
@@ -134,7 +139,7 @@ export default {
     studentsList: [],
     lastname: '',
     form: {
-      student_name: '',
+      name: '',
       master_table_id: '',
       state: '',
       email: '',
@@ -171,7 +176,7 @@ export default {
         }
         this.$store.dispatch('admin/addStudent', formData).then(() => {
           this.form = {
-            student_name: '',
+            name: '',
             master_table_id: '',
             state: '',
             email: '',
@@ -198,7 +203,7 @@ export default {
           }
           this.$store.dispatch('admin/updateStudent', formData).then(() => {
             this.form = {
-              student_name: '',
+              name: '',
               master_table_id: '',
               state: '',
               email: '',
@@ -213,7 +218,7 @@ export default {
         this.$store.dispatch('admin/deleteStudent', this.form.id).then(() => {
           if (this.response.status_code === 200) {
             this.form = {
-              student_name: '',
+              name: '',
               master_table_id: '',
               state: '',
               email: '',

@@ -2,7 +2,7 @@
   <v-navigation-drawer
     absolute
     :right="true"
-    v-model="drawer"
+    v-model="show_drawer"
     class="!tw-rounded-md !tw-border-primary !tw-border-2 !tw-border-solid !tw-bg-admin-primary"
   >
     <v-sheet
@@ -11,7 +11,17 @@
     >
       <v-avatar class="mb-4" color="#fff" size="64"></v-avatar>
 
-      <div>john@vuetifyjs.com</div>
+      <div class="admin-info tw-flex">
+        <img
+          width="25"
+          v-if="$auth.loggedIn"
+          @click="$auth.logout()"
+          class="back-icon tw-ml-6 tw-cursor-pointer"
+          src="~/assets/images/auth/logout.svg"
+          alt="logout"
+        />
+        <span> john@vuetifyjs.com </span>
+      </div>
     </v-sheet>
 
     <v-divider></v-divider>
@@ -449,7 +459,7 @@ export default {
   },
   data() {
     return {
-      //   drawer: null,
+      show_drawer: null,
       open_student_options: false,
       open_lecturer_options: false,
       open_tables_options: false,
@@ -585,6 +595,7 @@ export default {
       }
     },
     drawer(val) {
+      this.show_drawer = val
       if (val === false) {
         this.$emit('drawerClosed')
       }
@@ -603,11 +614,14 @@ export default {
   .form-wrapper {
     height: 90vh;
     .v-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
       box-shadow: none !important;
       margin: 0 auto;
-      width: 100%;
       height: 100%;
-      border: 1px solid #7C3E66;
+      border: 1px solid #7c3e66;
       border-radius: 10px;
       @media (min-width: 750px) {
         margin-left: 9%;
@@ -632,13 +646,13 @@ export default {
           font-size: 25px;
         }
       }
-      .v-card__title {
-        margin-bottom: 200px;
-      }
+      // .v-card__title {
+      //   margin-bottom: 200px;
+      // }
     }
   }
 }
-.add-btn-wrapper{
+.add-btn-wrapper {
   margin-top: 50px;
 }
 .v-navigation-drawer {

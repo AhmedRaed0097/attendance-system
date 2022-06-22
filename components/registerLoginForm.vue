@@ -240,14 +240,25 @@ export default {
         const formData = {
           email: this.form.email,
           password: this.form.password,
-          user_type: 'student',
+          user_type: this.form.email.includes('@admin')
+            ? 'admin'
+            : this.user_type,
         }
         this.loading = true
         await this.$store
           .dispatch(`auth/login`, formData)
           .then((response) => {
             this.setAlertData(response)
-            this.showResetPassword = true
+            // const isAuthenticated = this.$auth.user ? true : false
+            // if (isAuthenticated) {
+            //   if (this.$auth.user.user_type === 'admin') {
+            //     this.$router.push('/admin')
+            //   } else {
+            //     this.$router.push('/')
+            //   }
+            // } else {
+            //   this.$router.push('/auth/login')
+            // }
           })
           .catch((error) => {
             if (error.response.status === 401) {

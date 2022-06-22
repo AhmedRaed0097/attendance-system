@@ -13,13 +13,13 @@
         </h2>
       </v-card-title>
       <v-form v-model="valid" ref="form">
-        <v-row v-if="methodType !== 'add' && form.lecturer_name.length === 0">
+        <v-row v-if="methodType !== 'add' && form.name.length === 0">
           <v-col cols="12">
             <v-autocomplete
               v-model="form"
               :items="lecturerList"
               :rules="requiredRules"
-              item-text="lecturer_name"
+              item-text="name"
               outlined
               label="اسم المحاضر"
               return-object
@@ -29,7 +29,7 @@
         <v-row v-else>
           <v-col cols="12" md="6">
             <v-text-field
-              v-model="form.lecturer_name"
+              v-model="form.name"
               :rules="nameRules"
               label="إسم "
               required
@@ -117,7 +117,7 @@ export default {
     lecturerList: [],
     lastname: '',
     form: {
-      lecturer_name: '',
+      name: '',
       state: '',
     },
     nameRules: [
@@ -153,7 +153,7 @@ export default {
         }
         this.$store.dispatch('admin/addLecturer', formData).then(() => {
           this.form = {
-            lecturer_name: '',
+            name: '',
             state: '',
           }
           this.$refs.form.resetValidation()
@@ -178,7 +178,7 @@ export default {
           }
           this.$store.dispatch('admin/updateLecturer', formData).then(() => {
             this.form = {
-              lecturer_name: '',
+              name: '',
               state: '',
             }
             this.$refs.form.resetValidation()
@@ -190,7 +190,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.$store.dispatch('admin/deleteLecturer', this.form.id).then(() => {
           this.form = {
-            lecturer_name: '',
+            name: '',
             state: '',
           }
           this.$refs.form.resetValidation()

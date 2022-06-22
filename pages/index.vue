@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="12">
         <div class="home-image-contaienr">
-          <div class="home-image "></div>
+          <div class="home-image"></div>
           <svg
-          v-if="$vuetify.breakpoint.smAndDown"
+            v-if="$vuetify.breakpoint.smAndDown"
             class="svg-clip"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
@@ -25,15 +25,22 @@
             />
           </div>
         </div>
-        <div v-if="user" class="user-data tw-text-center tw-mb-6 tw-mt-0 sm:tw-mt-2">
-          <h3 class="tw-text-xl tw-mb-1">{{user.name}}</h3>
-          <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">علوم الحاسوب</p>
-          <p v-if="user.user_type === 'student'" class="tw-text-xs">المستوى الرابع</p>
+        <div
+          v-if="user"
+          class="user-data tw-text-center tw-mb-6 tw-mt-0 sm:tw-mt-2"
+        >
+          <h3 class="tw-text-xl tw-mb-1">{{ user.name }}</h3>
+          <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">
+            علوم الحاسوب
+          </p>
+          <p v-if="user.user_type === 'student'" class="tw-text-xs">
+            المستوى الرابع
+          </p>
         </div>
       </v-col>
       <v-row v-if="isStudent === true" class="btns-row">
         <v-col cols="6">
-           <btn-component>
+          <btn-component>
             <template #icon>
               <img
                 width="28"
@@ -42,12 +49,14 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول محاضرات اليوم </span>
+              <span @click="goTo('lectures-table')" class="tw-text-xs">
+                جدول محاضرات اليوم
+              </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
-           <btn-component>
+          <btn-component>
             <template #icon>
               <img
                 width="28"
@@ -56,12 +65,14 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('attendance-table')" class="tw-text-xs"> جدول الحضور </span>
+              <span @click="goTo('attendance-table')" class="tw-text-xs">
+                جدول الحضور
+              </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
-           <btn-component>
+          <btn-component>
             <template #icon>
               <img
                 width="28"
@@ -75,7 +86,7 @@
           </btn-component>
         </v-col>
         <v-col cols="6">
-           <btn-component>
+          <btn-component>
             <template #icon>
               <img
                 width="28"
@@ -107,12 +118,14 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs"> جدول محاضرات اليوم </span>
+              <span @click="goTo('lectures-table')" class="tw-text-xs">
+                جدول محاضرات اليوم
+              </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
-          <btn-component >
+          <btn-component>
             <template #icon>
               <img
                 width="28"
@@ -121,14 +134,16 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('manual-attendance')" class="tw-text-xs"> التحضير اليدوي </span>
+              <span @click="goTo('manual-attendance')" class="tw-text-xs">
+                التحضير اليدوي
+              </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
           <btn-component>
             <template #icon>
-             <img
+              <img
                 width="28"
                 src="../assets/images/home/coming-soon.png"
                 alt="coming-soon"
@@ -142,7 +157,7 @@
         <v-col cols="6">
           <btn-component>
             <template #icon>
-             <img
+              <img
                 width="28"
                 src="../assets/images/home/coming-soon.png"
                 alt="coming-soon"
@@ -162,7 +177,11 @@
         </v-col>
       </v-row>
       <v-col cols="12" class="switch-col">
-        <input v-model="isStudent" class="toggle checked:before:!tw-bg-primary checked:!tw-bg-secondary" type="checkbox" />
+        <input
+          v-model="isStudent"
+          class="toggle checked:before:!tw-bg-primary checked:!tw-bg-secondary"
+          type="checkbox"
+        />
       </v-col>
     </v-row>
   </div>
@@ -176,16 +195,17 @@ export default {
       isStudent: false,
     }
   },
-  computed:{
-    user(){
+  computed: {
+    user() {
       return this.$auth.user
-    }
+    },
   },
   methods: {
     goTo(route) {
       this.$router.push(`/${route}`)
     },
   },
+
 }
 </script>
 

@@ -252,7 +252,7 @@ export default {
       {
         text: 'إسم الطلب',
         align: 'center',
-        value: 'student_name',
+        value: 'name',
         sortable: false,
       },
 

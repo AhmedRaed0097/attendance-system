@@ -47,7 +47,7 @@
               v-model="form.lecturer_id"
               :items="lecturersList"
               :rules="requiredRules"
-              item-text="lecturer_name"
+              item-text="name"
               item-value="id"
               outlined
               label="المحاضر"

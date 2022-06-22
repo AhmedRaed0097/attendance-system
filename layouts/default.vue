@@ -14,7 +14,7 @@
         width="25"
           v-if="$auth.loggedIn"
           @click="$auth.logout()"
-          class="back-icon tw-mr-6"
+          class="back-icon tw-mr-6 tw-cursor-pointer"
           src="../assets/images/auth/logout.svg"
           alt="logout"
         />
@@ -35,8 +35,11 @@
 </template>
 
 <script>
+import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
 export default {
   name: 'DefaultLayout',
+  mixins:[checkAdminMixinjs],
+  // middleware: 'checkUserType',
   data() {
     return {
       app_bar_text: '',
@@ -88,6 +91,7 @@ export default {
   },
   beforeCreate() {
     this.$vuetify.rtl = true
+
   },
 }
 </script>

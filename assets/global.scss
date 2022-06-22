@@ -100,3 +100,7 @@
 .admin-alert{
   z-index: 30 !important;
 }
+
+.v-text-field .v-input__control .v-input__slot .v-text-field__slot input[type="text"]{
+  height: 40px;
+}
