@@ -10,7 +10,9 @@ created() {
   window.addEventListener('beforeunload', this.handler)
 },
 methods: {
+  // try to solve production error duplicate name space 'auth'
   handler: function handler() {
+    console.log('reload');
      this.$router.push('/')
 
   }
