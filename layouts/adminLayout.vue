@@ -12,8 +12,35 @@
       class="admin-alert"
       >{{ response.message }}</v-alert
     >
-    <nav-drawer @drawerClosed="onDrawerClosed" />
-
+    <nav-drawer @drawerClosed="onDrawerClosed" :drawer="drawer" />
+    <v-btn
+      icon
+      :class="
+        $vuetify.breakpoint.mdAndDown && drawer
+          ? 'active-burger-menu'
+          : 'unactive-burger-menu'
+      "
+      class="!tw-z-20 lg:!tw-z-auto"
+      text
+      @click="drawer = !drawer"
+    >
+      <img
+        v-if="$vuetify.breakpoint.mdAndDown && drawer"
+        width="30"
+        height="30"
+        src="../assets/images/admin/close.svg"
+        class="mt-14"
+        alt="close"
+      />
+      <img
+        v-if="$vuetify.breakpoint.mdAndDown && !drawer"
+        width="30"
+        height="30"
+        class="mt-2 "
+        src="../assets/images/admin/burger.svg"
+        alt="burger"
+      />
+    </v-btn>
     <v-row>
       <v-col cols="12">
         <v-main>

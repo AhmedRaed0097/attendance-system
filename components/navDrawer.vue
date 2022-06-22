@@ -1,484 +1,462 @@
 <template>
-  <v-card>
-      <v-btn
-      icon
-      :class="
-        $vuetify.breakpoint.mdAndDown
-          ? 'active-burger-menu'
-          : 'unactive-burger-menu'
-      "
-      class="!tw-z-10 lg:!tw-z-auto mt-8"
-      text
-      @click="show_drawer = !show_drawer"
+  <v-navigation-drawer
+    absolute
+    :right="true"
+    v-model="show_drawer"
+    class="!tw-rounded-md !tw-border-primary !tw-border-2 !tw-border-solid !tw-bg-admin-primary"
+  >
+    <v-sheet
+      color="#fff"
+      class="user-data !tw-rounded-md tw-py-4 !tw-bg-admin-primary-dark"
     >
-      <img
-        v-if="$vuetify.breakpoint.mdAndDown"
-        width="30"
-        height="30"
-        src="../assets/images/admin/burger.svg"
-        alt="burger"
-      />
-    </v-btn>
-    <v-navigation-drawer
-      absolute
-      temporary
-      :right="true"
-      v-model="show_drawer"
-      class="!tw-z-20 !tw-rounded-md !tw-border-primary !tw-border-2 !tw-border-solid !tw-bg-admin-primary"
-    >
-      <v-sheet
-        color="#fff"
-        class="user-data !tw-rounded-md tw-py-4 !tw-bg-admin-primary-dark"
+      <v-avatar class="mb-4" color="#fff" size="64"></v-avatar>
+
+      <div class="admin-info tw-flex">
+        <img
+          width="25"
+          v-if="$auth.loggedIn"
+          @click="$auth.logout()"
+          class="back-icon tw-ml-6 tw-cursor-pointer"
+          src="~/assets/images/auth/logout.svg"
+          alt="logout"
+        />
+        <span> john@vuetifyjs.com </span>
+      </div>
+    </v-sheet>
+
+    <v-divider></v-divider>
+
+    <v-list>
+      <!-- =============================== import Data =================================== -->
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('import')"
       >
-        <v-avatar class="mb-4" color="#fff" size="64"></v-avatar>
+        <!-- Table -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/import-data.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              إستيراد البيانات
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-        <div class="admin-info tw-flex">
-          <img
-            width="25"
-            v-if="$auth.loggedIn"
-            @click="$auth.logout()"
-            class="back-icon tw-ml-6 tw-cursor-pointer"
-            src="~/assets/images/auth/logout.svg"
-            alt="logout"
-          />
-          <span> john@vuetifyjs.com </span>
-        </div>
-      </v-sheet>
+        <transition name="slide">
+          <ul
+            v-show="open_import_data_options === true"
+            class="versions-options"
+          >
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in import_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-      <v-divider></v-divider>
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
 
-      <v-list nav dense>
-        <!-- =============================== import Data =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('import')"
-        >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/import-data.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                إستيراد البيانات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <!-- ================================ //import Data ================================== -->
 
-          <transition name="slide">
-            <ul
-              v-show="open_import_data_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in import_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <!-- ================================ Majors ================================== -->
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('major')"
+      >
+        <!-- Table -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/majors.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              التخصصات
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-        <!-- ================================ //import Data ================================== -->
+        <transition name="slide">
+          <ul v-show="open_majors_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in majors_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-        <!-- ================================ Majors ================================== -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
 
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('major')"
-        >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/majors.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                التخصصات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <!-- ================================  //Majors ================================== -->
 
-          <transition name="slide">
-            <ul v-show="open_majors_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in majors_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <!-- ================================  //Students ================================== -->
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('students')"
+      >
+        <!-- Students -->
 
-        <!-- ================================  //Majors ================================== -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/students.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              الطلاب
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <transition name="slide">
+          <ul v-show="open_student_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in student_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-        <!-- ================================  //Students ================================== -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
 
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('students')"
-        >
-          <!-- Students -->
+      <!-- ============================== //Students ==================================== -->
 
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/students.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الطلاب
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul v-show="open_student_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in student_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <!-- =============================== Lecturers =================================== -->
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('lecturers')"
+      >
+        <!-- Lecturer -->
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/lecturers.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              المحاضرين
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <transition name="slide">
+          <ul v-show="open_lecturer_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in lecturer_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-        <!-- ============================== //Students ==================================== -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
 
-        <!-- =============================== Lecturers =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('lecturers')"
-        >
-          <!-- Lecturer -->
+      <!-- =============================== //Lecturers =================================== -->
 
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/lecturers.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المحاضرين
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul
-              v-show="open_lecturer_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in lecturer_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <!-- =============================== Subjects =================================== -->
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('subjects')"
+      >
+        <!-- Subject -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/subjects.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              المواد
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <transition name="slide">
+          <ul v-show="open_subject_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in subject_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
+      <!-- ================================ //Subjects ================================== -->
 
-        <!-- =============================== //Lecturers =================================== -->
+      <!-- ================================ Periods ================================== -->
 
-        <!-- =============================== Subjects =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('subjects')"
-        >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/subjects.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المواد
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul v-show="open_subject_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in subject_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('periods')"
+      >
+        <!-- Subject -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/periods.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              الفترات
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
-        <!-- ================================ //Subjects ================================== -->
+        <transition name="slide">
+          <ul v-show="open_period_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in period_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-        <!-- ================================ Periods ================================== -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
+      <!-- ================================== //Periods ================================ -->
 
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('periods')"
-        >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/periods.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الفترات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <!-- ================================ Lectures ================================== -->
 
-          <transition name="slide">
-            <ul v-show="open_period_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in period_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('lectures')"
+      >
+        <!-- Subject -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/lectures.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              المحاضرات
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
-        <!-- ================================== //Periods ================================ -->
+        <transition name="slide">
+          <ul v-show="open_lectures_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in lecture_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-        <!-- ================================ Lectures ================================== -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
+      <!-- ================================= //Lectures ================================ -->
 
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('lectures')"
-        >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/lectures.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المحاضرات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <!-- =============================== Tables =================================== -->
+      <div
+        class="nav-item-link"
+        style="cursor: pointer"
+        @click="openDropDown('tables')"
+      >
+        <!-- Table -->
+        <v-list-item>
+          <v-list-item-icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/tables.svg"
+              alt="icon"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title class="nav-item-title" active-class="active">
+              الجداول
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-          <transition name="slide">
-            <ul
-              v-show="open_lectures_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in lecture_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
+        <transition name="slide">
+          <ul v-show="open_tables_options === true" class="versions-options">
+            <li class="nav-item-link">
+              <v-list-item
+                v-for="[route, text] in table_links"
+                :key="text"
+                link
+                :to="route"
+              >
+                <v-list-item-icon>
+                  <img
+                    width="25"
+                    src="~/assets/images/admin/nav-icons/list-item.svg"
+                    alt="list-item"
+                    class="tw-rotate-90 tw-mr-8"
+                  />
+                </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
-        <!-- ================================= //Lectures ================================ -->
+                <v-list-item-content>
+                  <v-list-item-title>{{ text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </li>
+          </ul>
+          <!-- aaa -->
+        </transition>
+      </div>
 
-        <!-- =============================== Tables =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('tables')"
-        >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/tables.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الجداول
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <transition name="slide">
-            <ul v-show="open_tables_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in table_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
-
-        <!-- ================================ //Tables ================================== -->
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
+      <!-- ================================ //Tables ================================== -->
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
 export default {
+  props: {
+    drawer: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       show_drawer: null,
