@@ -12,7 +12,16 @@
       class="admin-alert"
       >{{ response.message }}</v-alert
     >
-    <nav-drawer @drawerClosed="onDrawerClosed" />
+    <v-app-bar
+      v-if="$vuetify.breakpoint.smAndDown"
+      height="70"
+      app
+      class="app-bar !tw-bg-primary"
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <nav-drawer @drawerClosed="onDrawerClosed" :drawer="drawer" />
+    </v-app-bar>
 
     <v-row>
       <v-col cols="12">
