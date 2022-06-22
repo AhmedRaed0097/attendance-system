@@ -284,7 +284,7 @@ export default {
   align-items: center;
 
   .v-card {
-    height: 500px;
+    min-height: 100%;
     padding: 10px 30px;
     .v-card__title .add-student-title {
       width: 100% !important;
