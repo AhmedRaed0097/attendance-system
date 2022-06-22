@@ -14,23 +14,21 @@
     >
     <v-app-bar
       v-if="$vuetify.breakpoint.smAndDown"
+      color="#2a3588"
       height="70"
       app
-      class="app-bar !tw-bg-primary"
+      class="app-bar"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-          <img
-            width="30"
-            height="30"
-            src="../assets/images/admin/burger.svg"
-            alt="burger"
-          />
-      </v-app-bar-nav-icon>
+      <div>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+          <img width="25" src="~/assets/images/admin/burger.svg" alt="burger" />
+        </v-app-bar-nav-icon>
 
+        <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
+          {{ app_bar_text }}
+        </span>
+      </div>
       <nav-drawer @drawerClosed="onDrawerClosed" :drawer="drawer" />
-      <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
-        {{ app_bar_text }}
-      </span>
       <div class="tw-flex tw-gap-x-2.5 !tw-ml-[-10px]">
         <img
           width="25"
@@ -68,24 +66,13 @@ export default {
   // middleware: 'checkUserType',
   data: () => ({
     drawer: null,
-    app_bar_text:''
+    app_bar_text: '',
   }),
 
   watch: {
     '$route.name': {
       handler() {
-        this.drawer = !this.drawer
-        if (this.$route.name === 'index') {
-          this.app_bar_text = 'الرئيسية'
-        } else if (this.$route.name === 'lectures-table') {
-          this.app_bar_text = 'جدول المحاضرات'
-        } else if (this.$route.name === 'generate-qr') {
-          this.app_bar_text = 'إنشاء QR CODE'
-        } else if (this.$route.name === 'attendance-table') {
-          this.app_bar_text = 'جدول الحضور'
-        } else if (this.$route.name === 'manual-attendance') {
-          this.app_bar_text = 'التحضير اليدوي'
-        }
+        this.setAppBarText()
       },
     },
   },
@@ -104,6 +91,31 @@ export default {
     onDrawerClosed() {
       this.drawer = false
     },
+    setAppBarText() {
+      const routeName = this.$route.name.split('-')[1]
+      console.log('aa ', routeName)
+      this.drawer = !this.drawer
+      if (routeName === undefined) {
+        this.app_bar_text = 'الرئيسية'
+      } else if (routeName === 'import') {
+        this.app_bar_text = 'إستيراد البيانات'
+      } else if (routeName === 'majors') {
+        this.app_bar_text = 'التخصصات'
+      } else if (routeName === 'students') {
+        this.app_bar_text = 'الطلاب'
+      } else if (routeName === 'lecturers') {
+        this.app_bar_text = 'المحاضرين'
+      } else if (routeName === 'subjects') {
+        this.app_bar_text = 'المواد'
+      } else if (routeName === 'lectures') {
+        this.app_bar_text = 'المحاضرات'
+      } else if (routeName === 'tables') {
+        this.app_bar_text = 'الجداول'
+      }
+    },
+  },
+  created() {
+    this.setAppBarText()
   },
 }
 </script>

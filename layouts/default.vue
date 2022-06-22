@@ -11,7 +11,7 @@
       </span>
       <div class="tw-flex tw-gap-x-2.5 !tw-ml-[-10px]">
         <img
-        width="25"
+          width="25"
           v-if="$auth.loggedIn"
           @click="$auth.logout()"
           class="back-icon tw-mr-6 tw-cursor-pointer"
@@ -38,7 +38,7 @@
 import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
 export default {
   name: 'DefaultLayout',
-  mixins:[checkAdminMixinjs],
+  mixins: [checkAdminMixinjs],
   // middleware: 'checkUserType',
   data() {
     return {
@@ -53,10 +53,10 @@ export default {
       })
     },
   },
-  computed:{
-    user(){
+  computed: {
+    user() {
       return this.$auth.user
-    }
+    },
   },
   watch: {
     '$route.name': {
@@ -69,7 +69,7 @@ export default {
           this.app_bar_text = 'إنشاء QR CODE'
         } else if (this.$route.name === 'attendance-table') {
           this.app_bar_text = 'جدول الحضور'
-        }else if (this.$route.name === 'manual-attendance') {
+        } else if (this.$route.name === 'manual-attendance') {
           this.app_bar_text = 'التحضير اليدوي'
         }
       },
@@ -91,7 +91,6 @@ export default {
   },
   beforeCreate() {
     this.$vuetify.rtl = true
-
   },
 }
 </script>
@@ -111,6 +110,7 @@ body {
   .v-toolbar__content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .v-toolbar__content {
     font-size: 27px;

@@ -4,7 +4,7 @@
     temporary
     :right="true"
     v-model="show_drawer"
-    class="!tw-z-20 !tw-rounded-md !tw-border-primary !tw-border-2 !tw-border-solid !tw-bg-admin-primary"
+    class="!tw-z-20 !tw-rounded-md !tw-bg-admin-primary"
   >
     <v-sheet
       color="#fff"
@@ -21,7 +21,7 @@
           src="~/assets/images/auth/logout.svg"
           alt="logout"
         />
-        <span> john@vuetifyjs.com </span>
+        <span class="tw-text-xl"> john@vuetifyjs.com </span>
       </div>
     </v-sheet>
 
