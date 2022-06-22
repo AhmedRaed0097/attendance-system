@@ -77,7 +77,7 @@
                   width="25"
                   @click="hidePassword = !hidePassword"
                   v-if="hidePassword"
-                  class=""
+                  class="tw-cursor-pointer"
                   src="~/assets/images/auth/visible-eye.svg"
                   alt="visible-eye"
                 />
@@ -85,7 +85,7 @@
                   width="25"
                   @click="hidePassword = !hidePassword"
                   v-else
-                  class=""
+                  class="tw-cursor-pointer"
                   src="~/assets/images/auth/invisible-eye.svg"
                   alt="invisible-eye"
                 />
@@ -246,7 +246,7 @@ export default {
         }
         this.loading = true
         await this.$store
-          .dispatch(`auth/login`, formData)
+          .dispatch(`login`, formData)
           .then((response) => {
             this.setAlertData(response)
             // const isAuthenticated = this.$auth.user ? true : false
@@ -288,7 +288,7 @@ export default {
         formData.append('device_name', 'test')
         this.loading = true
         await this.$store
-          .dispatch('auth/setPassword', formData)
+          .dispatch('setPassword', formData)
           .then((response) => {
             this.setAlertData(response)
             this.showResetPassword = false
@@ -314,12 +314,12 @@ export default {
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
-        await this.$store.dispatch('auth/register', formData).then(async () => {
+        await this.$store.dispatch('register', formData).then(async () => {
           const formData = {
             email: this.form.email,
             password: this.form.password,
           }
-          await this.$store.dispatch('auth/login', formData)
+          await this.$store.dispatch('login', formData)
         })
       }
     },
