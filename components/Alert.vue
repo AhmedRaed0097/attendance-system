@@ -83,8 +83,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.snackbar {
-  z-index: 5000 !important;
-}
-</style>

@@ -2,7 +2,7 @@ export default{
   beforeCreate() {
     const isAuthenticated = this.$auth.user ? true : false
     if (isAuthenticated) {
-      if (this.$auth.user.user_type === 'admin') {
+      if (this.$auth.user.role === 'admin') {
         this.$router.push('/admin')
       } else {
         this.$router.push('/')

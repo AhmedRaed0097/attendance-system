@@ -1,0 +1,167 @@
+.add-member-wrapper {
+    min-height: 100vh !important;
+    width: 100% !important;
+    background: #f1f1f1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .add-btn-wrapper {
+      display: flex !important;
+      justify-content: center !important;
+  }
+  .v-navigation-drawer {
+    height: 100vh !important;
+    .user-data {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+  }
+  
+  .nav-item-link {
+    text-decoration: none !important;
+    color: #000 !important;
+    .nav-item {
+      .nav-item-title {
+        font-size: 15px !important;
+        text-align: right !important;
+        font-weight: bold !important;
+        font-stretch: normal !important;
+        font-style: normal !important;
+        line-height: 1.87 !important;
+        letter-spacing: normal !important;
+        color: #000 !important;
+      }
+    }
+  }
+  .nav-item-title {
+    text-decoration: none !important;
+    font-weight: bold !important;
+  }
+  .unactive-burger-menu {
+    position: absolute !important;
+    right: 30px !important;
+  }
+  .active-nav {
+    position: absolute !important;
+    aside {
+      padding-top: 50px !important;
+    }
+  }
+  .active-burger-menu {
+    position: absolute !important;
+  
+    right: 10px !important;
+    top: -24px !important;
+  }
+  .active {
+    background: rgb(18, 85, 185)!important;
+  }
+  ul {
+    padding: 0 !important;
+    li .v-list-item {
+      padding: 0 !important;
+    }
+  }
+// ------  for alert component --------
+.snackbar {
+    z-index: 5000 !important;
+}
+// ------  //for alert component --------
+
+// ------  for login component --------
+.form-header {
+    height: 390px !important;
+    padding: 20px !important;
+    margin-bottom: 20px !important;
+    background-image: url('~/assets/images/auth/login-header-image.jpg') !important;
+    background-position: center !important;
+    background-size: cover !important;
+  
+    @media (max-width: 500px) {
+      height: 264px !important;
+    }
+  }
+  .gender {
+    .v-item-group.theme--light.v-btn-toggle {
+      width: 100% !important;
+    }
+    .v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default {
+      width: 48% !important;
+    }
+    button.v-btn.v-item--active.v-btn--active {
+      margin: 0 1% !important;
+      color: #fff !important;
+      border-radius: 13px !important;
+      border: 2px solid #a74c87 !important;
+      background-color: #7c3e66 !important;
+      &::before {
+        background-color: #7c3e66 !important;
+      }
+      .v-btn {
+        border-color: #a74c87 !important;
+      }
+    }
+    button.v-btn.v-btn--is-elevated {
+      margin: 0 1% !important;
+      border-radius: 13px !important;
+    }
+  }
+
+// ------  //for login component --------
+
+
+
+
+// ------  for form card component --------
+
+.form-wrapper {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px 20px !important;
+    .v-card {
+      width: 100% !important;
+      min-height: 96vh !important;
+      padding: 10px 30px !important;
+      margin: 0 auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-evenly !important;
+      box-shadow: none !important;
+      border: 1px solid #7c3e66 !important;
+      border-radius: 10px !important;
+      @media (min-width: 750px) {
+        margin-left: 9% !important;
+      }
+      @media (min-width: 750px) and (max-width: 1264px) {
+        width: 80% !important;
+      }
+      @media (min-width: 1264px) {
+        width: 65% !important;
+      }
+      @media (min-width: 1700px) {
+        width: 72% !important;
+      }
+      @media (min-width: 2000px) {
+        width: 77% !important;
+      }
+      .v-card__title .add-student-title {
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 30px !important;
+      }
+      h2 {
+        font-size: 35px !important;
+        margin-bottom: 60px !important;
+        @media (max-width: 1000px) {
+          font-size: 25px !important;
+        }
+      }
+    }
+  }
+
+// ------  //for form card component --------
+  

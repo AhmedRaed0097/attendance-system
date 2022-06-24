@@ -331,41 +331,5 @@ export default {
 </script>
 
 <style lang="scss">
-.form-header {
-  height: 390px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-image: url('~/assets/images/auth/login-header-image.jpg');
-  background-position: center;
-  background-size: cover;
 
-  @media (max-width: 500px) {
-    height: 264px;
-  }
-}
-.gender {
-  .v-item-group.theme--light.v-btn-toggle {
-    width: 100% !important;
-  }
-  .v-btn-toggle:not(.v-btn-toggle--dense) .v-btn.v-btn.v-size--default {
-    width: 48% !important;
-  }
-  button.v-btn.v-item--active.v-btn--active {
-    margin: 0 1%;
-    color: #fff;
-    border-radius: 13px !important;
-    border: 2px solid #a74c87 !important;
-    background-color: #7c3e66 !important;
-    &::before {
-      background-color: #7c3e66 !important;
-    }
-    .v-btn {
-      border-color: #a74c87 !important;
-    }
-  }
-  button.v-btn.v-btn--is-elevated {
-    margin: 0 1%;
-    border-radius: 13px !important;
-  }
-}
 </style>

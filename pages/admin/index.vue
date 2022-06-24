@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <div class="tw-min-h-[100vh] tw-pt-5 tw-flex tw-flex-col tw-gap-32">
+    <div class="tw-min-h-[100vh] tw-pt-5 tw-flex tw-flex-col tw-gap-16 md:tw-gap-32">
       <div class="tw-w-[75%] tw-my0 tw-mx-auto title-container">
         <h3
           class="!tw-text-center tw-text-xl md:tw-text-3xl lg:tw-text-4xl !tw-py-5"

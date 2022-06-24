@@ -1,5 +1,6 @@
 <template>
   <v-app class="adminLayout">
+    <nav-drawer @drawerClosed="onDrawerClosed" />
     <v-alert
       :value="showAlert"
       border="right"
@@ -12,41 +13,7 @@
       class="admin-alert"
       >{{ response.message }}</v-alert
     >
-    <v-app-bar
-      v-if="$vuetify.breakpoint.smAndDown"
-      color="#2a3588"
-      height="70"
-      app
-      class="app-bar"
-    >
-      <div>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-          <img width="25" src="~/assets/images/admin/burger.svg" alt="burger" />
-        </v-app-bar-nav-icon>
 
-        <span class="!tw-text-base sm:!tw-text-xl tw-text-first">
-          {{ app_bar_text }}
-        </span>
-      </div>
-      <nav-drawer @drawerClosed="onDrawerClosed" :drawer="drawer" />
-      <div class="tw-flex tw-gap-x-2.5 !tw-ml-[-10px]">
-        <img
-          width="25"
-          v-if="$auth.loggedIn"
-          @click="$auth.logout()"
-          class="back-icon tw-mr-6 tw-cursor-pointer"
-          src="../assets/images/auth/logout.svg"
-          alt="logout"
-        />
-        <img
-          width="25"
-          v-if="$route.name !== 'index'"
-          @click="$router.back()"
-          src="../assets/images/home/back-icon.svg"
-          alt=""
-        />
-      </div>
-    </v-app-bar>
     <v-row>
       <v-col cols="12">
         <v-main>

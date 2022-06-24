@@ -12,7 +12,6 @@
         pdf-format="a4"
         pdf-orientation="landscape"
         pdf-content-width="800px"
- 
         @progress="onProgress($event)"
         @hasStartedGeneration="hasStartedGeneration()"
         @hasGenerated="hasGenerated($event)"

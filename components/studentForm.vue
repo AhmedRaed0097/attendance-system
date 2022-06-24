@@ -277,27 +277,7 @@ export default {
 </script>
 
 <style lang="scss">
-.form-wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
 
-  .v-card {
-    min-height: 100%;
-    padding: 10px 30px;
-    .v-card__title .add-student-title {
-      width: 100% !important;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    @media (min-width: 1264px) and (max-width: 1490px) {
-      // padding-right: 190px;
-    }
-  }
-}
-.add-btn-wrapper {
-  display: flex;
-  justify-content: center;
-}
 </style>
+
+
