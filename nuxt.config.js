@@ -86,7 +86,7 @@ server:{
           ,
           logout: {
             url: '/logout',
-            method: 'get',
+            method: 'post',
           },
           user: {
             url: '/user',
