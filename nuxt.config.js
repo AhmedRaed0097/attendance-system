@@ -59,8 +59,8 @@ server:{
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: ' http://192.168.55.124:8000/api',
-    baseURL: 'http://127.0.0.1:8000/api',
-    // baseURL: 'https://students-attendance-api.herokuapp.com/api',
+    // baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'https://students-attendance-api.herokuapp.com/api',
   },
 
   router: {
@@ -91,68 +91,10 @@ server:{
           user: {
             url: '/user',
             method: 'get',
-            propertyName: 'user'
-          }
-        }
-      },
-      myown: {
-        endpoints: {
-          login: {
-            url: '/student/login',
-            method: 'post',
-            propertyName: 'data.token'
-          },
-          logout: true
-          ,
-          logout: {
-            url: '/logout',
-            method: 'post',
-          },
-          user: {
-            url: '/student/user',
-            method: 'get',
             propertyName: 'data.user'
           }
         }
       },
-      laravelJWT: {
-        url: '/laravel',
-        endpoints: {
-          login: {
-            url: '/api/auth/jwt/login'
-          },
-          refresh: {
-            url: '/api/auth/jwt/refresh'
-          },
-          logout: {
-            url: '/api/auth/jwt/logout'
-          },
-          user: {
-            url: '/api/auth/jwt/user'
-          }
-        }
-      },
-      // student: {
-      //   scheme: '~/schemes/customScheme',
-      //   endpoints: {
-      //     login: {
-      //       url: '/student/login',
-      //       method: 'post',
-      //       propertyName: 'data.token'
-      //     },
-      //     logout: false
-      //     ,
-      //     // logout: {
-      //     //   url: '/logout',
-      //     //   method: 'post',
-      //     // },
-      //     user: {
-      //       url: '/student/user',
-      //       method: 'get',
-      //       propertyName: 'data.user'
-      //     }
-      //   }
-      // }
     },
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa

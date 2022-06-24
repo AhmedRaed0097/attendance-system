@@ -7,8 +7,6 @@ export default function ({ redirect, store }) {
       } else {
         return redirect('/')
       }
-    } else {
-      return redirect('/auth/login')
     }
   }
 }
