@@ -3,6 +3,7 @@ export const state = () => ({
   lecturers: [],
   students: [],
   subjects: [],
+  employees: [],
   periods: [],
   majors: [],
   lectures: [],
@@ -24,6 +25,9 @@ export const mutations = {
   SETSTUDENTS(state, payload) {
     state.students = payload
   },
+  SETEMPLOYEES(state, payload) {
+    state.employees = payload
+  },
   SETSUBJECTS(state, payload) {
     state.subjects = payload
   },
@@ -39,7 +43,6 @@ export const mutations = {
   SETLOADING(state, payload) {
     state.loading = payload
   },
-
   SHOWALERT(state, payload) {
     state.show_alert = true
     state.response.message = payload.message
@@ -47,9 +50,7 @@ export const mutations = {
   },
   HIDEALERT(state) {
     state.show_alert = false
-
   }
-
 }
 
 export const actions = {
@@ -73,7 +74,7 @@ export const actions = {
           commit('HIDEALERT')
         }, 3000);
         commit('SETLOADING', false)
-        console.log('Error ', error)
+
       })
   },
   async getTables({ commit }, payload) {
@@ -94,7 +95,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateTable({ commit, dispatch }, payload) {
@@ -115,7 +116,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteTable({ commit, dispatch }, payload) {
@@ -136,7 +137,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   // ===============  //Table  ====================
@@ -161,7 +162,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getLecturers({ commit }, payload) {
@@ -182,7 +183,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateLecturer({ commit, dispatch }, payload) {
@@ -203,7 +204,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteLecturer({ commit, dispatch }, payload) {
@@ -220,7 +221,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -242,7 +243,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -269,7 +270,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getStudents({ commit }, payload) {
@@ -286,7 +287,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateStudent({ commit, dispatch }, payload) {
@@ -307,7 +308,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteStudent({ commit, dispatch }, payload) {
@@ -328,13 +329,13 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async importStudents({ commit, dispatch }, payload) {
     commit('SETLOADING', true)
     return await this.$axios
-      .$post('import-students/', payload)
+      .$post('import-students', payload)
       .then((response) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', response)
@@ -349,11 +350,139 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
+      })
+  },
+
+  async importEmployees({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-employees', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getEmployees')
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
       })
   },
 
   // ===============  //Student  ====================
+
+  // ===============  Employee  ====================
+
+  async addEmployee({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('add-employee', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getEmployees')
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
+      })
+  },
+  async getEmployees({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$get('employees/list', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SETEMPLOYEES', response.data)
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
+      })
+  },
+  async updateEmployee({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('update-employee', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getEmployees')
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
+      })
+  },
+  async deleteEmployee({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$delete(`delete-employee/${payload}`)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getEmployees')
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
+      })
+  },
+  async importEmployees({ commit, dispatch }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$post('import-employees/', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', response)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+        dispatch('getEmployees')
+      })
+       .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000);
+
+      })
+  },
+
+  // ===============  //Employee  ====================
 
   // ===============  Subject  ====================
 
@@ -375,7 +504,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getSubjects({ commit }, payload) {
@@ -392,7 +521,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateSubject({ commit, dispatch }, payload) {
@@ -413,7 +542,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteSubject({ commit, dispatch }, payload) {
@@ -434,7 +563,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -456,7 +585,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   // ===============  //Subject  ====================
@@ -481,7 +610,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getPeriods({ commit }, payload) {
@@ -498,7 +627,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updatePeriod({ commit, dispatch }, payload) {
@@ -519,7 +648,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deletePeriod({ commit, dispatch }, payload) {
@@ -540,7 +669,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -562,7 +691,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -588,7 +717,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getLectures({ commit }, payload) {
@@ -605,7 +734,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateLecture({ commit, dispatch }, payload) {
@@ -626,7 +755,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteLecture({ commit, dispatch }, payload) {
@@ -647,7 +776,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -673,7 +802,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async getMajors({ commit }, payload) {
@@ -690,7 +819,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async updateMajor({ commit, dispatch }, payload) {
@@ -711,7 +840,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
   async deleteMajor({ commit, dispatch }, payload) {
@@ -732,7 +861,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
@@ -754,7 +883,7 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        console.log('Error ', error)
+
       })
   },
 
