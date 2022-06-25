@@ -24,12 +24,12 @@
   </v-app>
 </template>
 <script>
-import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
+// import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
 
 import navDrawer from '~/components/navDrawer.vue'
 export default {
   components: { navDrawer },
-  mixins: [checkAdminMixinjs],
+  // mixins: [checkAdminMixinjs],
   // middleware: 'checkUserType',
   data: () => ({
     drawer: null,
