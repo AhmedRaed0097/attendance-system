@@ -23,7 +23,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({commit},payload){
+  async login({ commit }, payload) {
 
     // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
 
@@ -31,7 +31,7 @@ export const actions = {
     const response = await this.$axios.$post('/lecturer/login', payload)
     return response
 
-},
+  },
   async getStudentsFroManualAttendance({ commit }, payload) {
     commit('SETLOADING', true)
 
@@ -44,16 +44,13 @@ export const actions = {
   },
   async getLecturerLectures({ commit }, payload) {
     commit('SETLOADING', true)
-    return await this.$axios
+    const response = await this.$axios
       .$get(`lecturer/${payload}/lectures`)
-      .then((response) => {
-        commit('SETLOADING', false)
-        commit('SETLECTURESTABLE', response.data)
-      })
-      .catch((error) => {
-        commit('SETLOADING', false)
-        
-      })
+    commit('SETLOADING', false)
+    commit('SETLECTURESTABLE', response.data)
+    commit('SETLOADING', false)
+    return response
+
   },
   async getAttendanceTable({ commit }, payload) {
     commit('SETLOADING', true)
@@ -70,7 +67,7 @@ export const actions = {
       })
       .catch((error) => {
         commit('SETLOADING', false)
-        
+
       })
   },
   async changeAttendanceState({ commit, dispatch }, payload) {
