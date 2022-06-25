@@ -2,19 +2,22 @@
   <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
-        <h2 class="add-student-title" v-if="dataType === 'students'">
+        <h2 class="add-member-title" v-if="dataType === 'employees'">
           إستيراد بيانات الطلاب
         </h2>
-        <h2 class="add-student-title" v-if="dataType === 'lecturers'">
+        <h2 class="add-member-title" v-else-if="dataType === 'students'">
+          إستيراد بيانات الطلاب
+        </h2>
+        <h2 class="add-member-title" v-else-if="dataType === 'lecturers'">
           إستيراد بيانات المحاضرين
         </h2>
-        <h2 class="add-student-title" v-if="dataType === 'majors'">
+        <h2 class="add-member-title" v-else-if="dataType === 'majors'">
           إستيراد بيانات التخصصات
         </h2>
-        <h2 class="add-student-title" v-if="dataType === 'subjects'">
+        <h2 class="add-member-title" v-else-if="dataType === 'subjects'">
           إستيراد بيانات المواد
         </h2>
-        <h2 class="add-student-title" v-if="dataType === 'periods'">
+        <h2 class="add-member-title" v-else-if="dataType === 'periods'">
           إستيراد بيانات الفترات
         </h2>
       </v-card-title>
@@ -29,7 +32,7 @@
               label="إختر الملف"
             ></v-file-input>
           </v-col>
-          <v-col v-if="dataType === 'students' || dataType === 'lecturers'">
+          <v-col v-if="dataType === 'students' || dataType === 'lecturers' || dataType === 'employees'">
             <v-autocomplete
               v-model="form.state"
               :items="items"
@@ -144,16 +147,24 @@ export default {
           formData.append('master_table_id', this.form.master_table_id)
           formData.append('state', this.form.state)
           this.$store.dispatch('admin/importStudents', formData)
-        } else if (this.dataType === 'lecturers') {
+
+        } else if (this.dataType === 'lecturers' || this.dataType === 'employees') {
           formData.append('file', this.form.file)
           formData.append('state', this.form.state)
-          this.$store.dispatch('admin/importLecturers', formData)
+          if(this.dataType === 'lecturers'){
+            this.$store.dispatch('admin/importLecturers', formData)
+          }
+          else{
+            this.$store.dispatch('admin/importEmployees', formData)
+          }
         } else if (this.dataType === 'majors') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importMajors', formData)
+        
         } else if (this.dataType === 'subjects') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importSubjects', formData)
+        
         } else if (this.dataType === 'periods') {
           formData.append('file', this.form.file)
           this.$store.dispatch('admin/importPeriods', formData)
