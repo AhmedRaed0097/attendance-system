@@ -1,20 +1,25 @@
 <template>
   <div class="scan-qr-wrapper">
+    <Alert
+      :alert-visible="showAlert"
+      :alert-data="alertData"
+      @closeModal="isAlertClosed"
+    />
     <!-- <qrcode-stream @init="onInit" :camera="camera"></qrcode-stream> -->
-    <div class="scan-from-camera">
+    <!-- <div class="scan-from-camera">
       <StreamBarcodeReader
         @decode="onDecode"
         @loaded="onLoaded"
       ></StreamBarcodeReader>
       <p>{{ error }}</p>
-    </div>
-    <!-- <div class="scan-from-image">
+    </div> -->
+    <div class="scan-from-image">
       <ImageBarcodeReader
         @decode="onImageDecode"
         @error="onError"
         ref="selectedImage"
       ></ImageBarcodeReader>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -32,7 +37,14 @@ export default {
     return {
       error: '',
       camera: 'auto',
+      showAlert: false,
+      alertData: {},
     }
+  },
+  computed: {
+    user() {
+      return this.$auth.user
+    },
   },
   methods: {
     // async onInit(promise) {
@@ -67,8 +79,8 @@ export default {
       alert('start')
 
       let payload = JSON.parse(result)
-      payload.student_id = 3
-      this.$store.dispatch('students/scanQr', payload).then((response) => {
+      payload.student_id = this.user.id
+      this.$store.dispatch('student/scanQr', payload).then((response) => {
         log('response ', response)
       })
       alert('end')
@@ -80,11 +92,30 @@ export default {
     },
     onImageDecode(result) {
       let payload = JSON.parse(result)
-      payload.student_id = 1
-      this.$store.dispatch('students/scanQr', payload).then((response) => {
-      })
+
+      payload.student_id = this.user.id
+
+      this.$store
+        .dispatch('student/scanQr', payload)
+        .then((response) => {
+          this.setAlertData(response)
+          let selectedImageFile = { ...this.$refs.selectedImage }
+          // to clear input file after scan
+          selectedImageFile.$vnode.elm.value = null
+        })
+        .catch((e) => {
+          this.setAlertData(e.response.data)
+        })
     },
-    onError(error) {
+    onError(error) {},
+    setAlertData(data) {
+      this.alertData = data
+      this.showAlert = true
+    },
+    isAlertClosed(payload) {
+      if (payload.value) {
+        this.showAlert = false
+      }
     },
   },
   mounted() {},
@@ -95,6 +126,7 @@ export default {
 .scan-qr-wrapper {
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 </style>
