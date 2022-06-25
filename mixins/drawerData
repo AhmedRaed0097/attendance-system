@@ -63,6 +63,11 @@ export default {
       ],
     }
   },
+  computed:{
+    user() {
+      return this.$auth.user
+    },
+  },
   methods: {
     openDropDown(type) {
       if (type === 'students') {
@@ -136,7 +141,7 @@ export default {
         this.open_subjects_options = false
         this.open_periods_options = false
 
-      }else if (type === 'major') {
+      }else if (type === 'majors') {
         this.open_majors_options = !this.open_majors_options
         this.open_tables_options = false
         this.open_lectures_options = false
