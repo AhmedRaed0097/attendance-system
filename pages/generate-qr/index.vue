@@ -67,7 +67,7 @@ import QrcodeVue from 'qrcode.vue'
 
 export default {
   fetch() {
-    this.$store.dispatch('lecturers/getLecturerLectures', 1)
+    this.$store.dispatch('lecturer/getLecturerLectures', 1)
   },
   data: () => ({
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -109,7 +109,7 @@ export default {
       if (this.lecture !== null && this.week !== null) {
         this.loading = true
         await this.$store
-          .dispatch('lecturers/generateQrCode', {
+          .dispatch('lecturer/generateQrCode', {
             lecture_id: this.lecture.lecture_id,
             week_no: this.week,
           })
@@ -130,7 +130,7 @@ export default {
     },
     async deleteQrCode() {
       await this.$store
-        .dispatch('lecturers/removeBatchFromAttendance', {
+        .dispatch('lecturer/removeBatchFromAttendance', {
           lecture_id: this.lecture.lecture_id,
           week_no: this.week,
         })

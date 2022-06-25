@@ -236,7 +236,7 @@
 <script>
 export default {
   fetch() {
-    this.$store.dispatch('lecturers/getLecturerLectures', 1)
+    this.$store.dispatch('lecturer/getLecturerLectures', this.user.id)
   },
   data: () => ({
     showAlert: false,
@@ -283,12 +283,15 @@ export default {
     loading() {
       return this.$store.state.lecturer.loading
     },
+    user() {
+      return this.$auth.user
+    },
   },
   methods: {
     getStudentsForManualAttendance() {
       if ((this.week && this.lecture) || this.$refs.form.validate()) {
         this.$store
-          .dispatch('lecturers/getStudentsFroManualAttendance', {
+          .dispatch('lecturer/getStudentsFroManualAttendance', {
             lecture_id: this.lecture.lecture_id,
             week_no: this.week,
           })
@@ -303,13 +306,13 @@ export default {
     },
     changeAttendanceState(studentId) {
       this.$store
-        .dispatch('lecturers/changeAttendanceState', {
+        .dispatch('lecturer/changeAttendanceState', {
           lecture_id: this.lecture.lecture_id,
           student_id: studentId,
           week_no: this.week,
         })
         .then(async (response) => {
-          await this.$store.dispatch('lecturers/getStudentsFroManualAttendance', {
+          await this.$store.dispatch('lecturer/getStudentsFroManualAttendance', {
             lecture_id: this.lecture.lecture_id,
             week_no: this.week,
           })

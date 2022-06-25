@@ -94,6 +94,11 @@
 
 <script>
 export default {
+  fetch() {
+    this.$store.dispatch('student/getAttendanceTable', {
+      student_id: this.user.id,
+    })
+  },
   data() {
     return {
       lectures: [
@@ -146,17 +151,15 @@ export default {
       ],
     }
   },
-  created() {
-    this.$store.dispatch('students/getAttendanceTable', {
-      student_id: 3,
-    })
-  },
   computed: {
     attendanceData() {
       return this.$store.state.student.attendance_table_data
     },
     loading() {
       return this.$store.state.student.loading
+    },
+    user() {
+      return this.$auth.user
     },
   },
   methods: {
