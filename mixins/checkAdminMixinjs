@@ -1,11 +1,15 @@
-export default{
+export default {
   beforeCreate() {
     const isAuthenticated = this.$auth.user ? true : false
     if (isAuthenticated) {
-      if (this.$auth.user.role === 'admin') {
-        this.$router.push('/admin')
+      if (this.$auth.user.role === 'admin' || this.$auth.user.role === 'super_admin') {
+        if (this.$route.name.split('-')[0] !== 'admin') {
+          this.$router.push('/admin')
+        }
       } else {
-        this.$router.push('/')
+        if (this.$route.name.split('-')[0] === 'admin') {
+          this.$router.push('/')
+        }
       }
     }
   },
