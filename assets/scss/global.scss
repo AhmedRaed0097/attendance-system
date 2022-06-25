@@ -116,6 +116,11 @@
   z-index: 30 !important;
 }
 
-.v-text-field .v-input__control .v-input__slot .v-text-field__slot input[type="text"] {
-  height: 40px;
+input[type="text"] {
+  min-height: 40px !important;
+}
+
+.v-select__selection,
+.v-select__selection--comma {
+  height: 20px !important;
 }
