@@ -1,5 +1,5 @@
 <template>
-  <div class="tw-flex tw-flex-col tw-justify-evenly tw-items-center tw-w-8/12 tw-h-full tw-bg-white tw-mx-auto tw-my-0 tw-rounded-xl">
+  <div @click="$emit('clicked')" class="tw-flex tw-flex-col tw-justify-evenly tw-items-center tw-w-8/12 tw-h-full tw-bg-white tw-mx-auto tw-my-0 tw-rounded-xl tw-cursor-pointer">
     <div class="icon">
       <slot name="icon" />
     </div>
