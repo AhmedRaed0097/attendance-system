@@ -2,13 +2,13 @@
   <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
-        <h2 v-if="methodType === 'add'" class="add-student-title">
+        <h2 v-if="methodType === 'add'" class="add-member-title">
           إضافة طالب جديد
         </h2>
-        <h2 v-if="methodType === 'edit'" class="add-student-title">
+        <h2 v-if="methodType === 'edit'" class="add-member-title">
           تعديل طالب
         </h2>
-        <h2 v-if="methodType === 'delete'" class="add-student-title">
+        <h2 v-if="methodType === 'delete'" class="add-member-title">
           حذف طالب
         </h2>
       </v-card-title>

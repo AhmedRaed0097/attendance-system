@@ -24,12 +24,12 @@
   </v-app>
 </template>
 <script>
-// import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
+import checkAdminMixinjs from '~/mixins/checkAdminMixinjs'
 
 import navDrawer from '~/components/navDrawer.vue'
 export default {
   components: { navDrawer },
-  // mixins: [checkAdminMixinjs],
+  mixins: [checkAdminMixinjs],
   // middleware: 'checkUserType',
   data: () => ({
     drawer: null,
@@ -60,7 +60,6 @@ export default {
     },
     setAppBarText() {
       const routeName = this.$route.name.split('-')[1]
-      console.log('aa ', routeName)
       this.drawer = !this.drawer
       if (routeName === undefined) {
         this.app_bar_text = 'الرئيسية'

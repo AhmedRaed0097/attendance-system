@@ -1,6 +1,10 @@
 <template>
   <v-container
-    class="!tw-min-h-[100vh] !tw-flex tw-flex-col !tw-justify-center !tw-items-center"
+    class="
+      !tw-min-h-[100vh] !tw-flex
+      tw-flex-col
+      !tw-justify-center !tw-items-center
+    "
   >
     <Alert
       :alert-visible="showAlert"
@@ -9,7 +13,11 @@
     />
     <v-card
       width="400"
-      class="tw-relative tw-mt-3 tw-mx-auto tw-pb-5 tw-border !tw-rounded-xl tw-border-slate-500"
+      class="
+        tw-relative tw-mt-3 tw-mx-auto tw-pb-5 tw-border
+        !tw-rounded-xl
+        tw-border-slate-500
+      "
     >
       <h2
         v-if="!showResetPassword"
@@ -284,7 +292,10 @@ export default {
           'password_confirmation',
           this.form.password_confirmation
         )
-        formData.append('user_type', this.user_type)
+        formData.append(
+          'user_type',
+          this.form.email.includes('@admin') ? 'admin' : this.user_type
+        )
         formData.append('device_name', 'test')
         this.loading = true
         await this.$store
@@ -331,5 +342,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>
