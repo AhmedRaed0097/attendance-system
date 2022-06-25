@@ -2,13 +2,13 @@
   <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
-        <h2 v-if="methodType === 'add'" class="add-student-title">
+        <h2 v-if="methodType === 'add'" class="add-member-title">
           إضافة فترة جديد
         </h2>
-        <h2 v-if="methodType === 'edit'" class="add-student-title">
+        <h2 v-if="methodType === 'edit'" class="add-member-title">
           تعديل فترة
         </h2>
-        <h2 v-if="methodType === 'delete'" class="add-student-title">
+        <h2 v-if="methodType === 'delete'" class="add-member-title">
           حذف فترة
         </h2>
       </v-card-title>
@@ -171,11 +171,9 @@ export default {
             )
           }
         }
-        console.log('filterdItem ', filterdItem.length)
         if (filterdItem.length > 0) {
           formData.append('id', this.form.id)
           for (const key in filterdItem[0]) {
-            console.log(key, filterdItem[0][key])
             if (filterdItem[0][key] !== this.form[key]) {
               formData.append(key, this.form[key])
             }

@@ -52,7 +52,7 @@ export const actions = {
       })
       .catch((error) => {
         commit('SETLOADING', false)
-        console.log('Error ', error)
+        
       })
   },
   async getAttendanceTable({ commit }, payload) {
@@ -70,7 +70,7 @@ export const actions = {
       })
       .catch((error) => {
         commit('SETLOADING', false)
-        console.log('Error ', error)
+        
       })
   },
   async changeAttendanceState({ commit, dispatch }, payload) {
@@ -90,7 +90,6 @@ export const actions = {
   },
   async generateQrCode({ commit }, payload) {
     commit('SETLOADING', true)
-    console.log('payload ', payload)
     return await this.$axios.$post(
       `generate-qr/${payload.lecture_id}/${payload.week_no}`
     )

@@ -19,15 +19,9 @@ export const mutations = {
 
 export const actions = {
   async login({ commit }, payload) {
-    console.log('enter login');
     return await this.$auth.loginWith('laravelJWT', { data: payload})
-
-    // const response = await this.$axios.$post('/student/login', payload)
-    // return response
   },
   async logout({ commit }) {
-    // return await this.$auth.loginWith('student', { data: {...payload , device_name: 'test'}})
-
     const response = await this.$axios.$post('/student/logout')
     return response
   },
@@ -59,7 +53,7 @@ export const actions = {
       })
       .catch((error) => {
         commit('SETLOADING', false)
-        console.log('Error ', error)
+        
       })
   },
 }

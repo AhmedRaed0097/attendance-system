@@ -125,7 +125,6 @@ export default {
           lecture_id: this.lecture.lecture_id,
           week_no: this.week,
         })
-        console.log('value ', this.value)
         this.showQr = true
       }
     },

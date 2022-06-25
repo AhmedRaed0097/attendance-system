@@ -2,13 +2,13 @@
   <div class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
-        <h2 v-if="methodType === 'add'" class="add-student-title">
+        <h2 v-if="methodType === 'add'" class="add-member-title">
           إضافة محاضرة جديد
         </h2>
-        <h2 v-if="methodType === 'edit'" class="add-student-title">
+        <h2 v-if="methodType === 'edit'" class="add-member-title">
           تعديل محاضرة
         </h2>
-        <h2 v-if="methodType === 'delete'" class="add-student-title">
+        <h2 v-if="methodType === 'delete'" class="add-member-title">
           حذف محاضرة
         </h2>
       </v-card-title>
@@ -140,7 +140,6 @@ export default {
     if (this.subjects.length === 0) {
       this.$store.dispatch('admin/getSubjects')
     } else {
-      console.log('fetch')
       this.fillSubjects()
     }
     if (this.batchs.length === 0) {
@@ -289,7 +288,6 @@ export default {
   },
   watch: {
     subjects() {
-      console.log('change', this.subjects.length)
       this.fillSubjects()
     },
     periods() {

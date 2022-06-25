@@ -302,8 +302,6 @@ export default {
       }
     },
     changeAttendanceState(studentId) {
-      console.log('this.lecture.lecture_id ', this.lecture.lecture_id)
-      console.log('week ', this.week)
       this.$store
         .dispatch('lecturers/changeAttendanceState', {
           lecture_id: this.lecture.lecture_id,

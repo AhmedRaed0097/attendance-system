@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     // async onInit(promise) {
-    //   console.log('init')
+    //   log('init')
     //   // show loading indicator
 
     //   try {
@@ -59,7 +59,7 @@ export default {
     //       this.error = 'browser seems to be lacking features'
     //     }
     //   } finally {
-    //     console.log('done')
+    //     log('done')
     //     // hide loading indicator
     //   }
     // },
@@ -69,26 +69,22 @@ export default {
       let payload = JSON.parse(result)
       payload.student_id = 3
       this.$store.dispatch('students/scanQr', payload).then((response) => {
-        console.log('response ', response)
+        log('response ', response)
       })
       alert('end')
 
-      console.log('result.lecture_id ', payload)
+      log('result.lecture_id ', payload)
     },
     onLoaded() {
-      console.log(`Ready to start scanning barcodes`)
+      log(`Ready to start scanning barcodes`)
     },
     onImageDecode(result) {
       let payload = JSON.parse(result)
       payload.student_id = 1
       this.$store.dispatch('students/scanQr', payload).then((response) => {
-        console.log('response ', response)
       })
-
-      console.log('result.lecture_id ', payload)
     },
     onError(error) {
-      console.log(`Error `, error)
     },
   },
   mounted() {},

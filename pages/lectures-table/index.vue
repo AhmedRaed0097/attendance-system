@@ -81,10 +81,7 @@ export default {
     }
   },
   async fetch() {
-    console.log('enter ',this.$auth.user.user_type);
     if (this.$auth.user.user_type === 'student') {
-    console.log('here');
-
       await this.$store
         .dispatch('students/getLecturesTable', 1)
         .then((response) => {
@@ -94,7 +91,6 @@ export default {
           this.setAlertData(error.response.data)
         })
     } else if (this.$auth.user.user_type === 'lecturer') {
-    console.log('there');
       await this.$store
         .dispatch('lecturers/getLecturerLectures', 1)
         .then((response) => {

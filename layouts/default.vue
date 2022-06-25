@@ -77,8 +77,6 @@ export default {
   },
   mounted() {},
   created() {
-    console.log('process.env ', process.env.S3_BUCKET)
-
     if (process.client) {
     }
     if (this.$route.name === 'index') {
