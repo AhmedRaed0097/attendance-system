@@ -52,7 +52,7 @@
             ></v-autocomplete>
           </v-col>
           <v-col cols="12" md="6">
-            <v-autocomplete
+            <v-select
               v-model="form.state"
               :items="items"
               :rules="stateRules"
@@ -61,7 +61,7 @@
               outlined
               validate-on-blur
               label="الحالة"
-            ></v-autocomplete>
+            ></v-select>
           </v-col>
         </v-row>
         <v-row v-else>
