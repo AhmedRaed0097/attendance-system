@@ -64,8 +64,6 @@ export const actions = {
         setTimeout(() => {
           commit('HIDEALERT')
         }, 3000);
-        dispatch('getTables')
-
         commit('SETLOADING', false)
       })
       .catch((error) => {
