@@ -14,7 +14,7 @@
     >
       <v-sheet
         color="#fff"
-        class="user-data !tw-rounded-md tw-py-4 !tw-bg-admin-primary-dark"
+        class="user-data tw-py-4 !tw-bg-admin-primary-dark"
       >
         <v-avatar class="mb-4" color="#fff" size="64"></v-avatar>
 
@@ -182,6 +182,7 @@
 
         <!-- =============================== employees =================================== -->
         <drawerListItem
+        v-if="this.user.role === 'super_admin'"
           groupTitle="الموظفين"
           :itemsList="employee_links"
           :isExpanded="open_employees_options"
