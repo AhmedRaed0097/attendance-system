@@ -6,7 +6,6 @@
       v-model="show_drawer"
       class="
         !tw-z-20
-        !tw-rounded-md
         !tw-border-primary
         !tw-border-2
         !tw-border-solid
@@ -36,435 +35,177 @@
 
       <v-list nav dense>
         <!-- =============================== import Data =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('import')"
+
+        <drawerListItem
+          groupTitle="إستيراد البيانات"
+          :itemsList="import_links"
+          :isExpanded="open_import_data_options"
+          @expanded="openDropDown('import')"
         >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/import-data.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                إستيراد البيانات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <transition name="slide">
-            <ul
-              v-show="open_import_data_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in import_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/import-data.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
 
         <!-- ================================ //import Data ================================== -->
 
         <!-- ================================ Majors ================================== -->
-
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('major')"
+        <drawerListItem
+          groupTitle="التخصصات"
+          :itemsList="major_links"
+          :isExpanded="open_majors_options"
+          @expanded="openDropDown('majors')"
         >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/majors.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                التخصصات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <transition name="slide">
-            <ul v-show="open_majors_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in majors_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
-
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/majors.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
         <!-- ================================  //Majors ================================== -->
 
         <!-- ================================  //Students ================================== -->
-
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('students')"
+        <drawerListItem
+          groupTitle="الطلاب"
+          :itemsList="student_links"
+          :isExpanded="open_students_options"
+          @expanded="openDropDown('students')"
         >
-          <!-- Students -->
-
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/students.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الطلاب
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul v-show="open_student_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in student_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/students.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
 
         <!-- ============================== //Students ==================================== -->
 
         <!-- =============================== Lecturers =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('lecturers')"
+
+        <drawerListItem
+          groupTitle="المحاضرين"
+          :itemsList="lecturer_links"
+          :isExpanded="open_lecturers_options"
+          @expanded="openDropDown('lecturers')"
         >
-          <!-- Lecturer -->
-
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/lecturers.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المحاضرين
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul
-              v-show="open_lecturer_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in lecturer_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/lecturers.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
 
         <!-- =============================== //Lecturers =================================== -->
 
         <!-- =============================== Subjects =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('subjects')"
-        >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/subjects.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المواد
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <transition name="slide">
-            <ul v-show="open_subject_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in subject_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
 
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+        <drawerListItem
+          groupTitle="المواد"
+          :itemsList="subject_links"
+          :isExpanded="open_subjects_options"
+          @expanded="openDropDown('subjects')"
+        >
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/subjects.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
+
         <!-- ================================ //Subjects ================================== -->
 
         <!-- ================================ Periods ================================== -->
-
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('periods')"
+        <drawerListItem
+          groupTitle="الفترات"
+          :itemsList="period_links"
+          :isExpanded="open_periods_options"
+          @expanded="openDropDown('periods')"
         >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/periods.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الفترات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/periods.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
 
-          <transition name="slide">
-            <ul v-show="open_period_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in period_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
         <!-- ================================== //Periods ================================ -->
 
         <!-- ================================ Lectures ================================== -->
 
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('lectures')"
+        <drawerListItem
+          groupTitle="المحاضرات"
+          :itemsList="lecture_links"
+          :isExpanded="open_lectures_options"
+          @expanded="openDropDown('lectures')"
         >
-          <!-- Subject -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/lectures.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                المحاضرات
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <transition name="slide">
-            <ul
-              v-show="open_lectures_options === true"
-              class="versions-options"
-            >
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in lecture_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/lectures.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
         <!-- ================================= //Lectures ================================ -->
 
         <!-- =============================== Tables =================================== -->
-        <div
-          class="nav-item-link"
-          style="cursor: pointer"
-          @click="openDropDown('tables')"
+        <drawerListItem
+          groupTitle="الجداول"
+          :itemsList="table_links"
+          :isExpanded="open_tables_options"
+          @expanded="openDropDown('tables')"
         >
-          <!-- Table -->
-          <v-list-item>
-            <v-list-item-icon>
-              <img
-                width="28"
-                src="../assets/images/admin/nav-icons/tables.svg"
-                alt="icon"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="nav-item-title" active-class="active">
-                الجداول
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <transition name="slide">
-            <ul v-show="open_tables_options === true" class="versions-options">
-              <li class="nav-item-link">
-                <v-list-item
-                  v-for="[route, text] in table_links"
-                  :key="text"
-                  link
-                  :to="route"
-                >
-                  <v-list-item-icon>
-                    <img
-                      width="25"
-                      src="~/assets/images/admin/nav-icons/list-item.svg"
-                      alt="list-item"
-                      class="tw-rotate-90 tw-mr-8"
-                    />
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </li>
-            </ul>
-            <!-- aaa -->
-          </transition>
-        </div>
+          <template #icon>
+            <img
+              width="28"
+              src="../assets/images/admin/nav-icons/tables.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
 
         <!-- ================================ //Tables ================================== -->
+
+        <!-- =============================== employees =================================== -->
+        <drawerListItem
+          groupTitle="الموظفين"
+          :itemsList="employee_links"
+          :isExpanded="open_employees_options"
+          @expanded="openDropDown('employees')"
+        >
+          <template #icon>
+            <img
+              width="30"
+              src="../assets/images/admin/nav-icons/employees.svg"
+              alt="icon"
+            />
+          </template>
+        </drawerListItem>
+
+        <!-- ================================ //employees ================================== -->
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar v-if="$vuetify.breakpoint.mdAndDown" color="#2a3588" height="70" app class="app-bar">
+    <v-app-bar color="#2a3588" height="70" app class="app-bar">
       <div>
-        <v-app-bar-nav-icon @click.stop="show_drawer = !show_drawer">
+        <v-app-bar-nav-icon
+          v-if="$vuetify.breakpoint.mdAndDown"
+          @click.stop="show_drawer = !show_drawer"
+        >
           <img width="25" src="~/assets/images/admin/burger.svg" alt="burger" />
         </v-app-bar-nav-icon>
 
@@ -483,7 +224,7 @@
         />
         <img
           width="25"
-          v-if="$route.name !== 'admin' "
+          v-if="$route.name !== 'admin'"
           @click="$router.back()"
           src="../assets/images/home/back-icon.svg"
           alt=""
@@ -494,192 +235,11 @@
 </template>
 
 <script>
+import drawerListItem from '@/components/drawerListItem.vue'
+import drawerData from '~/mixins/drawerData'
+
 export default {
-  // props: {
-  //   drawer: {
-  //     type: Boolean,
-  //     default: true,
-  //   },
-  // },
-  data() {
-    return {
-      show_drawer: false,
-      app_bar_text: '',
-      open_student_options: false,
-      open_lecturer_options: false,
-      open_tables_options: false,
-      open_import_data_options: false,
-      open_majors_options: false,
-      open_subject_options: false,
-      open_period_options: false,
-      open_lectures_options: false,
-      student_links: [
-        ['/admin/students/add-student', 'إضافة طالب'],
-        ['/admin/students/edit-student', 'تعديل طالب'],
-        ['/admin/students/delete-student', 'حذف طالب'],
-      ],
-      lecturer_links: [
-        ['/admin/lecturers/add-lecturer', 'إضافة محاضر'],
-        ['/admin/lecturers/edit-lecturer', 'تعديل محاضر'],
-        ['/admin/lecturers/delete-lecturer', 'حذف محاضر'],
-      ],
-      subject_links: [
-        ['/admin/subjects/add-subject', 'إضافة مادة'],
-        ['/admin/subjects/edit-subject', 'تعديل مادة'],
-        ['/admin/subjects/delete-subject', 'حذف مادة'],
-      ],
-      period_links: [
-        ['/admin/periods/add-period', 'إضافة فترة'],
-        ['/admin/periods/edit-period', 'تعديل فترة'],
-        ['/admin/periods/delete-period', 'حذف فترة'],
-      ],
-      lecture_links: [
-        ['/admin/lectures/add-lecture', 'إضافة محاضرة'],
-        ['/admin/lectures/edit-lecture', 'تعديل محاضرة'],
-        ['/admin/lectures/delete-lecture', 'حذف محاضرة'],
-      ],
-      table_links: [
-        ['/admin/tables/add-table', 'إضافة جدول'],
-        ['/admin/tables/edit-table', 'تعديل جدول'],
-        ['/admin/tables/delete-table', 'حذف جدول'],
-      ],
-      majors_links: [
-        ['/admin/majors/add-major', 'إضافة تخصص'],
-        ['/admin/majors/edit-major', 'تعديل تخصص'],
-        ['/admin/majors/delete-major', 'حذف تخصص'],
-      ],
-      import_links: [
-        ['/admin/import-data/import-majors-data', 'بيانات التخصصات'],
-        ['/admin/import-data/import-students-data', 'بيانات الطلاب'],
-        ['/admin/import-data/import-lecturers-data', 'بيانات المحاضرين'],
-        ['/admin/import-data/import-subjects-data', 'بيانات المواد'],
-        ['/admin/import-data/import-periods-data', 'بيانات الفترات'],
-      ],
-    }
-  },
-  methods: {
-    openDropDown(type) {
-      if (type === 'students') {
-        this.open_student_options = !this.open_student_options
-        this.open_lecturer_options = false
-        this.open_majors_options = false
-        this.open_import_data_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-        this.open_lectures_options = false
-      } else if (type === 'lecturers') {
-        this.open_lecturer_options = !this.open_lecturer_options
-        this.open_student_options = false
-        this.open_majors_options = false
-        this.open_import_data_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-        this.open_lectures_options = false
-      } else if (type === 'subjects') {
-        this.open_subject_options = !this.open_subject_options
-        this.open_student_options = false
-        this.open_lecturer_options = false
-        this.open_import_data_options = false
-
-        this.open_majors_options = false
-        this.open_period_options = false
-        this.open_lectures_options = false
-      } else if (type === 'periods') {
-        this.open_period_options = !this.open_period_options
-        this.open_student_options = false
-        this.open_lecturer_options = false
-        this.open_import_data_options = false
-
-        this.open_majors_options = false
-        this.open_subject_options = false
-        this.open_lectures_options = false
-      } else if (type === 'lectures') {
-        this.open_lectures_options = !this.open_lectures_options
-        this.open_student_options = false
-        this.open_lecturer_options = false
-        this.open_import_data_options = false
-
-        this.open_majors_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-      } else if (type === 'tables') {
-        this.open_tables_options = !this.open_tables_options
-        this.open_lectures_options = false
-        this.open_student_options = false
-        this.open_import_data_options = false
-
-        this.open_majors_options = false
-        this.open_lecturer_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-      } else if (type === 'major') {
-        this.open_majors_options = !this.open_majors_options
-        this.open_tables_options = false
-        this.open_lectures_options = false
-        this.open_student_options = false
-        this.open_import_data_options = false
-
-        this.open_lecturer_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-      } else if (type === 'import') {
-        this.open_import_data_options = !this.open_import_data_options
-        this.open_majors_options = false
-        this.open_lectures_options = false
-        this.open_student_options = false
-        this.open_lecturer_options = false
-        this.open_subject_options = false
-        this.open_period_options = false
-      }
-    },
-    setAppBarText() {
-      const routeName = this.$route.name.split('-')[1]
-      this.drawer = !this.drawer
-      if (routeName === undefined) {
-        this.app_bar_text = 'الرئيسية'
-      } else if (routeName === 'import') {
-        this.app_bar_text = 'إستيراد البيانات'
-      } else if (routeName === 'majors') {
-        this.app_bar_text = 'التخصصات'
-      } else if (routeName === 'students') {
-        this.app_bar_text = 'الطلاب'
-      } else if (routeName === 'lecturers') {
-        this.app_bar_text = 'المحاضرين'
-      } else if (routeName === 'subjects') {
-        this.app_bar_text = 'المواد'
-      } else if (routeName === 'lectures') {
-        this.app_bar_text = 'المحاضرات'
-      } else if (routeName === 'tables') {
-        this.app_bar_text = 'الجداول'
-      }
-    },
-  },
-  watch: {
-    // '$vuetify.breakpoint.name'(val) {
-    //     if (val === 'lg' || val === 'xl') {
-    //       this.show_drawer = true
-    //     }
-    //   },
-    //   drawer(val) {
-    //     this.show_drawer = val
-    //     if (val === false) {
-    //       this.$emit('drawerClosed')
-    //     }
-    // },
-    '$route.name': {
-      handler() {
-        this.setAppBarText()
-      },
-    },
-  },
-  mounted() {
-      if (
-        this.$vuetify.breakpoint.name === 'lg' ||
-        this.$vuetify.breakpoint.name === 'xl'
-      ) {
-        this.show_drawer = true
-      }
-    this.setAppBarText()
-  },
+  components: { drawerListItem },
+  mixins: [drawerData],
 }
 </script>
