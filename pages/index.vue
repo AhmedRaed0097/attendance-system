@@ -21,7 +21,10 @@
             <img
               src="../assets/images/home/user.jpg"
               alt="user-avatar"
-              class="avatar tw-border-2 tw-border-solid tw-border-gray-400 tw-rounded-full"
+              class="
+                avatar
+                tw-border-2 tw-border-solid tw-border-gray-400 tw-rounded-full
+              "
             />
           </div>
         </div>
@@ -29,7 +32,7 @@
           v-if="user"
           class="user-data tw-text-center tw-mb-6 tw-mt-0 sm:tw-mt-2"
         >
-          <h3 class="tw-text-xl tw-mb-1">{{ user.name }}</h3>
+          <h3 class="tw-text-xl tw-mt-6 tw-mb-1">{{ user.name }}</h3>
           <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">
             علوم الحاسوب
           </p>
@@ -40,7 +43,7 @@
       </v-col>
       <v-row v-if="isStudent === true" class="btns-row">
         <v-col cols="6">
-          <btn-component>
+          <btn-component @clicked="goTo('lectures-table')">
             <template #icon>
               <img
                 width="28"
@@ -49,14 +52,12 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs">
-                جدول محاضرات اليوم
-              </span>
+              <span class="tw-text-xs"> جدول محاضرات اليوم </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
-          <btn-component>
+          <btn-component @clicked="goTo('attendance-table')">
             <template #icon>
               <img
                 width="28"
@@ -65,9 +66,7 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('attendance-table')" class="tw-text-xs">
-                جدول الحضور
-              </span>
+              <span class="tw-text-xs"> جدول الحضور </span>
             </template>
           </btn-component>
         </v-col>
@@ -104,12 +103,13 @@
             @click="goTo('scan-qr')"
             src="~/assets/images/home/Compact Camera_50px.svg"
             alt=""
+            class="tw-cursor-pointer"
           />
         </v-col>
       </v-row>
       <v-row v-else class="btns-row">
         <v-col cols="6">
-          <btn-component>
+          <btn-component @clicked="goTo('lectures-table')">
             <template #icon>
               <img
                 width="28"
@@ -118,14 +118,12 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('lectures-table')" class="tw-text-xs">
-                جدول محاضرات اليوم
-              </span>
+              <span class="tw-text-xs"> جدول محاضرات اليوم </span>
             </template>
           </btn-component>
         </v-col>
         <v-col cols="6">
-          <btn-component>
+          <btn-component @clicked="goTo('manual-attendance')">
             <template #icon>
               <img
                 width="28"
@@ -134,9 +132,7 @@
               />
             </template>
             <template #btn-title>
-              <span @click="goTo('manual-attendance')" class="tw-text-xs">
-                التحضير اليدوي
-              </span>
+              <span class="tw-text-xs"> التحضير اليدوي </span>
             </template>
           </btn-component>
         </v-col>
@@ -173,16 +169,10 @@
             @click="goTo('generate-qr')"
             src="../assets/images/home/Plus.svg"
             alt="plus icon"
+            class="tw-cursor-pointer"
           />
         </v-col>
       </v-row>
-      <v-col cols="12" class="switch-col">
-        <input
-          v-model="isStudent"
-          class="toggle checked:before:!tw-bg-primary checked:!tw-bg-secondary"
-          type="checkbox"
-        />
-      </v-col>
     </v-row>
   </div>
 </template>
@@ -192,12 +182,14 @@ export default {
   data() {
     return {
       type: 'student',
-      isStudent: false,
     }
   },
   computed: {
     user() {
       return this.$auth.user
+    },
+    isStudent() {
+      return this.user.user_type === 'student'
     },
   },
   methods: {
@@ -205,7 +197,6 @@ export default {
       this.$router.push(`/${route}`)
     },
   },
-
 }
 </script>
 
