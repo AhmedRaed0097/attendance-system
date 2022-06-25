@@ -1,0 +1,202 @@
+export default {
+
+  data() {
+    return {
+      show_drawer: false,
+      app_bar_text: '',
+      open_students_options: false,
+      open_employees_options: false,
+      open_lecturers_options: false,
+      open_tables_options: false,
+      open_import_data_options: false,
+      open_majors_options: false,
+      open_subjects_options: false,
+      open_periods_options: false,
+      open_lectures_options: false,
+      student_links: [
+        ['/admin/students/add-student', 'إضافة طالب'],
+        ['/admin/students/edit-student', 'تعديل طالب'],
+        ['/admin/students/delete-student', 'حذف طالب'],
+      ],
+      lecturer_links: [
+        ['/admin/lecturers/add-lecturer', 'إضافة محاضر'],
+        ['/admin/lecturers/edit-lecturer', 'تعديل محاضر'],
+        ['/admin/lecturers/delete-lecturer', 'حذف محاضر'],
+      ],
+      subject_links: [
+        ['/admin/subjects/add-subject', 'إضافة مادة'],
+        ['/admin/subjects/edit-subject', 'تعديل مادة'],
+        ['/admin/subjects/delete-subject', 'حذف مادة'],
+      ],
+      period_links: [
+        ['/admin/periods/add-period', 'إضافة فترة'],
+        ['/admin/periods/edit-period', 'تعديل فترة'],
+        ['/admin/periods/delete-period', 'حذف فترة'],
+      ],
+      lecture_links: [
+        ['/admin/lectures/add-lecture', 'إضافة محاضرة'],
+        ['/admin/lectures/edit-lecture', 'تعديل محاضرة'],
+        ['/admin/lectures/delete-lecture', 'حذف محاضرة'],
+      ],
+      table_links: [
+        ['/admin/tables/add-table', 'إضافة جدول'],
+        ['/admin/tables/edit-table', 'تعديل جدول'],
+        ['/admin/tables/delete-table', 'حذف جدول'],
+      ],
+      employee_links: [
+        ['/admin/employees/add-employee', 'إضافة موظف'],
+        ['/admin/employees/edit-employee', 'تعديل موظف'],
+        ['/admin/employees/delete-employee', 'حذف موظف'],
+      ],
+      major_links: [
+        ['/admin/majors/add-major', 'إضافة تخصص'],
+        ['/admin/majors/edit-major', 'تعديل تخصص'],
+        ['/admin/majors/delete-major', 'حذف تخصص'],
+      ],
+      import_links: [
+        ['/admin/import-data/import-employees-data', 'بيانات الموظفين'],
+        ['/admin/import-data/import-majors-data', 'بيانات التخصصات'],
+        ['/admin/import-data/import-students-data', 'بيانات الطلاب'],
+        ['/admin/import-data/import-lecturers-data', 'بيانات المحاضرين'],
+        ['/admin/import-data/import-subjects-data', 'بيانات المواد'],
+        ['/admin/import-data/import-periods-data', 'بيانات الفترات'],
+      ],
+    }
+  },
+  methods: {
+    openDropDown(type) {
+      if (type === 'students') {
+        console.log('enter')
+        this.open_students_options = !this.open_students_options
+        this.open_lecturers_options = false
+        this.open_majors_options = false
+        this.open_import_data_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_lectures_options = false
+        this.open_employees_options = false
+
+      } else if (type === 'lecturers') {
+        this.open_lecturers_options = !this.open_lecturers_options
+        this.open_students_options = false
+        this.open_majors_options = false
+        this.open_import_data_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_lectures_options = false
+        this.open_employees_options = false
+      } else if (type === 'subjects') {
+        this.open_subjects_options = !this.open_subjects_options
+        this.open_students_options = false
+        this.open_lecturers_options = false
+        this.open_import_data_options = false
+        this.open_majors_options = false
+        this.open_periods_options = false
+        this.open_lectures_options = false
+        this.open_employees_options = false
+
+      } else if (type === 'periods') {
+        this.open_periods_options = !this.open_periods_options
+        this.open_students_options = false
+        this.open_lecturers_options = false
+        this.open_import_data_options = false
+        this.open_majors_options = false
+        this.open_subjects_options = false
+        this.open_lectures_options = false
+        this.open_employees_options = false
+
+      } else if (type === 'lectures') {
+        this.open_lectures_options = !this.open_lectures_options
+        this.open_students_options = false
+        this.open_lecturers_options = false
+        this.open_import_data_options = false
+        this.open_majors_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_employees_options = false
+
+      } else if (type === 'tables') {
+        this.open_tables_options = !this.open_tables_options
+        this.open_lectures_options = false
+        this.open_students_options = false
+        this.open_import_data_options = false
+        this.open_majors_options = false
+        this.open_lecturers_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_employees_options = false
+      }else if (type === 'employees') {
+        this.open_employees_options = !this.open_employees_options
+        this.open_tables_options = false
+        this.open_lectures_options = false
+        this.open_students_options = false
+        this.open_import_data_options = false
+        this.open_majors_options = false
+        this.open_lecturers_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+
+      }else if (type === 'major') {
+        this.open_majors_options = !this.open_majors_options
+        this.open_tables_options = false
+        this.open_lectures_options = false
+        this.open_students_options = false
+        this.open_import_data_options = false
+        this.open_lecturers_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_employees_options = false
+
+      } else if (type === 'import') {
+        this.open_import_data_options = !this.open_import_data_options
+        this.open_majors_options = false
+        this.open_lectures_options = false
+        this.open_students_options = false
+        this.open_lecturers_options = false
+        this.open_subjects_options = false
+        this.open_periods_options = false
+        this.open_employees_options = false
+
+      }
+    },
+    setAppBarText() {
+      const routeName = this.$route.name.split('-')[1]
+      this.drawer = !this.drawer
+      if (routeName === undefined) {
+        this.app_bar_text = 'الرئيسية'
+      } else if (routeName === 'import') {
+        this.app_bar_text = 'إستيراد البيانات'
+      } else if (routeName === 'majors') {
+        this.app_bar_text = 'التخصصات'
+      } else if (routeName === 'students') {
+        this.app_bar_text = 'الطلاب'
+      } else if (routeName === 'lecturers') {
+        this.app_bar_text = 'المحاضرين'
+      } else if (routeName === 'subjects') {
+        this.app_bar_text = 'المواد'
+      } else if (routeName === 'lectures') {
+        this.app_bar_text = 'المحاضرات'
+      } else if (routeName === 'employees') {
+        this.app_bar_text = 'الإدارة'
+      }else if (routeName === 'tables') {
+        this.app_bar_text = 'الجداول'
+      }
+    },
+  },
+  watch: {
+    '$route.name': {
+      handler() {
+        this.setAppBarText()
+      },
+    },
+  },
+  mounted() {
+    if (
+      this.$vuetify.breakpoint.name === 'lg' ||
+      this.$vuetify.breakpoint.name === 'xl'
+    ) {
+      this.show_drawer = true
+    }
+    this.setAppBarText()
+  },
+}
