@@ -7,17 +7,17 @@
       class="alert"
       :class="{
         'alert-error':
-          alertData.status_code !== 200 || alertData.status_code !== 2010,
+          alertData.status_code !== 200 || alertData.status_code !== 201 || alertData.status_code !== 2010,
       }"
     >
       <img
-        v-if="alertData.status_code === 200"
+        v-if="alertData.status_code === 200 || alertData.status_code === 201"
         src="~/assets/images/notifications/success-icon.svg"
         alt="success-icon"
       />
       <img
       width="35"
-        v-else-if="alertData.status_code === 2010"
+        v-else-if="alertData.status_code === 2010 || alertData.status_code === 409"
         src="~/assets/images/notifications/warning-icon.svg"
         alt="success-icon"
       />
@@ -27,7 +27,7 @@
         alt="error-icon"
       />
 
-      <h3 v-if="alertData.status_code === 2010">
+      <h3 v-if="alertData.status_code === 2010  || alertData.status_code === 409">
         تنبيه
         <br />
         <span>
