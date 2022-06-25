@@ -25,6 +25,7 @@
               item-text="subject_name"
               :rules="requiredRules"
               outlined
+              validate-on-blur
               label="اسم المادة"
               return-object
             ></v-autocomplete>
@@ -35,6 +36,7 @@
               label="إسم اللمادة"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
 

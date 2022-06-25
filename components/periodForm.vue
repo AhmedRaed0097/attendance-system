@@ -24,6 +24,7 @@
               v-model="form.day"
               :items="days"
               outlined
+              validate-on-blur
               label="اليوم"
             ></v-autocomplete>
           </v-col>
@@ -32,6 +33,7 @@
               v-model="form.from"
               :items="start_period"
               outlined
+              validate-on-blur
               label="بداية الفترة"
             ></v-autocomplete>
           </v-col>
@@ -41,6 +43,7 @@
               v-model="form.to"
               :items="end_period"
               outlined
+              validate-on-blur
               label="نهاية الفترة"
             ></v-autocomplete>
           </v-col>
@@ -52,6 +55,7 @@
               :items="periodsList"
               item-text="title"
               outlined
+              validate-on-blur
               label="إخر الفترة"
               return-object
             ></v-autocomplete>

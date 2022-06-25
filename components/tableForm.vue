@@ -26,6 +26,7 @@
               item-text="major"
               item-value="major"
               outlined
+              validate-on-blur
               label="التخصص"
             ></v-autocomplete>
           </v-col>
@@ -36,6 +37,7 @@
               item-text="text"
               item-value="value"
               outlined
+              validate-on-blur
               label="المستوى"
               return-object
             ></v-autocomplete>
@@ -45,6 +47,7 @@
               v-model="form.batch_type"
               :items="batch_types"
               outlined
+              validate-on-blur
               label="نوع القبول"
             ></v-autocomplete>
           </v-col>
@@ -62,7 +65,7 @@
             <div class="add-btn-wrapper">
               <v-btn
                 v-if="methodType === 'add'"
-                 width="140"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -90,6 +93,7 @@
               :items="tablesList"
               item-text="title"
               outlined
+              validate-on-blur
               return-object
               label="إختيار جدول"
             ></v-autocomplete>
@@ -270,7 +274,12 @@ export default {
         }
         this.$store.dispatch('admin/addTable', formData).then(() => {
           if (this.response.status_code === 200) {
-            this.form = {}
+            this.form = {
+              title: '',
+              major: '',
+              level: '',
+              batch_type: '',
+            }
           }
         })
       }
@@ -298,7 +307,12 @@ export default {
           }
         }
         this.$store.dispatch('admin/updateTable', formData)
-        this.form = {}
+        this.form = {
+          title: '',
+          major: '',
+          level: '',
+          batch_type: '',
+        }
       }
     },
     deleteTable() {

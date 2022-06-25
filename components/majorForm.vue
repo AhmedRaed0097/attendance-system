@@ -26,6 +26,7 @@
               label="إسم التخصص"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -35,6 +36,7 @@
               label="المستويات"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
         </v-row>
@@ -44,8 +46,9 @@
               v-model="form"
               :items="majorsList"
               item-text="major"
-              outlined
               label="التخصص"
+              outlined
+              validate-on-blur
               return-object
             >
             </v-autocomplete>
@@ -65,7 +68,7 @@
                 >إضافة</v-btn
               >
               <v-btn
-               width="140"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -75,7 +78,7 @@
                 >تعديل</v-btn
               >
               <v-btn
-                 width="140"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-error"

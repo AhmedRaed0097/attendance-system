@@ -27,6 +27,7 @@
               item-text="subject_name"
               item-value="id"
               outlined
+              validate-on-blur
               label="المادة"
             >
             </v-autocomplete>
@@ -39,6 +40,7 @@
               item-text="title"
               item-value="id"
               outlined
+              validate-on-blur
               label="الفترة"
             ></v-autocomplete>
           </v-col>
@@ -50,6 +52,7 @@
               item-text="name"
               item-value="id"
               outlined
+              validate-on-blur
               label="المحاضر"
             >
             </v-autocomplete>
@@ -62,6 +65,7 @@
               item-text="title"
               item-value="id"
               outlined
+              validate-on-blur
               label="الدفعة"
             >
             </v-autocomplete>
@@ -75,6 +79,7 @@
               :rules="requiredRules"
               item-text="lecture_title"
               outlined
+              validate-on-blur
               label="المحاضرة"
               return-object
             >

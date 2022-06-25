@@ -21,6 +21,7 @@
               :rules="requiredRules"
               item-text="name"
               outlined
+              validate-on-blur
               label="اسم المحاضر"
               return-object
             ></v-autocomplete>
@@ -34,18 +35,20 @@
               label="إسم "
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-autocomplete
+            <v-select
               v-model="form.state"
               :items="items"
               :rules="stateRules"
               item-text="text"
               item-value="value"
               outlined
+              validate-on-blur
               label="الحالة"
-            ></v-autocomplete>
+            ></v-select>
           </v-col>
 
           <v-col cols="12" :md="6">
@@ -55,6 +58,7 @@
               label="البريد الإلكتروني"
               required
               outlined
+              validate-on-blur
             ></v-text-field>
           </v-col>
 
@@ -119,6 +123,7 @@ export default {
     form: {
       name: '',
       state: '',
+      email: '',
     },
     nameRules: [
       (v) => !!v || 'إسم المحاضر مطلوب',
