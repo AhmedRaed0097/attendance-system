@@ -88,7 +88,7 @@ export default {
       default: () => 'add',
     },
   },
-  fetch() {
+  mounted() {
     if (this.methodType !== 'add' && this.subjects.length === 0) {
       this.$store.dispatch('admin/getSubjects')
     }

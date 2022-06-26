@@ -122,7 +122,7 @@ export default {
       this.fillPeriods()
     },
   },
-  fetch() {
+  mounted() {
     if (this.methodType !== 'add' && this.periods.length === 0) {
       this.$store.dispatch('admin/getPeriods')
     }

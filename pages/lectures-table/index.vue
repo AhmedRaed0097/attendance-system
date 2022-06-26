@@ -35,7 +35,7 @@
             <p>{{ item.subject_name }}</p>
           </template>
           <template v-slot:[`item.period`]="{ item }">
-            
+
             <p class="!tw-mb-1 !tw-mt-1">
               {{ item.day }}
             </p>
@@ -92,7 +92,7 @@ export default {
       ],
     }
   },
-  async fetch() {
+  async mounted() {
     if (this.$auth.user.user_type === 'student') {
       await this.$store
         .dispatch('student/getLecturesTable', this.user.id)

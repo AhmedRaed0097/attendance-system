@@ -66,7 +66,7 @@ import QrcodeVue from 'qrcode.vue'
 // import Alert from "~/componentsAlert.vue";
 
 export default {
-  fetch() {
+  mounted() {
     this.$store.dispatch('lecturer/getLecturerLectures', 1)
   },
   data: () => ({

@@ -34,7 +34,7 @@
               validate-on-blur
               label="الحالة"
               outlined
-              item-text="text"
+            item-text="text"
               item-value="value"
             >
             </v-select> -->
@@ -94,7 +94,7 @@
 
 <script>
 export default {
-  fetch() {
+  mounted() {
     this.$store.dispatch('student/getAttendanceTable', {
       student_id: this.user.id,
     })

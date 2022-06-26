@@ -235,7 +235,7 @@
 
 <script>
 export default {
-  fetch() {
+  mounted() {
     this.$store.dispatch('lecturer/getLecturerLectures', this.user.id)
   },
   data: () => ({

@@ -126,7 +126,7 @@ export default {
       default: () => 'add',
     },
   },
-  fetch() {
+  mounted() {
     if (this.methodType !== 'add') {
       this.$store.dispatch('admin/getStudents')
     }

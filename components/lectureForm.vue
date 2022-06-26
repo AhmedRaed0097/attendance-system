@@ -134,7 +134,7 @@ export default {
       default: () => 'add',
     },
   },
-  fetch() {
+  mounted() {
     if (this.methodType !== 'add') {
       if (this.lectures.length === 0) {
         this.$store.dispatch('admin/getLectures')
