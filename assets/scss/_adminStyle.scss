@@ -119,9 +119,9 @@
 
 .form-wrapper {
     width: 100% !important;
-    // display: flex !important;
-    // align-items: center !important;
-    margin-top: -90px;
+    display: flex !important;
+    align-items: center !important;
+    // margin-top: -90px;
     padding: 10px 20px !important;
     .v-card {
       width: 100% !important;
@@ -130,12 +130,13 @@
       margin: 0 auto !important;
       display: flex !important;
       flex-direction: column !important;
-      gap: 150px;
+      justify-content: center;
+      gap: 0;
       // justify-content: space-evenly !important;
       box-shadow: none !important;
       border: 1px solid #7c3e66 !important;
       border-radius: 10px !important;
-      @media (min-width: 750px) and (max-width: 1600px)  {
+      @media (min-width: 1268px) and (max-width: 1600px)  {
         margin-left: 20% !important;
       }
       @media (min-width: 750px) and (max-width: 1264px) {
