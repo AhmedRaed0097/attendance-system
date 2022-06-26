@@ -60,6 +60,7 @@ export const actions = {
     return await this.$axios
       .$post('add-table', payload)
       .then((response) => {
+        dispatch('getTables')
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
