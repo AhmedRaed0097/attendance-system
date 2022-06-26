@@ -142,6 +142,7 @@
                 dark
                 @click="showResetPassword ? resetPassword() : userLogin()"
                 class="!tw-p-6 !tw-bg-primary"
+                :class="{'tw-mb-3':showResetPassword}"
               >
                 <span v-if="showResetPassword"> إعادة تعيين كلمو المرور </span>
                 <span v-else> دخول </span>
@@ -171,7 +172,7 @@
                 v-if="!showResetPassword"
                 text
                 @click="showResetPassword = true"
-                class="!tw-p-5"
+                class="!tw-p-5 tw-my-2"
               >
                 تسجيل الدخول للمرة الأولى</v-btn
               >
