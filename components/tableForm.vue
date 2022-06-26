@@ -52,14 +52,16 @@
             ></v-autocomplete>
           </v-col>
           <v-col cols="12" md="6">
-            <p
-              class="mt-4 pointer"
-              v-if="tableHtmlTitle"
-              v-html="tableHtmlTitle"
-            ></p>
-            <v-btn text class="mt-4" v-else @click="showTableTitle"
-              >عرض عنوان الجدول</v-btn
-            >
+            <center>
+              <p
+                class="mt-4 pointer"
+                v-if="tableHtmlTitle"
+                v-html="tableHtmlTitle"
+              ></p>
+              <v-btn text class="mt-4" v-else @click="showTableTitle"
+                >عرض عنوان الجدول</v-btn
+              >
+            </center>
           </v-col>
           <v-col cols="12">
             <div class="add-btn-wrapper">
@@ -126,7 +128,7 @@ export default {
       default: () => 'add',
     },
   },
-  fetch() {
+  mounted() {
     if (this.methodType !== 'add' && this.tables.length === 0) {
       this.$store.dispatch('admin/getTables')
     }
