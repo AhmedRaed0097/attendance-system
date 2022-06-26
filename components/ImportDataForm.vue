@@ -32,8 +32,14 @@
               label="إختر الملف"
             ></v-file-input>
           </v-col>
-          <v-col v-if="dataType === 'students' || dataType === 'lecturers' || dataType === 'employees'">
-            <v-autocomplete
+          <v-col
+            v-if="
+              dataType === 'students' ||
+              dataType === 'lecturers' ||
+              dataType === 'employees'
+            "
+          >
+            <v-select
               v-model="form.state"
               :items="items"
               :rules="stateRules"
@@ -42,7 +48,7 @@
               outlined
               validate-on-blur
               label="الحالة"
-            ></v-autocomplete>
+            ></v-select>
           </v-col>
           <v-col cols="12" v-if="dataType === 'students'">
             <v-autocomplete
@@ -85,7 +91,7 @@ export default {
       default: () => '',
     },
   },
-  fetch() {
+  mounted() {
     this.$store.dispatch('admin/getTables')
   },
   watch: {
@@ -139,35 +145,39 @@ export default {
     },
   },
   methods: {
-    importData() {
+    async importData() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         if (this.dataType === 'students') {
           formData.append('file', this.form.file)
           formData.append('master_table_id', this.form.master_table_id)
           formData.append('state', this.form.state)
-          this.$store.dispatch('admin/importStudents', formData)
-
-        } else if (this.dataType === 'lecturers' || this.dataType === 'employees') {
+          await this.$store.dispatch('admin/importStudents', formData)
+        } else if (
+          this.dataType === 'lecturers' ||
+          this.dataType === 'employees'
+        ) {
           formData.append('file', this.form.file)
           formData.append('state', this.form.state)
-          if(this.dataType === 'lecturers'){
-            this.$store.dispatch('admin/importLecturers', formData)
-          }
-          else{
-            this.$store.dispatch('admin/importEmployees', formData)
+          if (this.dataType === 'lecturers') {
+            await this.$store.dispatch('admin/importLecturers', formData)
+          } else {
+            await this.$store.dispatch('admin/importEmployees', formData)
           }
         } else if (this.dataType === 'majors') {
           formData.append('file', this.form.file)
-          this.$store.dispatch('admin/importMajors', formData)
-        
+          await this.$store.dispatch('admin/importMajors', formData)
         } else if (this.dataType === 'subjects') {
           formData.append('file', this.form.file)
-          this.$store.dispatch('admin/importSubjects', formData)
-        
+          await this.$store.dispatch('admin/importSubjects', formData)
         } else if (this.dataType === 'periods') {
           formData.append('file', this.form.file)
-          this.$store.dispatch('admin/importPeriods', formData)
+          await this.$store.dispatch('admin/importPeriods', formData)
+        }
+        this.form = {
+          file: null,
+          state: '',
+          master_table_id: '',
         }
       }
     },
