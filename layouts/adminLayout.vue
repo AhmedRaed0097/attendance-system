@@ -35,14 +35,6 @@ export default {
     drawer: null,
     app_bar_text: '',
   }),
-
-  watch: {
-    '$route.name': {
-      handler() {
-        this.setAppBarText()
-      },
-    },
-  },
   beforeCreate() {
     this.$vuetify.rtl = true
   },
@@ -58,30 +50,7 @@ export default {
     onDrawerClosed() {
       this.drawer = false
     },
-    setAppBarText() {
-      const routeName = this.$route.name.split('-')[1]
-      this.drawer = !this.drawer
-      if (routeName === undefined) {
-        this.app_bar_text = 'الرئيسية'
-      } else if (routeName === 'import') {
-        this.app_bar_text = 'إستيراد البيانات'
-      } else if (routeName === 'majors') {
-        this.app_bar_text = 'التخصصات'
-      } else if (routeName === 'students') {
-        this.app_bar_text = 'الطلاب'
-      } else if (routeName === 'lecturers') {
-        this.app_bar_text = 'المحاضرين'
-      } else if (routeName === 'subjects') {
-        this.app_bar_text = 'المواد'
-      } else if (routeName === 'lectures') {
-        this.app_bar_text = 'المحاضرات'
-      } else if (routeName === 'tables') {
-        this.app_bar_text = 'الجداول'
-      }
-    },
-  },
-  created() {
-    this.setAppBarText()
+
   },
 }
 </script>

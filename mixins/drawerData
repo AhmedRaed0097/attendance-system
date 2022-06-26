@@ -4,15 +4,6 @@ export default {
     return {
       show_drawer: false,
       app_bar_text: '',
-      open_students_options: false,
-      open_employees_options: false,
-      open_lecturers_options: false,
-      open_tables_options: false,
-      open_import_data_options: false,
-      open_majors_options: false,
-      open_subjects_options: false,
-      open_periods_options: false,
-      open_lectures_options: false,
       student_links: [
         ['/admin/students/add-student', 'إضافة طالب'],
         ['/admin/students/edit-student', 'تعديل طالب'],
@@ -69,101 +60,6 @@ export default {
     },
   },
   methods: {
-    openDropDown(type) {
-      if (type === 'students') {
-        console.log('enter')
-        this.open_students_options = !this.open_students_options
-        this.open_lecturers_options = false
-        this.open_majors_options = false
-        this.open_import_data_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_lectures_options = false
-        this.open_employees_options = false
-
-      } else if (type === 'lecturers') {
-        this.open_lecturers_options = !this.open_lecturers_options
-        this.open_students_options = false
-        this.open_majors_options = false
-        this.open_import_data_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_lectures_options = false
-        this.open_employees_options = false
-      } else if (type === 'subjects') {
-        this.open_subjects_options = !this.open_subjects_options
-        this.open_students_options = false
-        this.open_lecturers_options = false
-        this.open_import_data_options = false
-        this.open_majors_options = false
-        this.open_periods_options = false
-        this.open_lectures_options = false
-        this.open_employees_options = false
-
-      } else if (type === 'periods') {
-        this.open_periods_options = !this.open_periods_options
-        this.open_students_options = false
-        this.open_lecturers_options = false
-        this.open_import_data_options = false
-        this.open_majors_options = false
-        this.open_subjects_options = false
-        this.open_lectures_options = false
-        this.open_employees_options = false
-
-      } else if (type === 'lectures') {
-        this.open_lectures_options = !this.open_lectures_options
-        this.open_students_options = false
-        this.open_lecturers_options = false
-        this.open_import_data_options = false
-        this.open_majors_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_employees_options = false
-
-      } else if (type === 'tables') {
-        this.open_tables_options = !this.open_tables_options
-        this.open_lectures_options = false
-        this.open_students_options = false
-        this.open_import_data_options = false
-        this.open_majors_options = false
-        this.open_lecturers_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_employees_options = false
-      }else if (type === 'employees') {
-        this.open_employees_options = !this.open_employees_options
-        this.open_tables_options = false
-        this.open_lectures_options = false
-        this.open_students_options = false
-        this.open_import_data_options = false
-        this.open_majors_options = false
-        this.open_lecturers_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-
-      }else if (type === 'majors') {
-        this.open_majors_options = !this.open_majors_options
-        this.open_tables_options = false
-        this.open_lectures_options = false
-        this.open_students_options = false
-        this.open_import_data_options = false
-        this.open_lecturers_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_employees_options = false
-
-      } else if (type === 'import') {
-        this.open_import_data_options = !this.open_import_data_options
-        this.open_majors_options = false
-        this.open_lectures_options = false
-        this.open_students_options = false
-        this.open_lecturers_options = false
-        this.open_subjects_options = false
-        this.open_periods_options = false
-        this.open_employees_options = false
-
-      }
-    },
     setAppBarText() {
       const routeName = this.$route.name.split('-')[1]
       this.drawer = !this.drawer
