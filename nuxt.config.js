@@ -58,9 +58,9 @@ server:{
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    // baseURL: ' http://192.168.55.124:8000/api',
-    baseURL: 'http://127.0.0.1:8000/api',
-    // baseURL: 'https://students-attendance-api.herokuapp.com/api',
+    // baseURL: 'http://192.168.55.129:8000/api',
+    // baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'https://students-attendance-api.herokuapp.com/api',
   },
 
   router: {
@@ -108,19 +108,20 @@ server:{
       title: 'QR students attendance',
       author: 'Ahmed Raed',
     },
-    icons: {
-      /* icon options */
-      iconFileName:  'icon.png'
-    },
+
     manifest: {
       name: 'QR Students Attendance',
       short_name: 'QR Attendance',
       lang: 'ar',
-      display: 'standalone'
+      display: 'standalone',
+      background_color :'#7C3E66'
+    },
+    icon: {
+      fileName: 'custom.jpg',
     },
     workbox: {
       cachingExtensions: '@/plugins/workbox-sync.js',
-      enabled: false //should be off actually per workbox docs due to complications when used in prod
+      enabled: true //should be off actually per workbox docs due to complications when used in prod
     }
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
