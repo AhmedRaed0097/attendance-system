@@ -6,20 +6,26 @@
       @closeModal="isAlertClosed"
     />
     <!-- <qrcode-stream @init="onInit" :camera="camera"></qrcode-stream> -->
-    <!-- <div class="scan-from-camera">
-      <StreamBarcodeReader
-        @decode="onDecode"
-        @loaded="onLoaded"
-      ></StreamBarcodeReader>
-      <p>{{ error }}</p>
-    </div> -->
-    <div class="scan-from-image">
+
+    <div v-if="scanBySelectFile" class="scan-from-image">
       <ImageBarcodeReader
         @decode="onImageDecode"
         @error="onError"
         ref="selectedImage"
       ></ImageBarcodeReader>
     </div>
+
+    <div v-else class="scan-from-camera">
+      <StreamBarcodeReader
+        @decode="onDecode"
+        @loaded="onLoaded"
+      ></StreamBarcodeReader>
+      <p>{{ error }}</p>
+    </div>
+    <v-btn @click="scanBySelectFile = !scanBySelectFile">
+      <span v-if="scanBySelectFile">مسح بإختيار الملف</span>
+      <span v-else>مسح بإستخدام الكاميرا</span>
+    </v-btn>
   </div>
 </template>
 
@@ -35,6 +41,7 @@ export default {
   },
   data() {
     return {
+      scanBySelectFile: true,
       error: '',
       camera: 'auto',
       showAlert: false,
