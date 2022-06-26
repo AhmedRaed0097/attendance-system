@@ -19,7 +19,7 @@
       align-items: center !important;
     }
   }
-  
+
   .nav-item-link {
     text-decoration: none !important;
     color: #000 !important;
@@ -52,7 +52,7 @@
   }
   .active-burger-menu {
     position: absolute !important;
-  
+
     right: 10px !important;
     top: -24px !important;
   }
@@ -79,7 +79,7 @@
     background-image: url('~/assets/images/auth/login-header-image.jpg') !important;
     background-position: center !important;
     background-size: cover !important;
-  
+
     @media (max-width: 500px) {
       height: 264px !important;
     }
@@ -119,22 +119,24 @@
 
 .form-wrapper {
     width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
+    // display: flex !important;
+    // align-items: center !important;
+    margin-top: -90px;
     padding: 10px 20px !important;
     .v-card {
       width: 100% !important;
-      min-height: 96vh !important;
+      min-height: 70vh !important;
       padding: 10px 30px !important;
       margin: 0 auto !important;
       display: flex !important;
       flex-direction: column !important;
-      justify-content: space-evenly !important;
+      gap: 150px;
+      // justify-content: space-evenly !important;
       box-shadow: none !important;
       border: 1px solid #7c3e66 !important;
       border-radius: 10px !important;
-      @media (min-width: 750px) {
-        margin-left: 9% !important;
+      @media (min-width: 750px) and (max-width: 1600px)  {
+        margin-left: 20% !important;
       }
       @media (min-width: 750px) and (max-width: 1264px) {
         width: 80% !important;
@@ -164,4 +166,3 @@
   }
 
 // ------  //for form card component --------
-  
