@@ -239,7 +239,21 @@ export default {
         }
       }
     },
-    deleteLecture() {},
+    deleteLecture() {
+       if (this.$refs.form.validate()) {
+        this.loading = true
+        this.$store.dispatch('admin/deleteLecture',  this.form.id).then(() => {
+          this.loading = false
+          this.form = {
+            subject_id: '',
+            peeriod_id: '',
+            lecturer_id: '',
+            master_table_id: '',
+          }
+          this.$refs.form.resetValidation()
+        })
+      }
+    },
     fillSubjects() {
       if (this.subjects.length > 0) {
         this.subjectsList = []
