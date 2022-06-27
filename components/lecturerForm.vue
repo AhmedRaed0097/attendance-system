@@ -65,7 +65,8 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
-                 width="140"
+                :loading="loading"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -75,6 +76,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -85,6 +87,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -117,6 +120,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     firstname: '',
     lecturerList: [],
     lastname: '',
@@ -156,7 +160,11 @@ export default {
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
+        this.loading = true
+
         this.$store.dispatch('admin/addLecturer', formData).then(() => {
+          this.loading = false
+
           this.form = {
             name: '',
             state: '',
@@ -180,8 +188,11 @@ export default {
             if (filterdItem[key] !== this.form[key]) {
               formData.append(key, this.form[key])
             }
+            this.loading = true
           }
           this.$store.dispatch('admin/updateLecturer', formData).then(() => {
+            this.loading = false
+
             this.form = {
               name: '',
               state: '',
@@ -193,7 +204,11 @@ export default {
     },
     deleteLecturer() {
       if (this.$refs.form.validate()) {
+        this.loading = true
+
         this.$store.dispatch('admin/deleteLecturer', this.form.id).then(() => {
+          this.loading = false
+
           this.form = {
             name: '',
             state: '',

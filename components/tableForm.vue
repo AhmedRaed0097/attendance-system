@@ -66,6 +66,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 v-if="methodType === 'add'"
                 width="140"
                 height="45"
@@ -76,6 +77,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 v-else
                 width="140"
                 height="45"
@@ -104,6 +106,7 @@
           <v-col cols="12">
             <div v-if="methodType === 'delete'" class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -167,6 +170,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     table: null,
     firstname: '',
     lastname: '',
@@ -274,7 +278,11 @@ export default {
           if (key !== 'id' && key !== 'level')
             formData.append(key, this.form[key])
         }
+        this.loading = true
+
         this.$store.dispatch('admin/addTable', formData).then(() => {
+          this.loading = false
+
           if (this.response.status_code === 200) {
             this.form = {
               title: '',
@@ -286,7 +294,7 @@ export default {
         })
       }
     },
-    updateTable() {
+    async updateTable() {
       if (this.$refs.form.validate()) {
         if (this.form.major && this.form.level && this.form.batch_type) {
           this.form.title =
@@ -308,7 +316,12 @@ export default {
             formData.append(key, this.form[key])
           }
         }
-        this.$store.dispatch('admin/updateTable', formData)
+        this.loading = true
+
+        await this.$store.dispatch('admin/updateTable', formData).then(() => {
+          this.loading = true
+        })
+
         this.form = {
           title: '',
           major: '',
@@ -317,10 +330,20 @@ export default {
         }
       }
     },
-    deleteTable() {
+    async deleteTable() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('admin/deleteLecturer', this.form.id)
-        this.form.id = ''
+        this.loading = true
+        await this.$store
+          .dispatch('admin/deleteLecturer', this.form.id)
+          .then(() => {
+            this.loading = false
+          })
+        this.form = {
+          title: '',
+          major: '',
+          level: '',
+          batch_type: '',
+        }
       }
     },
     fillTables() {

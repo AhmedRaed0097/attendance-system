@@ -19,9 +19,9 @@
             (methodType === 'edit' && form.name.length > 0)
           "
         >
-         <v-col cols="12">
+          <v-col cols="12">
             <v-autocomplete
-            v-if="form.id"
+              v-if="form.id"
               v-model="form"
               :items="employeesList"
               :rules="requiredRules"
@@ -95,6 +95,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 width="140"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -104,6 +105,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -114,6 +116,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -146,6 +149,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     firstname: '',
     employeesList: [],
     lastname: '',
@@ -188,13 +192,15 @@ export default {
     value: null,
   }),
   methods: {
-    addEmployee() {
+    async addEmployee() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
-        this.$store.dispatch('admin/addEmployee', formData).then(() => {
+        this.loading = true
+        await this.$store.dispatch('admin/addEmployee', formData).then(() => {
+          this.loading = false
           this.form = {
             name: '',
             role: '',
@@ -205,7 +211,7 @@ export default {
         })
       }
     },
-    updateEmployee() {
+    async updateEmployee() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         let filterdItem = {}
@@ -218,21 +224,28 @@ export default {
               formData.append(key, this.form[key])
             }
           }
-          this.$store.dispatch('admin/updateEmployee', formData).then(() => {
-            this.form = {
-              name: '',
-              role: '',
-              state: '',
-              email: '',
-            }
-            this.$refs.form.resetValidation()
-          })
+          this.loading = true
+          await this.$store
+            .dispatch('admin/updateEmployee', formData)
+            .then(() => {
+              this.loading = false
+
+              this.form = {
+                name: '',
+                role: '',
+                state: '',
+                email: '',
+              }
+              this.$refs.form.resetValidation()
+            })
         }
       }
     },
     deleteEmployee() {
       if (this.$refs.form.validate()) {
+        this.loading = true
         this.$store.dispatch('admin/deleteEmployee', this.form.id).then(() => {
+          this.loading = false
           if (this.response.status_code === 200) {
             this.form = {
               name: '',
@@ -269,8 +282,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-</style>
-
-
+<style lang="scss"></style>

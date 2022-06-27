@@ -58,6 +58,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -68,6 +69,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -78,6 +80,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -118,6 +121,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     table: null,
     firstname: '',
     lastname: '',
@@ -138,13 +142,16 @@ export default {
     ],
   }),
   methods: {
-    addMajor() {
+    async addMajor() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
-        this.$store.dispatch('admin/addMajor', formData).then(() => {
+        this.loading = true
+
+        await this.$store.dispatch('admin/addMajor', formData).then(() => {
+          this.loading = false
           this.form = {
             major: '',
             levels: '',
@@ -160,6 +167,7 @@ export default {
           formData.append(key, this.form[key])
         }
         this.$store.dispatch('admin/updateMajor', formData).then(() => {
+          this.loading = false
           this.form = {
             major: '',
             levels: '',
@@ -168,9 +176,12 @@ export default {
         })
       }
     },
-    deleteMajor() {
-      if (this.$refs.form.validate()) {
-        this.$store.dispatch('admin/deleteMajor', this.form.id)
+    async deleteMajor() {
+      if (this.$refs.form.validate()) {z
+        await this.$store.dispatch('admin/deleteMajor', this.form.id).then(()=>{
+          this.loading = false
+
+        })
         this.form.id = ''
       }
     },

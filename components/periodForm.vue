@@ -65,6 +65,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -75,6 +76,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -85,7 +87,8 @@
                 >تعديل</v-btn
               >
               <v-btn
-               width="140"
+                :loading="loading"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-error"
@@ -132,6 +135,8 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
+
     firstname: '',
     lastname: '',
     periodsList: [],
@@ -154,7 +159,9 @@ export default {
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
+        this.loading = true
         this.$store.dispatch('admin/addPeriod', formData).then(() => {
+          this.loading = false
           this.form = {
             day: '',
             from: '',
@@ -182,7 +189,10 @@ export default {
               formData.append(key, this.form[key])
             }
           }
+          this.loading = true
+
           this.$store.dispatch('admin/updatePeriod', formData).then(() => {
+            this.loading = false
             this.form = {
               day: '',
               from: '',
@@ -195,8 +205,10 @@ export default {
     },
     deletePeriod() {
       if (this.$refs.form.validate()) {
+        this.loading = true
         this.$store.dispatch('admin/deletePeriod', this.form.id).then(() => {
           if (this.response.status_code === 200) {
+            this.loading = false
             this.form = {
               day: '',
               from: '',

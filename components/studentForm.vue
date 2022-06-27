@@ -91,6 +91,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -101,6 +102,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -134,6 +136,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     firstname: '',
     batchsList: [],
     studentsList: [],
@@ -174,7 +177,9 @@ export default {
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
+        this.loading = true
         this.$store.dispatch('admin/addStudent', formData).then(() => {
+          this.loading = false
           this.form = {
             name: '',
             master_table_id: '',
@@ -201,7 +206,11 @@ export default {
               formData.append(key, this.form[key])
             }
           }
+          this.loading = true
+
           this.$store.dispatch('admin/updateStudent', formData).then(() => {
+            this.loading = false
+
             this.form = {
               name: '',
               master_table_id: '',
@@ -215,7 +224,10 @@ export default {
     },
     deleteStudent() {
       if (this.$refs.form.validate()) {
+        this.loading = true
+
         this.$store.dispatch('admin/deleteStudent', this.form.id).then(() => {
+          this.loading = false
           if (this.response.status_code === 200) {
             this.form = {
               name: '',
@@ -276,8 +288,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-</style>
-
-
+<style lang="scss"></style>

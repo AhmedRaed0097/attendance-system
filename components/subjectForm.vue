@@ -43,6 +43,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+              :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -53,6 +54,7 @@
                 >إضافة</v-btn
               >
               <v-btn
+              :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -63,6 +65,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+              :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -98,6 +101,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     subjectsList: [],
     firstname: '',
     lastname: '',
@@ -115,7 +119,9 @@ export default {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
         formData.append('subject_name', this.form.subject_name)
+        this.loading = true
         this.$store.dispatch('admin/addSubject', formData).then(() => {
+          this.loading = false
           this.form = {
             subject_name: '',
           }
@@ -139,7 +145,10 @@ export default {
               formData.append(key, this.form[key])
             }
           }
+          this.loading = true
           this.$store.dispatch('admin/updateSubject', formData).then(() => {
+            this.loading = false
+
             this.form = {
               subject_name: '',
             }
@@ -160,8 +169,11 @@ export default {
     },
     deleteSubject() {
       if (this.$refs.form.validate()) {
+        this.loading = true
+
         this.$store.dispatch('admin/deleteSubject', this.form.id).then(() => {
           if (this.response.status_code === 200) {
+            this.loading = false
             this.form = {
               subject_name: '',
             }

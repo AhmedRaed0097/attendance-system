@@ -90,7 +90,8 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
-               width="140"
+              :loading="loading"
+                width="140"
                 height="45"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -100,7 +101,8 @@
                 >إضافة</v-btn
               >
               <v-btn
-              width="140"
+              :loading="loading"
+                width="140"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
                 dark
@@ -109,6 +111,7 @@
                 >تعديل</v-btn
               >
               <v-btn
+              :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -165,6 +168,7 @@ export default {
   },
   data: () => ({
     valid: false,
+    loading: false,
     firstname: '',
     lastname: '',
     subjectsList: [],
@@ -188,7 +192,11 @@ export default {
         for (const key in this.form) {
           formData.append(key, this.form[key])
         }
+        this.loading = true
+
         this.$store.dispatch('admin/addLecture', formData).then(() => {
+          this.loading = false
+
           this.form = {
             subject_id: '',
             peeriod_id: '',
@@ -215,7 +223,11 @@ export default {
               formData.append(key, this.form[key])
             }
           }
+          this.loading = true
+
           this.$store.dispatch('admin/updateLecture', formData).then(() => {
+            this.loading = false
+
             this.form = {
               subject_id: '',
               period_id: '',

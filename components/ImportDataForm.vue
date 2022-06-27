@@ -67,6 +67,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+              :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -120,7 +121,7 @@ export default {
   data: () => ({
     valid: false,
     batchsList: [],
-
+    loading: false,
     form: {
       file: null,
       state: '',
@@ -148,6 +149,7 @@ export default {
     async importData() {
       if (this.$refs.form.validate()) {
         const formData = new FormData()
+        this.loading = true
         if (this.dataType === 'students') {
           formData.append('file', this.form.file)
           formData.append('master_table_id', this.form.master_table_id)
@@ -174,6 +176,8 @@ export default {
           formData.append('file', this.form.file)
           await this.$store.dispatch('admin/importPeriods', formData)
         }
+        this.loading = false
+
         this.form = {
           file: null,
           state: '',
