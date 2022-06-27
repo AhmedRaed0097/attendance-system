@@ -84,7 +84,7 @@
       height: 264px !important;
     }
   }
-  .gender {
+.gender {
     .v-item-group.theme--light.v-btn-toggle {
       width: 100% !important;
     }
@@ -108,7 +108,7 @@
       margin: 0 1% !important;
       border-radius: 13px !important;
     }
-  }
+}
 
 // ------  //for login component --------
 
@@ -165,5 +165,9 @@
       }
     }
   }
+
+.v-text-field .v-input__control .v-input__slot .v-text-field__slot input[type="text"]{
+  height: 50px !important;
+}
 
 // ------  //for form card component --------
