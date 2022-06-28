@@ -82,6 +82,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
+                :loading="loading"
                 width="140"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"

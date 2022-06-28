@@ -14,8 +14,8 @@
               item-text="lecture_title"
               outlined
               validate-on-blur
-              label="المحاضرة"
               return-object
+              label="المحاضرة"
             >
             </v-autocomplete>
           </v-col>
@@ -46,13 +46,14 @@
               <v-btn
                 width="140"
                 height="45"
+                :loading="loading"
                 rounded
                 class="!tw-py-6 tw-ml-2 !tw-bg-admin-primary"
                 dark
-                @click="downloadReport"
+                @click="showReport"
                 >عرض</v-btn
               >
-              <v-btn
+              <!-- <v-btn
                 width="140"
                 height="45"
                 rounded
@@ -60,7 +61,7 @@
                 dark
                 @click="downloadReport"
                 >تنزيل</v-btn
-              >
+              > -->
             </div>
           </v-col>
         </v-row>
@@ -71,15 +72,16 @@
 
 <script>
 export default {
-  mounted() {
-    if (this.lectures.length === 0) {
-      this.$store.dispatch('admin/getLectures')
+  async mounted() {
+    if (!this.lecturesReport || this.lecturesReport.length === 0) {
+      await this.$store.dispatch('admin/getLecturesForReport')
     } else {
       this.fillLectures()
     }
   },
   data: () => ({
     valid: false,
+    loading: false,
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     week: null,
     lecturesList: [],
@@ -88,10 +90,25 @@ export default {
   }),
   methods: {
     downloadReport() {},
+    async showReport() {
+      if (this.$refs.form.validate()) {
+        this.loading = true
+        await this.$store
+          .dispatch('admin/getReportData', {
+            lecture_id: this.form.lecture_id,
+            week_no: this.week,
+          })
+          .then(() => {
+            this.$emit('clicked')
+            this.loading = false
+            this.form = {}
+          })
+      }
+    },
     fillLectures() {
-      if (this.lectures.length > 0) {
+      if (this.lecturesReport.length > 0) {
         this.lecturesList = []
-        this.lectures.forEach((lecture) => {
+        this.lecturesReport.forEach((lecture) => {
           this.lecturesList.push({ ...lecture })
         })
       } else {
@@ -100,7 +117,8 @@ export default {
     },
   },
   watch: {
-    'form.lecturer_id'(val) {
+    form(val) {
+      console.log('xx ',val);
       if (val && val.last_week) {
         this.weeks = []
         for (let i = 0; i < val.last_week; i++) {
@@ -111,10 +129,13 @@ export default {
         this.weeks = []
       }
     },
+    lecturesReport() {
+      this.fillLectures()
+    },
   },
   computed: {
-    lectures() {
-      return this.$store.state.admin.lectures
+    lecturesReport() {
+      return this.$store.state.admin.LecturesReport
     },
   },
 }

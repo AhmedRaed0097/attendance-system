@@ -1,4 +1,5 @@
 export const state = () => ({
+  lectures: [],
   tables: [],
   lecturers: [],
   students: [],
@@ -6,13 +7,14 @@ export const state = () => ({
   employees: [],
   periods: [],
   majors: [],
-  lectures: [],
+  reportData: [],
+  LecturesReport: [],
   loading: false,
   show_alert: false,
-  response:{
+  response: {
     message: '',
-    status_code: null
-  }
+    status_code: null,
+  },
 })
 
 export const mutations = {
@@ -40,6 +42,18 @@ export const mutations = {
   SETMAJORS(state, payload) {
     state.majors = payload
   },
+  SETREPORTDATA(state, payload) {
+    payload.students_attenance_data.forEach(studentAttend => {
+
+      for (let i = 0; i < studentAttend.attend_states.length; i++) {
+        studentAttend[`week_${i}`] = studentAttend.attend_states[i]
+      }
+    });
+    state.reportData = payload
+  },
+  SETLECTURESREPORT(state, payload) {
+    state.LecturesReport = payload
+  },
   SETLOADING(state, payload) {
     state.loading = payload
   },
@@ -50,7 +64,7 @@ export const mutations = {
   },
   HIDEALERT(state) {
     state.show_alert = false
-  }
+  },
 }
 
 export const actions = {
@@ -64,16 +78,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         commit('SETLOADING', false)
       })
       .catch((error) => {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         commit('SETLOADING', false)
-
       })
   },
   async getTables({ commit }, payload) {
@@ -85,7 +98,7 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         commit('SETTABLES', response.data)
       })
       .catch((error) => {
@@ -93,8 +106,7 @@ export const actions = {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateTable({ commit, dispatch }, payload) {
@@ -106,7 +118,7 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getTables')
       })
       .catch((error) => {
@@ -114,8 +126,7 @@ export const actions = {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteTable({ commit, dispatch }, payload) {
@@ -127,7 +138,7 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getTables')
       })
       .catch((error) => {
@@ -135,8 +146,7 @@ export const actions = {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   // ===============  //Table  ====================
@@ -152,7 +162,7 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLecturers')
       })
       .catch((error) => {
@@ -160,8 +170,7 @@ export const actions = {
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getLecturers({ commit }, payload) {
@@ -173,16 +182,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         commit('SETLECTURERS', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateLecturer({ commit, dispatch }, payload) {
@@ -194,16 +202,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLecturers')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteLecturer({ commit, dispatch }, payload) {
@@ -214,13 +221,12 @@ export const actions = {
         dispatch('getLecturers')
         commit('SETLOADING', false)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -233,19 +239,17 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLecturers')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
-
 
   // ===============  //Lecturer  ====================
 
@@ -260,16 +264,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getStudents')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getStudents({ commit }, payload) {
@@ -280,13 +283,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETSTUDENTS', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateStudent({ commit, dispatch }, payload) {
@@ -298,16 +300,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getStudents')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteStudent({ commit, dispatch }, payload) {
@@ -319,16 +320,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getStudents')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async importStudents({ commit, dispatch }, payload) {
@@ -340,16 +340,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getStudents')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -362,16 +361,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getEmployees')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -388,16 +386,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getEmployees')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getEmployees({ commit }, payload) {
@@ -408,13 +405,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETEMPLOYEES', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateEmployee({ commit, dispatch }, payload) {
@@ -426,16 +422,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getEmployees')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteEmployee({ commit, dispatch }, payload) {
@@ -447,16 +442,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getEmployees')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async importEmployees({ commit, dispatch }, payload) {
@@ -468,16 +462,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getEmployees')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -494,16 +487,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getSubjects')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getSubjects({ commit }, payload) {
@@ -514,13 +506,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETSUBJECTS', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateSubject({ commit, dispatch }, payload) {
@@ -532,16 +523,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getSubjects')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteSubject({ commit, dispatch }, payload) {
@@ -553,16 +543,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getSubjects')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -575,16 +564,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getSubjects')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   // ===============  //Subject  ====================
@@ -600,16 +588,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getPeriods')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getPeriods({ commit }, payload) {
@@ -620,13 +607,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETPERIODS', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updatePeriod({ commit, dispatch }, payload) {
@@ -638,16 +624,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getPeriods')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deletePeriod({ commit, dispatch }, payload) {
@@ -659,16 +644,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getPeriods')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -681,16 +665,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getPeriods')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -707,16 +690,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLectures')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getLectures({ commit }, payload) {
@@ -727,13 +709,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETLECTURES', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateLecture({ commit, dispatch }, payload) {
@@ -745,16 +726,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLectures')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteLecture({ commit, dispatch }, payload) {
@@ -766,16 +746,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getLectures')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -792,16 +771,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getMajors')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async getMajors({ commit }, payload) {
@@ -812,13 +790,12 @@ export const actions = {
         commit('SETLOADING', false)
         commit('SETMAJORS', response.data)
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async updateMajor({ commit, dispatch }, payload) {
@@ -830,16 +807,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getMajors')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
   async deleteMajor({ commit, dispatch }, payload) {
@@ -851,16 +827,15 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getMajors')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
@@ -873,18 +848,54 @@ export const actions = {
         commit('SHOWALERT', response)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
+        }, 3000)
         dispatch('getMajors')
       })
-       .catch((error) => {
+      .catch((error) => {
         commit('SETLOADING', false)
         commit('SHOWALERT', error)
         setTimeout(() => {
           commit('HIDEALERT')
-        }, 3000);
-
+        }, 3000)
       })
   },
 
   // ===============  //Major  ====================
+
+  // ===============  Report  ====================
+
+  async getReportData({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$get(`get-report/${payload.lecture_id}/${payload.week_no}`, payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SETREPORTDATA', response.data)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000)
+      })
+  },
+  async getLecturesForReport({ commit }, payload) {
+    commit('SETLOADING', true)
+    return await this.$axios
+      .$get('report/lectures', payload)
+      .then((response) => {
+        commit('SETLOADING', false)
+        commit('SETLECTURESREPORT', response.data)
+      })
+      .catch((error) => {
+        commit('SETLOADING', false)
+        commit('SHOWALERT', error)
+        setTimeout(() => {
+          commit('HIDEALERT')
+        }, 3000)
+      })
+  },
+
+  // ===============  //Report  ====================
 }
