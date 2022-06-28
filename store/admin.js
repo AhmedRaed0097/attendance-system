@@ -46,7 +46,7 @@ export const mutations = {
     payload.students_attenance_data.forEach(studentAttend => {
 
       for (let i = 0; i < studentAttend.attend_states.length; i++) {
-        studentAttend[`week_${i}`] = studentAttend.attend_states[i]
+        studentAttend[`week_${i+1}`] = studentAttend.attend_states[i]
       }
     });
     state.reportData = payload

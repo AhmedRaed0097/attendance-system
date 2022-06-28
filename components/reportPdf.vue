@@ -4,7 +4,7 @@
       :show-layout="true"
       :float-layout="false"
       :enable-download="true"
-       :preview-modal="false"
+      :preview-modal="false"
       :paginate-elements-by-height="1400"
       :filename="filename"
       :pdf-quality="2"
@@ -16,14 +16,11 @@
       ref="basesPdf"
     >
       <section slot="pdf-content">
-          <v-row>
-            <v-col cols="12" class="mb-10">
-
-              <h3 class="text-center mb-10">
-                مساحة الدور المتكرر  م^2
-              </h3>
-              <br>
-              <!-- <v-simple-table>
+        <v-row>
+          <v-col cols="12" class="mb-10">
+            <h3 class="text-center mb-10">مساحة الدور المتكرر م^2</h3>
+            <br />
+            <!-- <v-simple-table>
                 <template v-slot:default>
                   <thead>
                     <tr>
@@ -59,32 +56,26 @@
                 </template>
               </v-simple-table> -->
             <v-data-table
-          :headers="headers"
-          :items="lectures"
-          item-key="lecture_no"
-          class="
-            elevation-1
-            !tw-mt-10
-            tw-border-2 tw-border-primary
-            !tw-rounded-lg
-          "
-          hide-default-footer
-        >
-          <template v-slot:[`item.lecture_no`]="{ item }">
-            <p>{{ item.lecture_no }}</p>
-          </template>
-          <template v-slot:[`item.subject_name`]="{ item }">
-            <p>{{ item.subject_name }}</p>
-          </template>
-          <template v-slot:[`item.period`]="{ item }">
-
-            <p class="!tw-mb-1 !tw-mt-1">
-            {{item.period}}
-            </p>
-          </template>
-        </v-data-table>
-            </v-col>
-          </v-row>
+              :headers="headers"
+              :items="reportData.students_attenance_data"
+              item-key="lecture_no"
+              class="elevation-1 !tw-mt-10 tw-border-2 tw-border-primary !tw-rounded-lg"
+              hide-default-footer
+            >
+              <template v-slot:[`item.lecture_no`]="{ item }">
+                <p>{{ item.lecture_no }}</p>
+              </template>
+              <template v-slot:[`item.subject_name`]="{ item }">
+                <p>{{ item.subject_name }}</p>
+              </template>
+              <template v-slot:[`item.period`]="{ item }">
+                <p class="!tw-mb-1 !tw-mt-1">
+                  {{ item.period }}
+                </p>
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
       </section>
     </vue-html2pdf>
     <v-overlay :value="showProgress">
@@ -107,9 +98,10 @@ export default {
   data() {
     return {
       filename: '',
+      show: false,
       showProgress: false,
       progressValue: 0,
-         lectures: [
+      lectures: [
         {
           lecture_no: '1',
           subject_name: 'Security',
@@ -126,20 +118,19 @@ export default {
           period: '12 - 2',
         },
       ],
-           headers: [
+      headers: [
         {
           text: 'الرقم',
           align: 'center',
-          value: 'lecture_no',
+          value: 'student_id',
           sortable: false,
         },
         {
-          text: 'إسم المادة',
+          text: 'إسم الطالب',
           align: 'center',
-          value: 'subject_name',
+          value: 'name',
           sortable: false,
         },
-        { text: 'اليوم/الفترة', align: 'center', value: 'period', sortable: false },
       ],
     }
   },
@@ -149,24 +140,42 @@ export default {
         this.generateReport()
       }
     },
+    reportData() {
+      this.fillHeaders()
+    },
   },
   computed: {
-    reportData(){
+    reportData() {
       return this.$store.state.admin.reportData
-    }
+    },
   },
   methods: {
     async generateReport() {
       await this.$refs.basesPdf.generatePdf()
       this.$emit('pdfGenerated')
     },
+    fillHeaders() {
+      if (this.reportData) {
+        const weeks_no = this.reportData.students_attenance_data[0].attend_states.length
+        for (let i = 0; i < weeks_no; i++) {
+          this.headers.push({
+            text: `الأسبوع ${i + 1}`,
+            align: 'center',
+            value: `w_${i + 1}`,
+            sortable: false,
+          })
+        }
+        setTimeout(() => {
+          this.show = true
+        }, 500)
+      }
+    },
     onProgress(e) {
       if (e === 100) {
         this.progressValue = e
         setTimeout(() => {
           this.showProgress = false
-
-        }, 500);
+        }, 500)
       } else {
         this.showProgress = true
         this.progressValue = e
@@ -174,13 +183,13 @@ export default {
     },
   },
   mounted() {
-
+    this.fillHeaders()
   },
 }
 </script>
 
 <style>
-.pdf-wrapper{
+.pdf-wrapper {
   background: #080;
   width: 73vw;
 }
