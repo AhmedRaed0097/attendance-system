@@ -1,5 +1,5 @@
 <template>
-  <div class="pdf-wrapper">
+  <div v-if="show" class="pdf-wrapper">
     <vue-html2pdf
       :show-layout="true"
       :float-layout="false"
@@ -62,17 +62,7 @@
               class="elevation-1 !tw-mt-10 tw-border-2 tw-border-primary !tw-rounded-lg"
               hide-default-footer
             >
-              <template v-slot:[`item.lecture_no`]="{ item }">
-                <p>{{ item.lecture_no }}</p>
-              </template>
-              <template v-slot:[`item.subject_name`]="{ item }">
-                <p>{{ item.subject_name }}</p>
-              </template>
-              <template v-slot:[`item.period`]="{ item }">
-                <p class="!tw-mb-1 !tw-mt-1">
-                  {{ item.period }}
-                </p>
-              </template>
+
             </v-data-table>
           </v-col>
         </v-row>
