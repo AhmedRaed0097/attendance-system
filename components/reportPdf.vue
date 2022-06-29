@@ -180,7 +180,6 @@ export default {
 
 <style>
 .pdf-wrapper {
-  background: #080;
   width: 73vw;
 }
 </style>

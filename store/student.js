@@ -1,7 +1,7 @@
 export const state = () => ({
   student: {},
-  lectures_table_data: {},
-  attendance_table_data: {},
+  lectures_table_data: [],
+  attendance_table_data: [],
   loading: false,
 })
 
@@ -53,7 +53,7 @@ export const actions = {
       })
       .catch((error) => {
         commit('SETLOADING', false)
-        
+
       })
   },
 }

@@ -6,11 +6,11 @@
       </v-card-title>
       <v-form v-model="valid" ref="form">
         <v-row>
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="7">
             <v-autocomplete
               v-model="form"
               :items="lecturesList"
-              :rules="requiredRules"
+              :rules="[validateLecture]"
               item-text="lecture_title"
               outlined
               validate-on-blur
@@ -19,13 +19,12 @@
             >
             </v-autocomplete>
           </v-col>
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
             <v-combobox
+              :disabled="!form.lecture_id"
               v-model="week"
               :items="weeks"
-              :rules="requiredRules"
-              validate-on-blur
-              hide-selected
+              :rules="[validateWeekNumber]"
               label="الإسبوع"
               outlined
               placeholder="إختر الأسبوع"
@@ -38,6 +37,16 @@
                 </v-list-item>
               </template>
             </v-combobox>
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-checkbox
+              :disabled="!form.lecture_id"
+              v-model.number="week"
+              label="كل الأسابيع"
+              color="indigo"
+              value="-1"
+              hide-details
+            ></v-checkbox>
           </v-col>
         </v-row>
         <v-row>
@@ -81,11 +90,13 @@ export default {
   },
   data: () => ({
     valid: false,
+    allWeeks: false,
     loading: false,
     weeks: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     week: null,
     lecturesList: [],
     form: {},
+    lecturesRules: [(v) => v.lecture_id || 'الحقل مطلوب'],
     requiredRules: [(v) => !!v || 'الحقل مطلوب'],
   }),
   methods: {
@@ -115,10 +126,29 @@ export default {
         this.lecturesList = []
       }
     },
+    validateWeekNumber(val) {
+        if (
+          (this.week && this.form.lecture_id) ||
+          !this.form.lecture_id
+        ) {
+          return true
+        } else {
+          return 'الحقل مطلوب'
+        }
+
+    },
+    validateLecture(val){
+      console.log('val ',val);
+      if(!val.lecture_title){
+        return 'الحقل مطلوب'
+      }else{
+        return true
+      }
+    }
   },
   watch: {
     form(val) {
-      console.log('xx ',val);
+      console.log('xx ', val)
       if (val && val.last_week) {
         this.weeks = []
         for (let i = 0; i < val.last_week; i++) {
