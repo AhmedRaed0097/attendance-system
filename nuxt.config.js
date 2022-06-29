@@ -59,8 +59,8 @@ server:{
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: 'http://192.168.55.129:8000/api',
-    baseURL: 'http://127.0.0.1:8000/api',
-    // baseURL: 'https://students-attendance-api.herokuapp.com/api',
+    // baseURL: 'http://127.0.0.1:8000/api',
+    baseURL: 'https://students-attendance-api.herokuapp.com/api',
   },
 
   router: {
