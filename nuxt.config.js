@@ -107,6 +107,7 @@ server:{
     meta: {
       title: 'QR students attendance',
       author: 'Ahmed Raed',
+      theme_color :'#7C3E66',
     },
 
     manifest: {
@@ -114,8 +115,9 @@ server:{
       short_name: 'QR Attendance',
       lang: 'ar',
       display: 'standalone',
-      background_color :'#7C3E66'
+      background_color :'#7C3E66',
     },
+
     icon: {
       fileName: 'custom.jpg',
     },
