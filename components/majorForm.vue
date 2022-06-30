@@ -1,5 +1,6 @@
 <template>
-  <div class="form-wrapper">
+  <Loading v-if="adminLoading" />
+  <div v-else class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-member-title">
@@ -177,11 +178,13 @@ export default {
       }
     },
     async deleteMajor() {
-      if (this.$refs.form.validate()) {z
-        await this.$store.dispatch('admin/deleteMajor', this.form.id).then(()=>{
-          this.loading = false
-
-        })
+      if (this.$refs.form.validate()) {
+        z
+        await this.$store
+          .dispatch('admin/deleteMajor', this.form.id)
+          .then(() => {
+            this.loading = false
+          })
         this.form.id = ''
       }
     },
@@ -199,6 +202,9 @@ export default {
   computed: {
     majors() {
       return this.$store.state.admin.majors
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
 }

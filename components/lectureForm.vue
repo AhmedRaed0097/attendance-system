@@ -1,5 +1,7 @@
 <template>
-  <div class="form-wrapper">
+  <Loading v-if="adminLoading" />
+
+  <div v-else class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-member-title">
@@ -90,7 +92,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -101,7 +103,7 @@
                 >إضافة</v-btn
               >
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 rounded
                 class="!tw-py-6 !tw-bg-primary"
@@ -111,7 +113,7 @@
                 >تعديل</v-btn
               >
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -240,9 +242,9 @@ export default {
       }
     },
     deleteLecture() {
-       if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.loading = true
-        this.$store.dispatch('admin/deleteLecture',  this.form.id).then(() => {
+        this.$store.dispatch('admin/deleteLecture', this.form.id).then(() => {
           this.loading = false
           this.form = {
             subject_id: '',
@@ -349,6 +351,9 @@ export default {
     },
     lectures() {
       return this.$store.state.admin.lectures
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
 }

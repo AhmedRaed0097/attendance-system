@@ -27,23 +27,17 @@
         </div>
         <div
           v-if="user"
-          class="user-data tw-text-center tw-mb-6 tw-mt-0 sm:tw-mt-2"
+          class="user-data tw-text-center tw-mb-2 tw-mt-0 sm:tw-mt-2"
         >
-          <h3 class="tw-text-xl tw-mt-0 sm:tw-mt-4 tw-mb-1">{{ user.name }}</h3>
+          <h3 class="tw-text-xl tw-mt-4 sm:tw-mt-4 tw-mb-1">{{ user.name }}</h3>
           <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">
             علوم الحاسوب
           </p>
-          <p v-if="user.user_type === 'student'" class="tw-text-xs">
+          <br v-else>
+          <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-0">
             المستوى الرابع
           </p>
-          <img
-            width="28"
-            v-if="$auth.loggedIn"
-            @click="$auth.logout()"
-            class="back-icon tw-mx-auto tw-rounded-full tw-cursor-pointer tw-bg-primary tw-py-1 tw-px-1"
-            src="~/assets/images/auth/logout.svg"
-            alt="logout"
-          />
+          <!-- <br v-else> -->
         </div>
       </v-col>
       <v-row v-if="isStudent === true" class="btns-row">
@@ -75,7 +69,7 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="6" class="tw-mb-44">
           <btn-component>
             <template #icon>
               <img
@@ -103,14 +97,14 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6" class="center-btn-col">
+        <!-- <v-col cols="6" class="center-btn-col">
           <img
             @click="goTo('scan-qr')"
             src="~/assets/images/home/Compact Camera_50px.svg"
             alt=""
             class="tw-cursor-pointer"
           />
-        </v-col>
+        </v-col> -->
       </v-row>
       <v-row v-else class="btns-row">
         <v-col cols="6">
@@ -141,7 +135,7 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6">
+        <v-col cols="6" class="tw-mb-44">
           <btn-component>
             <template #icon>
               <img
@@ -169,16 +163,44 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6" class="center-btn-col">
+        <!-- <v-col cols="6" class="center-btn-col">
           <img
             @click="goTo('generate-qr')"
             src="../assets/images/home/Plus.svg"
             alt="plus icon"
             class="tw-cursor-pointer"
           />
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-row>
+    <v-fab-transition>
+      <v-btn
+        v-if="user.user_type === 'student'"
+        @click="goTo('scan-qr')"
+        color="#7C3E66"
+        fab
+        large
+        absolute
+        dark
+        bottom
+        right
+      >
+        <v-icon>mdi-camera</v-icon>
+      </v-btn>
+      <v-btn
+        v-else
+        @click="goTo('generate-qr')"
+        color="#7C3E66"
+        fab
+        large
+        absolute
+        dark
+        bottom
+        right
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </div>
 </template>
 
@@ -213,6 +235,7 @@ export default {
 .btns-row {
   position: relative;
   background: #f3f3f3f5;
+  height: 37vh;
   .col-6 {
     height: 6rem;
   }
@@ -240,7 +263,7 @@ export default {
 }
 .home-image {
   width: 100vw;
-  height: 50vh;
+  height: 43vh;
   background-image: url('../assets/images/image1.jpg');
   background-size: cover;
   margin-top: -2px;

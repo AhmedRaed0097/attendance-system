@@ -1,5 +1,7 @@
 <template>
-  <div class="form-wrapper">
+  <Loading v-if="adminLoading" />
+
+  <div v-else class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 v-if="methodType === 'add'" class="add-member-title">
@@ -194,6 +196,9 @@ export default {
     },
     response() {
       return this.$store.state.admin.response
+    },
+     adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
 }

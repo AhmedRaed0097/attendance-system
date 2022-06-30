@@ -1,5 +1,6 @@
 <template>
-  <div class="form-wrapper">
+  <Loading v-if="adminLoading" />
+  <div v-else class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 class="add-member-title">التقارير</h2>
@@ -127,24 +128,20 @@ export default {
       }
     },
     validateWeekNumber(val) {
-        if (
-          (this.week && this.form.lecture_id) ||
-          !this.form.lecture_id
-        ) {
-          return true
-        } else {
-          return 'الحقل مطلوب'
-        }
-
-    },
-    validateLecture(val){
-      console.log('val ',val);
-      if(!val.lecture_title){
+      if ((this.week && this.form.lecture_id) || !this.form.lecture_id) {
+        return true
+      } else {
         return 'الحقل مطلوب'
-      }else{
+      }
+    },
+    validateLecture(val) {
+      console.log('val ', val)
+      if (!val.lecture_title) {
+        return 'الحقل مطلوب'
+      } else {
         return true
       }
-    }
+    },
   },
   watch: {
     form(val) {
@@ -166,6 +163,9 @@ export default {
   computed: {
     lecturesReport() {
       return this.$store.state.admin.LecturesReport
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
 }

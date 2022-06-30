@@ -1,5 +1,7 @@
 <template>
-  <div class="form-wrapper">
+  <Loading v-if="adminLoading" />
+
+  <div v-else class="form-wrapper">
     <v-card :class="{ 'small-card': $vuetify.breakpoint.mdAndDown === true }">
       <v-card-title>
         <h2 class="add-member-title" v-if="dataType === 'employees'">
@@ -23,7 +25,7 @@
       </v-card-title>
       <v-form v-model="valid" ref="form">
         <v-row>
-          <v-col>
+          <v-col cols="12" md="6">
             <v-file-input
               v-model="form.file"
               :rules="requiredRules"
@@ -32,7 +34,7 @@
               label="إختر الملف"
             ></v-file-input>
           </v-col>
-          <v-col
+          <v-col cols="12" md="6"
             v-if="
               dataType === 'students' ||
               dataType === 'lecturers' ||
@@ -50,7 +52,7 @@
               label="الحالة"
             ></v-select>
           </v-col>
-          <v-col cols="12" v-if="dataType === 'students'">
+          <v-col cols="12" md="6" v-if="dataType === 'students'">
             <v-autocomplete
               v-model="form.master_table_id"
               :items="batchsList"
@@ -64,10 +66,10 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12">
+          <v-col cols="12" md="6">
             <div class="add-btn-wrapper">
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -143,6 +145,9 @@ export default {
   computed: {
     batchs() {
       return this.$store.state.admin.tables
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
   methods: {

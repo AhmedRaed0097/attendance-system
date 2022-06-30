@@ -39,7 +39,6 @@
         />
       </div>
     </v-app-bar>
-    <v-card class="tw-rounded-sm"> </v-card>
     <v-main>
       <Nuxt />
     </v-main>
@@ -64,10 +63,16 @@ export default {
         window.location.reload()
       })
     },
+    goTo(route) {
+      this.$router.push(`/${route}`)
+    },
   },
   computed: {
     user() {
       return this.$auth.user
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
     },
   },
   watch: {
@@ -110,9 +115,14 @@ body {
 }
 .v-main {
   max-width: 100%;
+  // padding: 0 !important;
 
   // padding: 0 100px !important;
   // margin: 0 auto;
+  & > div {
+    height: 92%;
+    // background: #080;
+  }
 }
 .app-bar {
   max-height: 80px;

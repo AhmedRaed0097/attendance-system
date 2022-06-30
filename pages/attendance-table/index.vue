@@ -14,11 +14,11 @@
         <v-data-table
           :headers="headers"
           :items="attendanceData"
+          items-per-page="5"
           item-key="id"
           :search="search"
           :custom-filter="filterLectures"
           class="elevation-1 tw-border-2 tw-border-primary !tw-rounded-lg"
-          hide-default-footer
         >
           <template v-slot:top>
             <v-text-field
