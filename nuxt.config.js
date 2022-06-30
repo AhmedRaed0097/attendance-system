@@ -62,7 +62,6 @@ server:{
     // baseURL: 'http://127.0.0.1:8000/api',
     baseURL: 'https://students-attendance-api.herokuapp.com/api',
   },
-
   router: {
     middleware: ['auth']
   },
