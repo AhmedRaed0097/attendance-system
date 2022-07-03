@@ -50,7 +50,17 @@ export default {
     onDrawerClosed() {
       this.drawer = false
     },
-
+  },
+  head() {
+    return {
+      meta: [
+        {
+          hid: 'theme-color',
+          name: 'theme-color',
+          content: '#2a3588',
+        },
+      ],
+    }
   },
 }
 </script>

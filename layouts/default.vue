@@ -56,6 +56,17 @@ export default {
       app_bar_text: '',
     }
   },
+   head() {
+    return {
+      meta: [
+        {
+          hid: 'theme-color',
+          name: 'theme-color',
+          content: '#7C3E66',
+        },
+      ],
+    }
+  },
   methods: {
     logout() {
       // this.$auth.logout()
