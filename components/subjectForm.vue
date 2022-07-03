@@ -28,7 +28,7 @@
               :rules="requiredRules"
               outlined
               validate-on-blur
-              label="اسم المادة"
+              label="إختر المادة"
               return-object
             ></v-autocomplete>
             <v-text-field
@@ -45,7 +45,7 @@
           <v-col cols="12">
             <div class="add-btn-wrapper">
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -55,19 +55,36 @@
                 @click="addSubject"
                 >إضافة</v-btn
               >
-              <v-btn
-              :loading="loading"
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updateSubject"
-                >تعديل</v-btn
+
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.subject_name"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateSubject"
+                  >تعديل</v-btn
+                >
+
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
+
               <v-btn
-              :loading="loading"
+                :loading="loading"
                 width="140"
                 height="45"
                 rounded
@@ -184,6 +201,11 @@ export default {
         })
       }
     },
+    resetForm() {
+      this.form = {
+        subject_name: '',
+      }
+    },
   },
   watch: {
     subjects() {
@@ -197,7 +219,7 @@ export default {
     response() {
       return this.$store.state.admin.response
     },
-     adminLoading() {
+    adminLoading() {
       return this.$store.state.admin.loading
     },
   },

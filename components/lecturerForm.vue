@@ -23,7 +23,7 @@
               item-text="name"
               outlined
               validate-on-blur
-              label="اسم المحاضر"
+              label="إختر المحاضر"
               return-object
             ></v-autocomplete>
           </v-col>
@@ -77,17 +77,32 @@
                 @click="addLecturer"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updateLecturer"
-                >تعديل</v-btn
+
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.name"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateLecturer"
+                  >تعديل</v-btn
+                >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
               <v-btn
                 :loading="loading"
                 width="140"
@@ -219,6 +234,13 @@ export default {
         })
       }
     },
+    resetForm() {
+      this.form = {
+        name: '',
+        state: '',
+        email: '',
+      }
+    },
   },
   watch: {
     lecturers(val) {
@@ -236,7 +258,7 @@ export default {
     lecturers() {
       return this.$store.state.admin.lecturers
     },
-     adminLoading() {
+    adminLoading() {
       return this.$store.state.admin.loading
     },
   },

@@ -75,7 +75,7 @@
               item-text="name"
               outlined
               validate-on-blur
-              label="اسم الطالب"
+              label="إختر الطالب"
               return-object
             ></v-autocomplete>
           </v-col>
@@ -93,17 +93,31 @@
                 @click="addStudent"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updateStudent"
-                >تعديل</v-btn
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.name"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateStudent"
+                  >تعديل</v-btn
+                >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
               <v-btn
                 :loading="loading"
                 width="140"
@@ -241,6 +255,14 @@ export default {
             this.$refs.form.resetValidation()
           }
         })
+      }
+    },
+    resetForm() {
+      this.form = {
+        name: '',
+        master_table_id: '',
+        state: '',
+        email: '',
       }
     },
   },

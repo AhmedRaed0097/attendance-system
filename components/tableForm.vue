@@ -77,17 +77,31 @@
                 @click="addTable"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                v-else
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                @click="updateTable"
-                >تعديل</v-btn
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.title"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateTable"
+                  >تعديل</v-btn
+                >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -365,6 +379,14 @@ export default {
         this.majorsList = []
       }
     },
+    resetForm() {
+      this.form = {
+        title: '',
+        major: '',
+        level: '',
+        batch_type: '',
+      }
+    },
   },
   computed: {
     tables() {
@@ -376,7 +398,7 @@ export default {
     response() {
       return this.$store.state.admin.response
     },
-     adminLoading() {
+    adminLoading() {
       return this.$store.state.admin.loading
     },
   },

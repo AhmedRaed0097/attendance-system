@@ -47,7 +47,7 @@
               v-model="form"
               :items="majorsList"
               item-text="major"
-              label="التخصص"
+              label="إختر التخصص"
               outlined
               validate-on-blur
               return-object
@@ -69,17 +69,31 @@
                 @click="addMajor"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updateMajor"
-                >تعديل</v-btn
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.major"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateMajor"
+                  >تعديل</v-btn
+                >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
               <v-btn
                 :loading="loading"
                 width="140"
@@ -196,6 +210,12 @@ export default {
         })
       } else {
         this.majorsList = []
+      }
+    },
+    resetForm() {
+      this.form = {
+        major: '',
+        levels: '',
       }
     },
   },

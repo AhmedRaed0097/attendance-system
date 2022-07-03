@@ -57,7 +57,7 @@
               item-text="title"
               outlined
               validate-on-blur
-              label="إخر الفترة"
+              label="إختر الفترة"
               return-object
             ></v-autocomplete>
           </v-col>
@@ -76,17 +76,34 @@
                 @click="addPeriod"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                width="140"
-                height="45"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updatePeriod"
-                >تعديل</v-btn
+
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.day"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updatePeriod"
+                  >تعديل</v-btn
+                >
+
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
+
               <v-btn
                 :loading="loading"
                 width="140"
@@ -231,6 +248,13 @@ export default {
         this.periodsList = []
       }
     },
+    resetForm() {
+      this.form = {
+        day: '',
+        from: '',
+        to: '',
+      }
+    },
   },
   computed: {
     periods() {
@@ -239,7 +263,7 @@ export default {
     response() {
       return this.$store.state.admin.response
     },
-     adminLoading() {
+    adminLoading() {
       return this.$store.state.admin.loading
     },
   },

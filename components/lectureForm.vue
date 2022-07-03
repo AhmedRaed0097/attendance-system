@@ -102,16 +102,33 @@
                 @click="addLecture"
                 >إضافة</v-btn
               >
-              <v-btn
-                :loading="loading"
-                width="140"
-                rounded
-                class="!tw-py-6 !tw-bg-primary"
-                dark
-                v-if="methodType === 'edit'"
-                @click="updateLecture"
-                >تعديل</v-btn
+
+              <div
+                class="tw-flex tw-flex-col sm:tw-flex-row tw-gap-3"
+                v-if="methodType === 'edit' && form.subject_id"
               >
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  rounded
+                  class="!tw-py-6 !tw-bg-primary"
+                  dark
+                  @click="updateLecture"
+                  >تعديل</v-btn
+                >
+
+                <v-btn
+                  :loading="loading"
+                  width="140"
+                  height="45"
+                  rounded
+                  class="!tw-py-6 !tw-bg-admin-primary"
+                  dark
+                  @click="resetForm"
+                  >رجوع</v-btn
+                >
+              </div>
+
               <v-btn
                 :loading="loading"
                 width="140"
@@ -316,6 +333,14 @@ export default {
         })
       } else {
         this.batchsList = []
+      }
+    },
+    resetForm() {
+      this.form = {
+        subject_id: '',
+        period_id: '',
+        lecturer_id: '',
+        master_table_id: '',
       }
     },
   },
