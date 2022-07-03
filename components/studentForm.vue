@@ -34,6 +34,7 @@
             <v-text-field
               v-model="form.email"
               :rules="emailRules"
+              type="email"
               label="البريد الإلكتروني"
               required
               outlined
