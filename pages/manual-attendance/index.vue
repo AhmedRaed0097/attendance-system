@@ -312,11 +312,12 @@ export default {
           week_no: this.week,
         })
         .then(async (response) => {
-            this.setAlertData(response)
             await this.$store.dispatch('lecturer/getStudentsFroManualAttendance', {
             lecture_id: this.lecture.lecture_id,
             week_no: this.week,
           })
+          this.setAlertData(response)
+
         })
         .catch((error) => {
           this.setAlertData(error.response.data)
