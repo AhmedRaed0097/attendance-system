@@ -1,7 +1,7 @@
 <template>
   <div class="home-wrapper">
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" class="tw-mb-10">
         <div class="home-image-contaienr">
           <div class="home-image"></div>
           <svg
@@ -33,7 +33,7 @@
           <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-1">
             علوم الحاسوب
           </p>
-          <br v-else>
+          <br v-else />
           <p v-if="user.user_type === 'student'" class="tw-text-xs !tw-mb-0">
             المستوى الرابع
           </p>
@@ -69,7 +69,7 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6" class="tw-mb-44">
+        <v-col cols="6">
           <btn-component>
             <template #icon>
               <img
@@ -97,14 +97,14 @@
             </template>
           </btn-component>
         </v-col>
-        <!-- <v-col cols="6" class="center-btn-col">
+        <v-col cols="6" class="center-btn-col">
           <img
             @click="goTo('scan-qr')"
             src="~/assets/images/home/Compact Camera_50px.svg"
             alt=""
             class="tw-cursor-pointer"
           />
-        </v-col> -->
+        </v-col>
       </v-row>
       <v-row v-else class="btns-row">
         <v-col cols="6">
@@ -135,7 +135,7 @@
             </template>
           </btn-component>
         </v-col>
-        <v-col cols="6" class="tw-mb-44">
+        <v-col cols="6">
           <btn-component>
             <template #icon>
               <img
@@ -163,44 +163,16 @@
             </template>
           </btn-component>
         </v-col>
-        <!-- <v-col cols="6" class="center-btn-col">
+        <v-col cols="6" class="center-btn-col">
           <img
             @click="goTo('generate-qr')"
             src="../assets/images/home/Plus.svg"
             alt="plus icon"
             class="tw-cursor-pointer"
           />
-        </v-col> -->
+        </v-col>
       </v-row>
     </v-row>
-    <v-fab-transition>
-      <v-btn
-        v-if="user.user_type === 'student'"
-        @click="goTo('scan-qr')"
-        color="#7C3E66"
-        fab
-        large
-        absolute
-        dark
-        bottom
-        left
-      >
-        <v-icon>mdi-camera</v-icon>
-      </v-btn>
-      <v-btn
-        v-else
-        @click="goTo('generate-qr')"
-        color="#7C3E66"
-        fab
-        large
-        absolute
-        dark
-        bottom
-        left
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </v-fab-transition>
   </div>
 </template>
 
@@ -235,7 +207,6 @@ export default {
 .btns-row {
   position: relative;
   background: #f3f3f3f5;
-  height: 37vh;
   .col-6 {
     height: 6rem;
   }
