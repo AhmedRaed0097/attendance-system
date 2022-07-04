@@ -134,11 +134,15 @@ export default {
         .dispatch('student/scanQr', payload)
         .then((response) => {
           this.setAlertData(response)
+          setTimeout(() => {
+            this.$router.back()
+          }, 3000);
           let selectedImageFile = { ...this.$refs.selectedImage }
           // to clear input file after scan
           selectedImageFile.$vnode.elm.value = null
         })
         .catch((e) => {
+          this.$router.back()
           this.setAlertData(e.response.data)
         })
     },
