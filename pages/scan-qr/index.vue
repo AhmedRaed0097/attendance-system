@@ -17,7 +17,7 @@
 
     <div v-else class="scan-from-camera">
       <StreamBarcodeReader
-        @decode="onDecode"
+        @decode="onImageDecode"
         @loaded="onLoaded"
       ></StreamBarcodeReader>
       <p>{{ error }}</p>
@@ -54,34 +54,60 @@ export default {
     },
   },
   methods: {
-    // async onInit(promise) {
-    //   log('init')
-    //   // show loading indicator
+    async onInit(promise) {
+      log('init')
+      // show loading indicator
 
-    //   try {
-    //     const { capabilities } = await promise
+      try {
+        const { capabilities } = await promise
 
-    //     // successfully initialized
-    //   } catch (error) {
-    //     if (error.name === 'NotAllowedError') {
-    //       this.error = 'user denied camera access permisson'
-    //     } else if (error.name === 'NotFoundError') {
-    //       this.error = 'no suitable camera device installed'
-    //     } else if (error.name === 'NotSupportedError') {
-    //       this.error = 'page is not served over HTTPS (or localhost)'
-    //     } else if (error.name === 'NotReadableError') {
-    //       this.error = 'maybe camera is already in use'
-    //     } else if (error.name === 'OverconstrainedError') {
-    //       this.error =
-    //         'did you requested the front camera although there is none?'
-    //     } else if (error.name === 'StreamApiNotSupportedError') {
-    //       this.error = 'browser seems to be lacking features'
-    //     }
-    //   } finally {
-    //     log('done')
-    //     // hide loading indicator
-    //   }
-    // },
+        // successfully initialized
+      } catch (error) {
+        if (error.name === 'NotAllowedError') {
+          this.error = 'user denied camera access permisson'
+          this.setAlertData({
+            message: 'لايمكن الوصول إلى الكاميرا',
+            status_code: 403,
+          })
+        } else if (error.name === 'NotFoundError') {
+          this.error = 'no suitable camera device installed'
+          this.setAlertData({
+            message: 'لاتوجد كاميرا مرتبطة',
+            status_code: 404,
+          })
+        } else if (error.name === 'NotSupportedError') {
+          this.error = 'page is not served over HTTPS (or localhost)'
+          this.setAlertData({
+            message: 'الصفحة لا تستخدم البرتوكول https',
+            status_code: 501,
+          })
+        } else if (error.name === 'NotReadableError') {
+          this.error = 'maybe camera is already in use'
+          this.setAlertData({
+            message: 'الكاميرا مستخدمة بالفعل',
+            status_code: 422,
+          })
+        } else if (error.name === 'OverconstrainedError') {
+          this.setAlertData({
+            message: 'حدث خطأ في الوصول إلى الكاميرا',
+            status_code: 500,
+          })
+
+          this.error =
+            'did you requested the front camera although there is none?'
+        } else if (error.name === 'StreamApiNotSupportedError') {
+          this.setAlertData({
+            message: 'حدث خطأ في الوصول إلى الكاميرا',
+            status_code: 500,
+          })
+
+          this.error = 'browser seems to be lacking features'
+        }
+      } finally {
+        log('done')
+        // hide loading indicator
+      }
+    },
     onDecode(result) {
       alert('start')
 
@@ -97,12 +123,14 @@ export default {
     onLoaded() {
       log(`Ready to start scanning barcodes`)
     },
-    onImageDecode(result) {
+    async onImageDecode(result) {
+      console.log('result ', result)
       let payload = JSON.parse(result)
+      console.log('payload ', payload)
 
       payload.student_id = this.user.id
 
-      this.$store
+      await this.$store
         .dispatch('student/scanQr', payload)
         .then((response) => {
           this.setAlertData(response)
@@ -133,7 +161,8 @@ export default {
 .scan-qr-wrapper {
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 </style>
