@@ -183,7 +183,7 @@
         absolute
         dark
         bottom
-        right
+        left
       >
         <v-icon>mdi-camera</v-icon>
       </v-btn>
@@ -196,7 +196,7 @@
         absolute
         dark
         bottom
-        right
+        left
       >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
