@@ -77,18 +77,7 @@ export default {
     goTo(route) {
       this.$router.push(`/${route}`)
     },
-  },
-  computed: {
-    user() {
-      return this.$auth.user
-    },
-    adminLoading() {
-      return this.$store.state.admin.loading
-    },
-  },
-  watch: {
-    '$route.name': {
-      handler() {
+    setAppBarText(){
         if (this.$route.name === 'index') {
           this.app_bar_text = 'الرئيسية'
         } else if (this.$route.name === 'lectures-table') {
@@ -102,20 +91,27 @@ export default {
         } else if (this.$route.name === 'scan-qr') {
           this.app_bar_text = 'تسجيل الحضور'
         }
+    }
+  },
+  computed: {
+    user() {
+      return this.$auth.user
+    },
+    adminLoading() {
+      return this.$store.state.admin.loading
+    },
+  },
+  watch: {
+    '$route.name': {
+      handler() {
+        console.log('this.$route.name ',this.$route.name);
+        this.setAppBarText()
       },
     },
   },
-  mounted() {},
   created() {
-    if (process.client) {
-    }
-    if (this.$route.name === 'index') {
-      this.app_bar_text = 'الرئيسية'
-    } else if (this.$route.name === 'lectures-table') {
-      this.app_bar_text = 'جدول المحاضرات'
-    } else if (this.$route.name === 'manual-attendance') {
-      this.app_bar_text = 'التحضير اليدوي'
-    }
+    this.setAppBarText()
+
   },
   beforeCreate() {
     this.$vuetify.rtl = true

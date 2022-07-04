@@ -10,15 +10,17 @@
           </h3>
         </div>
       </v-col>
+
       <v-col cols="12" class="!tw-px-6">
+
         <v-data-table
           :headers="headers"
           :items="attendanceData"
-          items-per-page="5"
+          :items-per-page="5"
           item-key="id"
           :search="search"
           :custom-filter="filterLectures"
-          class="elevation-1 tw-border-2 tw-border-primary !tw-rounded-lg"
+          class="elevation-1 !tw-mt-12 tw-border-2 tw-border-primary !tw-rounded-lg"
         >
           <template v-slot:top>
             <v-text-field
