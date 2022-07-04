@@ -32,7 +32,7 @@ export default {
 
 server:{
   host:'0.0.0.0',
-  port:3000
+  port:4000
 },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -115,7 +115,7 @@ server:{
       short_name: 'QR Attendance',
       lang: 'ar',
       display: 'standalone',
-      // background_color :'#7C3E66',
+      background_color :'#FFF',
     },
 
     icon: {
