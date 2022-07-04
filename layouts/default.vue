@@ -99,6 +99,8 @@ export default {
           this.app_bar_text = 'جدول الحضور'
         } else if (this.$route.name === 'manual-attendance') {
           this.app_bar_text = 'التحضير اليدوي'
+        } else if (this.$route.name === 'scan-qr') {
+          this.app_bar_text = 'تسجيل الحضور'
         }
       },
     },
