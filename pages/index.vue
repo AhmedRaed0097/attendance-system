@@ -177,6 +177,7 @@
 </template>
 
 <script>
+import { uuid } from 'vue-uuid';
 export default {
   data() {
     return {
@@ -196,6 +197,11 @@ export default {
       this.$router.push(`/${route}`)
     },
   },
+  mounted(){
+    console.log('v1 ',this.$uuid.v1());
+    console.log('v3 ',this.$uuid.v3());
+    console.log('v4 ',this.$uuid.v4());
+  }
 }
 </script>
 
